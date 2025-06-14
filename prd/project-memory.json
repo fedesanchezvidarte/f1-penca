@@ -1,0 +1,184 @@
+{
+  "projectInfo": {
+    "name": "F1 Penca",
+    "description": "Prediction Web Application",
+    "vision": "To create a fun, intuitive, and user-friendly web application that allows F1 fans to predict race results, compete with friends via leaderboards, and manage predictions easily.",
+    "purpose": "This project aims to bring friends together through friendly competition, predicting F1 race results without any monetary betting / gambling aspect.",
+    "targetAudience": [
+      "F1 fans",
+      "Friends and private groups",
+      "App administrators"
+    ]
+  },
+  "features": {
+    "user": [
+      "Google authentication",
+      "Create predictions (races, qualy, sprint, championship)",
+      "Edit/Delete predictions until race lock",
+      "View leaderboards filtered by race/season"
+    ],
+    "admin": [
+      "CRUD user management",
+      "Remove offensive or duplicate accounts",
+      "Manage race results if needed (override)"
+    ],
+    "system": [
+      "Sync race results from openf1",
+      "Compute leaderboard points automatically",
+      "Secure API and database access"
+    ]
+  },
+  "requirements": {
+    "functional": [
+      "User authentication with Google",
+      "Create, update, and delete predictions for races, qualys, sprints, and championships",
+      "Leaderboards with filters (by race, season, user)",
+      "Admin dashboard for user management",
+      "Fetch F1 data from external open APIs (openf1)"
+    ],
+    "nonFunctional": [
+      "User-friendly, responsive design",
+      "Secure and scalable backend",
+      "Fast loading times",
+      "Multi-language ready (future enhancement)"
+    ]
+  },
+  "techStack": {
+    "frontend": [
+      "Next.js (React + App Router)",
+      "TailwindCSS",
+      "NextAuth.js (Auth.js) for authentication"
+    ],
+    "backend": [
+      "Next.js API Routes or Server Actions",
+      "Prisma ORM",
+      "PostgreSQL (managed via Supabase)"
+    ],
+    "externalApis": [
+      "openf1 (primary F1 data provider)"
+    ],
+    "deployment": [
+      "Vercel"
+    ]
+  },
+  "implementation": {
+    "developmentApproach": [
+      "Start with authentication and user creation",
+      "Build prediction feature and race management",
+      "Integrate openf1 API for results sync",
+      "Develop leaderboard calculations",
+      "Add admin panel for management"
+    ],
+    "codingStandards": [
+      "TypeScript + ESLint + Prettier",
+      "TailwindCSS for consistent styling",
+      "Use Prisma for database type safety"
+    ],
+    "timeline": {
+      "authAndUser": "1 week",
+      "predictionsCRUD": "2 weeks",
+      "raceResultsAndLeaderboard": "2 weeks",
+      "adminPanelAndPolish": "2 weeks"
+    }
+  },
+  "designSystem": {
+    "colors": {
+      "base": {
+        "mainBackground": {
+          "class": "bg-gray-950",
+          "hex": "#0a0a0a",
+          "usage": "Page background"
+        },
+        "cardContainer": {
+          "class": "bg-gray-900",
+          "hex": "#18181b",
+          "usage": "Cards, navbars, modals"
+        },
+        "borderDivider": {
+          "class": "border-gray-800",
+          "hex": "#27272a",
+          "usage": "Card borders, dividers"
+        }
+      },
+      "text": {
+        "primary": {
+          "class": "text-gray-100",
+          "hex": "#f4f4f5"
+        },
+        "secondary": {
+          "class": "text-gray-400",
+          "hex": "#a1a1aa"
+        },
+        "disabled": {
+          "class": "text-gray-600",
+          "hex": "#52525b"
+        }
+      },
+      "accents": {
+        "primary": {
+          "red": {
+            "class": "red-600",
+            "hex": "#dc2626"
+          },
+          "blue": {
+            "class": "blue-600",
+            "hex": "#2563eb"
+          }
+        },
+        "hover": {
+          "red": {
+            "class": "red-700",
+            "hex": "#b91c1c"
+          },
+          "blue": {
+            "class": "blue-700",
+            "hex": "#1d4ed8"
+          }
+        }
+      },
+      "status": {
+        "success": {
+          "class": "green-500",
+          "hex": "#22c55e"
+        },
+        "warning": {
+          "class": "yellow-400",
+          "hex": "#facc15"
+        }
+      }
+    },
+    "typography": {
+      "fontFamily": "Inter, sans-serif",
+      "weights": {
+        "bold": "Headers/app name",
+        "medium": "Buttons",
+        "regular": "Body/description"
+      },
+      "sizes": {
+        "appTitle": {
+          "size": "48px",
+          "class": "text-4xl"
+        },
+        "headings": {
+          "size": "24-32px",
+          "class": "text-2xl-text-3xl"
+        },
+        "body": {
+          "size": "16-20px",
+          "class": "text-base-text-lg"
+        },
+        "small": {
+          "size": "12px",
+          "class": "text-xs"
+        }
+      }
+    },
+    "borders": {
+      "radius": {
+        "size": "16px",
+        "class": "rounded-xl"
+      },
+      "shadow": "subtle drop shadow (black, 20% opacity, 8px blur)"
+    }
+  }
+}
