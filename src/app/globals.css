@@ -39,4 +39,8 @@ body {
   .container-card {
     @apply bg-gray-900 border border-gray-800 rounded-xl p-6 shadow-lg;
   }
+  
+  .logo-accent-red {
+    filter: invert(17%) sepia(92%) saturate(3086%) hue-rotate(353deg) brightness(100%) contrast(100%);
+  }
 }

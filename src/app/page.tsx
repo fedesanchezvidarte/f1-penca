@@ -9,7 +9,7 @@ export default function Home() {
             Get Started
           </a>
           <a href="/about" className="btn-secondary">
-            Learn More
+            About the Project
           </a>
         </div>
       </main>
