@@ -2,6 +2,12 @@
   "name": "f1-penca",
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
+  "author": "Federico Sánchez Vidarte",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fedesanchezvidarte/f1-penca"
+  },
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
