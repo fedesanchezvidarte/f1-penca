@@ -1,0 +1,37 @@
+[
+	{
+		"id": "user1",
+		"email": "johndoe@example.com",
+		"name": "John Doe",
+		"image": "https://i.pravatar.cc/150?u=johndoe",
+		"totalPoints": 120
+	},
+	{
+		"id": "user2",
+		"email": "janedoe@example.com",
+		"name": "Jane Doe",
+		"image": "https://i.pravatar.cc/150?u=janedoe",
+		"totalPoints": 145
+	},
+	{
+		"id": "user3",
+		"email": "bobsmith@example.com",
+		"name": "Bob Smith",
+		"image": "https://i.pravatar.cc/150?u=bobsmith",
+		"totalPoints": 110
+	},
+	{
+		"id": "user4",
+		"email": "alicejones@example.com",
+		"name": "Alice Jones",
+		"image": "https://i.pravatar.cc/150?u=alicejones",
+		"totalPoints": 160
+	},
+	{
+		"id": "user5",
+		"email": "mikewhite@example.com",
+		"name": "Mike White",
+		"image": "https://i.pravatar.cc/150?u=mikewhite",
+		"totalPoints": 95
+	}
+]
