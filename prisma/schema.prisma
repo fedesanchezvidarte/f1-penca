@@ -1,0 +1,122 @@
+// Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// NextAuth.js Models
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model User {
+  id            String       @id @default(cuid())
+  name          String?
+  email         String?      @unique
+  emailVerified DateTime?
+  image         String?
+  role          UserRole     @default(USER)
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  accounts      Account[]
+  sessions      Session[]
+  predictions   Prediction[]
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+// F1 Penca Models
+enum UserRole {
+  USER
+  ADMIN
+}
+
+model Race {
+  id              String       @id @default(cuid())
+  name            String
+  round           Int
+  circuit         String
+  date            DateTime
+  season          Int
+  status          RaceStatus   @default(UPCOMING)
+  resultsImported Boolean      @default(false)
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+  predictions     Prediction[]
+  results         RaceResult[]
+}
+
+enum RaceStatus {
+  UPCOMING
+  LIVE
+  COMPLETED
+}
+
+model Prediction {
+  id        String   @id @default(cuid())
+  userId    String
+  raceId    String
+  positions Json // Store ordered array of driver positions
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  points    Int      @default(0)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  race      Race     @relation(fields: [raceId], references: [id], onDelete: Cascade)
+}
+
+model RaceResult {
+  id        String   @id @default(cuid())
+  raceId    String
+  positions Json // Store actual race results
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  race      Race     @relation(fields: [raceId], references: [id], onDelete: Cascade)
+}
+
+model Driver {
+  id          String  @id @default(cuid())
+  number      Int     @unique
+  code        String  @unique
+  firstname   String
+  lastname    String
+  fullname    String
+  nationality String
+  team        String
+  active      Boolean @default(true)
+}
