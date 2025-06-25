@@ -14,7 +14,10 @@
 		"build": "next build",
 		"start": "next start",
 		"lint": "next lint",
-		"seed": "node scripts/seed.js"
+		"seed": "dotenv -e .env.local -- node scripts/seed.js",
+		"prisma:dev": "dotenv -e .env.local -- prisma migrate dev",
+		"prisma:studio": "dotenv -e .env.local -- prisma studio",
+		"postinstall": "prisma generate"
 	},
 	"dependencies": {
 		"@auth/core": "^0.39.1",
@@ -25,12 +28,14 @@
 		"prisma": "^6.10.1",
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0"
-	},	"devDependencies": {
+	},
+	"devDependencies": {
 		"@eslint/eslintrc": "^3",
 		"@types/node": "^20",
 		"@types/react": "^19",
 		"@types/react-dom": "^19",
 		"autoprefixer": "^10.4.16",
+		"dotenv-cli": "^7.4.2",
 		"eslint": "^9",
 		"eslint-config-next": "15.3.3",
 		"postcss": "^8.4.32",

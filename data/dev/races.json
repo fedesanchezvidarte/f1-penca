@@ -1,66 +1,66 @@
 [
 	{
+		"id": "bahrain-grand-prix",
 		"name": "Bahrain Grand Prix",
 		"round": 1,
 		"circuit": "Bahrain International Circuit",
 		"date": "2025-03-02T15:00:00Z",
-		"season": 2025,
-		"status": "UPCOMING"
+		"season": 2025
 	},
 	{
+		"id": "saudi-arabian-grand-prix",
 		"name": "Saudi Arabian Grand Prix",
 		"round": 2,
 		"circuit": "Jeddah Corniche Circuit",
-		"date": "2025-03-09T15:00:00Z",
-		"season": 2025,
-		"status": "UPCOMING"
+		"date": "2025-03-09T17:00:00Z",
+		"season": 2025
 	},
 	{
+		"id": "australian-grand-prix",
 		"name": "Australian Grand Prix",
 		"round": 3,
 		"circuit": "Albert Park Circuit",
-		"date": "2025-03-23T06:00:00Z",
-		"season": 2025,
-		"status": "UPCOMING"
+		"date": "2025-03-23T04:00:00Z",
+		"season": 2025
 	},
 	{
+		"id": "japanese-grand-prix",
 		"name": "Japanese Grand Prix",
 		"round": 4,
 		"circuit": "Suzuka International Racing Course",
 		"date": "2025-04-06T06:00:00Z",
-		"season": 2025,
-		"status": "UPCOMING"
+		"season": 2025
 	},
 	{
+		"id": "chinese-grand-prix",
 		"name": "Chinese Grand Prix",
 		"round": 5,
 		"circuit": "Shanghai International Circuit",
 		"date": "2025-04-20T07:00:00Z",
-		"season": 2025,
-		"status": "UPCOMING"
+		"season": 2025
 	},
 	{
+		"id": "miami-grand-prix",
 		"name": "Miami Grand Prix",
 		"round": 6,
 		"circuit": "Miami International Autodrome",
 		"date": "2025-05-04T19:00:00Z",
-		"season": 2025,
-		"status": "UPCOMING"
+		"season": 2025
 	},
 	{
+		"id": "emilia-romagna-grand-prix",
 		"name": "Emilia Romagna Grand Prix",
 		"round": 7,
 		"circuit": "Autodromo Enzo e Dino Ferrari",
 		"date": "2025-05-18T13:00:00Z",
-		"season": 2025,
-		"status": "UPCOMING"
+		"season": 2025
 	},
 	{
+		"id": "monaco-grand-prix",
 		"name": "Monaco Grand Prix",
 		"round": 8,
 		"circuit": "Circuit de Monaco",
 		"date": "2025-05-25T13:00:00Z",
-		"season": 2025,
-		"status": "UPCOMING"
+		"season": 2025
 	}
 ]

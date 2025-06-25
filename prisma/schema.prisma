@@ -45,6 +45,8 @@ model User {
   email         String?      @unique
   emailVerified DateTime?
   image         String?
+  totalPoints   Int          @default(0)
+  role          UserRole     @default(USER)
   createdAt     DateTime     @default(now())
   updatedAt     DateTime     @updatedAt
   accounts      Account[]
@@ -61,6 +63,11 @@ model VerificationToken {
 }
 
 // F1 Penca Models
+enum UserRole {
+  USER
+  ADMIN
+}
+
 model Driver {
   id          String  @id @default(cuid())
   number      Int     @unique

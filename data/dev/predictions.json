@@ -1,80 +1,32 @@
 [
 	{
 		"userId": "user1",
-		"raceId": 1,
-		"positions": [
-			{ "position": 1, "driverId": "VER" },
-			{ "position": 2, "driverId": "LEC" },
-			{ "position": 3, "driverId": "HAM" },
-			{ "position": 4, "driverId": "SAI" },
-			{ "position": 5, "driverId": "PER" }
-		],
-		"pointsEarned": 35,
-		"createdAt": "2025-02-28T12:00:00Z"
+		"raceId": "bahrain-grand-prix",
+		"positions": ["VER", "LEC", "HAM", "SAI", "PER"]
 	},
 	{
 		"userId": "user2",
-		"raceId": 1,
-		"positions": [
-			{ "position": 1, "driverId": "LEC" },
-			{ "position": 2, "driverId": "VER" },
-			{ "position": 3, "driverId": "SAI" },
-			{ "position": 4, "driverId": "PER" },
-			{ "position": 5, "driverId": "HAM" }
-		],
-		"pointsEarned": 25,
-		"createdAt": "2025-02-27T15:30:00Z"
+		"raceId": "bahrain-grand-prix",
+		"positions": ["LEC", "VER", "SAI", "PER", "HAM"]
 	},
 	{
 		"userId": "user1",
-		"raceId": 2,
-		"positions": [
-			{ "position": 1, "driverId": "VER" },
-			{ "position": 2, "driverId": "PER" },
-			{ "position": 3, "driverId": "LEC" },
-			{ "position": 4, "driverId": "HAM" },
-			{ "position": 5, "driverId": "SAI" }
-		],
-		"pointsEarned": 40,
-		"createdAt": "2025-03-06T09:45:00Z"
+		"raceId": "saudi-arabian-grand-prix",
+		"positions": ["VER", "PER", "LEC", "HAM", "SAI"]
 	},
 	{
 		"userId": "user2",
-		"raceId": 2,
-		"positions": [
-			{ "position": 1, "driverId": "VER" },
-			{ "position": 2, "driverId": "LEC" },
-			{ "position": 3, "driverId": "SAI" },
-			{ "position": 4, "driverId": "HAM" },
-			{ "position": 5, "driverId": "PER" }
-		],
-		"pointsEarned": 30,
-		"createdAt": "2025-03-08T14:20:00Z"
+		"raceId": "saudi-arabian-grand-prix",
+		"positions": ["VER", "LEC", "SAI", "HAM", "PER"]
 	},
 	{
 		"userId": "user3",
-		"raceId": 1,
-		"positions": [
-			{ "position": 1, "driverId": "HAM" },
-			{ "position": 2, "driverId": "VER" },
-			{ "position": 3, "driverId": "LEC" },
-			{ "position": 4, "driverId": "SAI" },
-			{ "position": 5, "driverId": "PER" }
-		],
-		"pointsEarned": 20,
-		"createdAt": "2025-03-01T08:15:00Z"
+		"raceId": "bahrain-grand-prix",
+		"positions": ["HAM", "VER", "LEC", "SAI", "PER"]
 	},
 	{
 		"userId": "user3",
-		"raceId": 2,
-		"positions": [
-			{ "position": 1, "driverId": "VER" },
-			{ "position": 2, "driverId": "HAM" },
-			{ "position": 3, "driverId": "PER" },
-			{ "position": 4, "driverId": "LEC" },
-			{ "position": 5, "driverId": "SAI" }
-		],
-		"pointsEarned": 25,
-		"createdAt": "2025-03-07T11:30:00Z"
+		"raceId": "saudi-arabian-grand-prix",
+		"positions": ["VER", "HAM", "PER", "LEC", "SAI"]
 	}
 ]
