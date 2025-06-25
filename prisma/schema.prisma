@@ -45,7 +45,6 @@ model User {
   email         String?      @unique
   emailVerified DateTime?
   image         String?
-  role          UserRole     @default(USER)
   createdAt     DateTime     @default(now())
   updatedAt     DateTime     @updatedAt
   accounts      Account[]
@@ -62,9 +61,16 @@ model VerificationToken {
 }
 
 // F1 Penca Models
-enum UserRole {
-  USER
-  ADMIN
+model Driver {
+  id          String  @id @default(cuid())
+  number      Int     @unique
+  code        String  @unique
+  firstname   String
+  lastname    String
+  fullname    String
+  nationality String
+  team        String
+  active      Boolean @default(true)
 }
 
 model Race {
@@ -107,16 +113,4 @@ model RaceResult {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   race      Race     @relation(fields: [raceId], references: [id], onDelete: Cascade)
-}
-
-model Driver {
-  id          String  @id @default(cuid())
-  number      Int     @unique
-  code        String  @unique
-  firstname   String
-  lastname    String
-  fullname    String
-  nationality String
-  team        String
-  active      Boolean @default(true)
 }
