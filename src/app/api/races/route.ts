@@ -20,24 +20,18 @@ export async function GET(request: NextRequest) {
         const searchParams = request.nextUrl.searchParams;
         const season = searchParams.get('season');
         const status = searchParams.get('status');
-        // Build the query
-        const query: {
+
+        const whereClause: {
             season?: number;
             status?: 'UPCOMING' | 'LIVE' | 'COMPLETED';
-        } = {};
+        } = {
+            ...(season && { season: parseInt(season, 10) }),
+            ...(status && ['UPCOMING', 'LIVE', 'COMPLETED'].includes(status) && { status: status as 'UPCOMING' | 'LIVE' | 'COMPLETED' }),
+        };
 
-        // Filter by season if provided
-        if (season) {
-            query.season = parseInt(season, 10);
-        }
-
-        // Filter by status if provided
-        if (status && ['UPCOMING', 'LIVE', 'COMPLETED'].includes(status)) {
-            query.status = status as 'UPCOMING' | 'LIVE' | 'COMPLETED';
-        }
         // Get races
         const races = await prisma.race.findMany({
-            where: query,
+            where: whereClause,
             orderBy: [
                 { season: 'desc' },
                 { round: 'asc' },

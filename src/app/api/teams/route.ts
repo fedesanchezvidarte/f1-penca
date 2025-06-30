@@ -18,47 +18,52 @@ export async function GET(request: NextRequest) {
 
         // Get query parameters
         const searchParams = request.nextUrl.searchParams;
-        const activeOnly = searchParams.get('active') === 'true';        const activeFilter = activeOnly ? { active: true } : {};
+        const activeOnly = searchParams.get('active') === 'true';
+        const activeFilter = activeOnly ? { active: true } : {};
 
-        // Get all unique teams from the driver table
-        const teamRecords = await prisma.driver.findMany({
+        // Define a type for the driver details to be returned
+        type DriverInfo = {
+            id: string;
+            number: number;
+            code: string;
+            fullname: string;
+            active: boolean;
+        };
+
+        // Get all drivers, filtered if necessary
+        const drivers = await prisma.driver.findMany({
             where: activeFilter,
-            select: {
-                team: true,
+            orderBy: {
+                team: 'asc', // Sort by team to make grouping easier
+                number: 'asc',
             },
-            distinct: ['team'],
         });
-        
-        // Extract teams and sort them alphabetically
-        const teams = teamRecords
-            .map(record => record.team)
-            .sort();
 
-        // Get drivers for each team
-        const teamsWithDrivers = await Promise.all(
-            teams.map(async team => {
-                const drivers = await prisma.driver.findMany({
-                    where: {
-                        team,
-                        ...(activeOnly ? { active: true } : {}),
-                    },
-                    orderBy: {
-                        number: 'asc',
-                    },
-                });
+        // Group drivers by team using a reducer
+        const teamsWithDrivers = drivers.reduce((acc, driver) => {
+            // Find the team in the accumulator
+            let team = acc.find(t => t.name === driver.team);
 
-                return {
-                    name: team,
-                    drivers: drivers.map(driver => ({
-                        id: driver.id,
-                        number: driver.number,
-                        code: driver.code,
-                        fullname: driver.fullname,
-                        active: driver.active,
-                    })),
+            // If the team doesn't exist, create it
+            if (!team) {
+                team = {
+                    name: driver.team,
+                    drivers: [],
                 };
-            })
-        );
+                acc.push(team);
+            }
+
+            // Add the driver to the team
+            team.drivers.push({
+                id: driver.id,
+                number: driver.number,
+                code: driver.code,
+                fullname: driver.fullname,
+                active: driver.active,
+            });
+
+            return acc;
+        }, [] as { name: string; drivers: DriverInfo[] }[]);
 
         return NextResponse.json(teamsWithDrivers);
     } catch (error) {

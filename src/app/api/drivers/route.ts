@@ -20,25 +20,15 @@ export async function GET(request: NextRequest) {
         const activeFilter = searchParams.get('active');
         const teamFilter = searchParams.get('team');
 
-        // Build the query
-        const query: {
-            active?: boolean;
-            team?: string;
-        } = {};
-
-        // Filter by active status if provided
-        if (activeFilter !== null) {
-            query.active = activeFilter === 'true';
-        }
-
-        // Filter by team if provided
-        if (teamFilter) {
-            query.team = teamFilter;
-        }
+        // If activeFilter is not 'true' or 'false', set it to null
+        const whereClause = {
+            ...(activeFilter !== null && { active: activeFilter === 'true' }),
+            ...(teamFilter && { team: teamFilter }),
+        };
 
         // Get drivers
         const drivers = await prisma.driver.findMany({
-            where: query,
+            where: whereClause,
             orderBy: [
                 { team: 'asc' },
                 { number: 'asc' },
