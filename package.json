@@ -15,6 +15,7 @@
 		"start": "next start",
 		"lint": "next lint",
 		"seed": "dotenv -e .env.local -- node scripts/seed.js",
+		"seed:users": "dotenv -e .env.local -- node scripts/seed-users.js",
 		"prisma:dev": "dotenv -e .env.local -- prisma migrate dev",
 		"prisma:studio": "dotenv -e .env.local -- prisma studio",
 		"postinstall": "prisma generate"

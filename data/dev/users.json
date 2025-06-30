@@ -33,5 +33,320 @@
 		"name": "Mike White",
 		"image": "https://i.pravatar.cc/150?u=mikewhite",
 		"totalPoints": 95
+	},
+	{
+		"id": "user6",
+		"email": "sarahparker@example.com",
+		"name": "Sarah Parker",
+		"image": "https://i.pravatar.cc/150?u=sarahparker",
+		"totalPoints": 135
+	},
+	{
+		"id": "user7",
+		"email": "davidwilson@example.com",
+		"name": "David Wilson",
+		"image": "https://i.pravatar.cc/150?u=davidwilson",
+		"totalPoints": 128
+	},
+	{
+		"id": "user8",
+		"email": "emilyjackson@example.com",
+		"name": "Emily Jackson",
+		"image": "https://i.pravatar.cc/150?u=emilyjackson",
+		"totalPoints": 152
+	},
+	{
+		"id": "user9",
+		"email": "michaelbrown@example.com",
+		"name": "Michael Brown",
+		"image": "https://i.pravatar.cc/150?u=michaelbrown",
+		"totalPoints": 118
+	},
+	{
+		"id": "user10",
+		"email": "oliviamartin@example.com",
+		"name": "Olivia Martin",
+		"image": "https://i.pravatar.cc/150?u=oliviamartin",
+		"totalPoints": 142
+	},
+	{
+		"id": "user11",
+		"email": "williamgarcia@example.com",
+		"name": "William Garcia",
+		"image": "https://i.pravatar.cc/150?u=williamgarcia",
+		"totalPoints": 108
+	},
+	{
+		"id": "user12",
+		"email": "sophialee@example.com",
+		"name": "Sophia Lee",
+		"image": "https://i.pravatar.cc/150?u=sophialee",
+		"totalPoints": 130
+	},
+	{
+		"id": "user13",
+		"email": "joshuaharris@example.com",
+		"name": "Joshua Harris",
+		"image": "https://i.pravatar.cc/150?u=joshuaharris",
+		"totalPoints": 155
+	},
+	{
+		"id": "user14",
+		"email": "isabellaclark@example.com",
+		"name": "Isabella Clark",
+		"image": "https://i.pravatar.cc/150?u=isabellaclark",
+		"totalPoints": 125
+	},
+	{
+		"id": "user15",
+		"email": "daniellewis@example.com",
+		"name": "Daniel Lewis",
+		"image": "https://i.pravatar.cc/150?u=daniellewis",
+		"totalPoints": 137
+	},
+	{
+		"id": "user16",
+		"email": "avawalker@example.com",
+		"name": "Ava Walker",
+		"image": "https://i.pravatar.cc/150?u=avawalker",
+		"totalPoints": 114
+	},
+	{
+		"id": "user17",
+		"email": "matthewallen@example.com",
+		"name": "Matthew Allen",
+		"image": "https://i.pravatar.cc/150?u=matthewallen",
+		"totalPoints": 149
+	},
+	{
+		"id": "user18",
+		"email": "emmahall@example.com",
+		"name": "Emma Hall",
+		"image": "https://i.pravatar.cc/150?u=emmahall",
+		"totalPoints": 122
+	},
+	{
+		"id": "user19",
+		"email": "christopherking@example.com",
+		"name": "Christopher King",
+		"image": "https://i.pravatar.cc/150?u=christopherking",
+		"totalPoints": 138
+	},
+	{
+		"id": "user20",
+		"email": "amelia@example.com",
+		"name": "Amelia Wright",
+		"image": "https://i.pravatar.cc/150?u=ameliawright",
+		"totalPoints": 116
+	},
+	{
+		"id": "user21",
+		"email": "ethanhernandez@example.com",
+		"name": "Ethan Hernandez",
+		"image": "https://i.pravatar.cc/150?u=ethanhernandez",
+		"totalPoints": 141
+	},
+	{
+		"id": "user22",
+		"email": "abigaillopez@example.com",
+		"name": "Abigail Lopez",
+		"image": "https://i.pravatar.cc/150?u=abigaillopez",
+		"totalPoints": 127
+	},
+	{
+		"id": "user23",
+		"email": "alexanderhernandez@example.com",
+		"name": "Alexander Hernandez",
+		"image": "https://i.pravatar.cc/150?u=alexanderhernandez",
+		"totalPoints": 150
+	},
+	{
+		"id": "user24",
+		"email": "madisonscott@example.com",
+		"name": "Madison Scott",
+		"image": "https://i.pravatar.cc/150?u=madisonscott",
+		"totalPoints": 119
+	},
+	{
+		"id": "user25",
+		"email": "jamesgonzalez@example.com",
+		"name": "James Gonzalez",
+		"image": "https://i.pravatar.cc/150?u=jamesgonzalez",
+		"totalPoints": 133
+	},
+	{
+		"id": "user26",
+		"email": "charlotteperez@example.com",
+		"name": "Charlotte Perez",
+		"image": "https://i.pravatar.cc/150?u=charlotteperez",
+		"totalPoints": 106
+	},
+	{
+		"id": "user27",
+		"email": "benjaminwilson@example.com",
+		"name": "Benjamin Wilson",
+		"image": "https://i.pravatar.cc/150?u=benjaminwilson",
+		"totalPoints": 147
+	},
+	{
+		"id": "user28",
+		"email": "miaanderson@example.com",
+		"name": "Mia Anderson",
+		"image": "https://i.pravatar.cc/150?u=miaanderson",
+		"totalPoints": 124
+	},
+	{
+		"id": "user29",
+		"email": "jacobthomas@example.com",
+		"name": "Jacob Thomas",
+		"image": "https://i.pravatar.cc/150?u=jacobthomas",
+		"totalPoints": 136
+	},
+	{
+		"id": "user30",
+		"email": "emilytaylor@example.com",
+		"name": "Emily Taylor",
+		"image": "https://i.pravatar.cc/150?u=emilytaylor",
+		"totalPoints": 112
+	},
+	{
+		"id": "user31",
+		"email": "michaeladams@example.com",
+		"name": "Michael Adams",
+		"image": "https://i.pravatar.cc/150?u=michaeladams",
+		"totalPoints": 144
+	},
+	{
+		"id": "user32",
+		"email": "harperbaker@example.com",
+		"name": "Harper Baker",
+		"image": "https://i.pravatar.cc/150?u=harperbaker",
+		"totalPoints": 126
+	},
+	{
+		"id": "user33",
+		"email": "elijahevans@example.com",
+		"name": "Elijah Evans",
+		"image": "https://i.pravatar.cc/150?u=elijahevans",
+		"totalPoints": 153
+	},
+	{
+		"id": "user34",
+		"email": "elizabethnelson@example.com",
+		"name": "Elizabeth Nelson",
+		"image": "https://i.pravatar.cc/150?u=elizabethnelson",
+		"totalPoints": 117
+	},
+	{
+		"id": "user35",
+		"email": "danielmorgan@example.com",
+		"name": "Daniel Morgan",
+		"image": "https://i.pravatar.cc/150?u=danielmorgan",
+		"totalPoints": 131
+	},
+	{
+		"id": "user36",
+		"email": "victoriacooper@example.com",
+		"name": "Victoria Cooper",
+		"image": "https://i.pravatar.cc/150?u=victoriacooper",
+		"totalPoints": 107
+	},
+	{
+		"id": "user37",
+		"email": "matthewrivera@example.com",
+		"name": "Matthew Rivera",
+		"image": "https://i.pravatar.cc/150?u=matthewrivera",
+		"totalPoints": 148
+	},
+	{
+		"id": "user38",
+		"email": "gracemorgan@example.com",
+		"name": "Grace Morgan",
+		"image": "https://i.pravatar.cc/150?u=gracemorgan",
+		"totalPoints": 123
+	},
+	{
+		"id": "user39",
+		"email": "henryward@example.com",
+		"name": "Henry Ward",
+		"image": "https://i.pravatar.cc/150?u=henryward",
+		"totalPoints": 134
+	},
+	{
+		"id": "user40",
+		"email": "zoewood@example.com",
+		"name": "Zoe Wood",
+		"image": "https://i.pravatar.cc/150?u=zoewood",
+		"totalPoints": 113
+	},
+	{
+		"id": "user41",
+		"email": "sebastianjames@example.com",
+		"name": "Sebastian James",
+		"image": "https://i.pravatar.cc/150?u=sebastianjames",
+		"totalPoints": 140
+	},
+	{
+		"id": "user42",
+		"email": "penelopeross@example.com",
+		"name": "Penelope Ross",
+		"image": "https://i.pravatar.cc/150?u=penelopeross",
+		"totalPoints": 129
+	},
+	{
+		"id": "user43",
+		"email": "jacksonhughes@example.com",
+		"name": "Jackson Hughes",
+		"image": "https://i.pravatar.cc/150?u=jacksonhughes",
+		"totalPoints": 151
+	},
+	{
+		"id": "user44",
+		"email": "lilyprice@example.com",
+		"name": "Lily Price",
+		"image": "https://i.pravatar.cc/150?u=lilyprice",
+		"totalPoints": 121
+	},
+	{
+		"id": "user45",
+		"email": "aidenfoster@example.com",
+		"name": "Aiden Foster",
+		"image": "https://i.pravatar.cc/150?u=aidenfoster",
+		"totalPoints": 132
+	},
+	{
+		"id": "user46",
+		"email": "sofialong@example.com",
+		"name": "Sofia Long",
+		"image": "https://i.pravatar.cc/150?u=sofialong",
+		"totalPoints": 105
+	},
+	{
+		"id": "user47",
+		"email": "gabrielbell@example.com",
+		"name": "Gabriel Bell",
+		"image": "https://i.pravatar.cc/150?u=gabrielbell",
+		"totalPoints": 146
+	},
+	{
+		"id": "user48",
+		"email": "scarlettgray@example.com",
+		"name": "Scarlett Gray",
+		"image": "https://i.pravatar.cc/150?u=scarlettgray",
+		"totalPoints": 132
+	},
+	{
+		"id": "user49",
+		"email": "nathanmorris@example.com",
+		"name": "Nathan Morris",
+		"image": "https://i.pravatar.cc/150?u=nathanmorris",
+		"totalPoints": 139
+	},
+	{
+		"id": "user50",
+		"email": "chloerose@example.com",
+		"name": "Chloe Rose",
+		"image": "https://i.pravatar.cc/150?u=chloerose",
+		"totalPoints": 158
 	}
 ]
