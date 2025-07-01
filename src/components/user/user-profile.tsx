@@ -10,8 +10,8 @@ export function UserProfile() {
 	if (status === "loading") {
 		return (
 			<div className="flex items-center space-x-2">
-				<div className="h-10 w-10 rounded-full bg-gray-800 animate-pulse"></div>
-				<div className="h-4 w-24 bg-gray-800 animate-pulse"></div>
+				<div className="h-8 w-8 rounded-full bg-gray-800 animate-pulse"></div>
+				<div className="h-4 w-20 bg-gray-800 animate-pulse"></div>
 			</div>
 		);
 	}
@@ -27,12 +27,12 @@ export function UserProfile() {
 					<Image
 						src={session.user.image}
 						alt={session.user.name || "User"}
-						width={40}
-						height={40}
+						width={32}
+						height={32}
 						className="rounded-full"
 					/>
 				) : (
-					<div className="h-8 w-8 rounded-full bg-red-600 flex items-center justify-center text-white font-bold">
+					<div className="h-8 w-8 rounded-full bg-red-600 flex items-center justify-center text-white font-bold text-xs">
 						{session.user.name?.charAt(0) || "U"}
 					</div>
 				)}

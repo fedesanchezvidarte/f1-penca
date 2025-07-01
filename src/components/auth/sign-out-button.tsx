@@ -21,10 +21,10 @@ export function SignOutButton() {
     <button
       onClick={handleSignOut}
       disabled={isLoading}
-      className="btn-secondary flex items-center justify-center gap-2"
+      className="px-4 py-1.5 rounded-md border border-gray-700 hover:bg-gray-800 text-sm font-medium text-gray-300 transition-colors flex items-center justify-center gap-2"
     >
       {isLoading ? (
-        <span className="loading loading-spinner loading-sm"></span>
+        <span className="w-4 h-4 border-2 border-gray-400 border-t-transparent rounded-full animate-spin"></span>
       ) : (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -32,7 +32,7 @@ export function SignOutButton() {
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="currentColor"
-          className="w-5 h-5"
+          className="w-4 h-4"
         >
           <path
             strokeLinecap="round"
