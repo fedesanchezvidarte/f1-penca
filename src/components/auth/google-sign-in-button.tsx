@@ -17,13 +17,14 @@ export function GoogleSignInButton() {
 		}
 	};
 
-	return (		<button
+	return (
+		<button
 			onClick={handleSignIn}
 			disabled={isLoading}
-			className="btn-secondary hover:bg-red-600 hover:border-red-600 flex items-center justify-center gap-2 w-full transition-colors"
+			className="btn btn-md btn-solid w-full"
 		>
 			{isLoading ? (
-				<span className="loading loading-spinner loading-sm"></span>
+				<span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
 			) : (
 				<svg
 					xmlns="http://www.w3.org/2000/svg"

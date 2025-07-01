@@ -8,10 +8,10 @@ export default function Home() {
 				</p>
 
 				<div className="flex gap-4 flex-col sm:flex-row">
-					<a href="/auth/signin" className="px-4 py-1.5 rounded-md bg-red-600 hover:bg-red-700 text-sm font-medium text-white transition-colors text-center">
+					<a href="/auth/signin" className="btn btn-md btn-shadow text-center">
 						Get Started
 					</a>
-					<a href="/about" className="px-4 py-1.5 rounded-md border border-gray-700 hover:bg-gray-800 text-sm font-medium text-gray-300 transition-colors text-center">
+					<a href="/about" className="btn btn-md btn-outline text-center">
 						About the Project
 					</a>
 				</div>

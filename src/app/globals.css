@@ -3,54 +3,94 @@
 @tailwind utilities;
 
 :root {
-  --background: #0a0a0a;
-  --foreground: #f4f4f5;
-  --card-background: #18181b;
-  --border-color: #27272a;
-  --text-secondary: #a1a1aa;
-  --text-disabled: #52525b;
-  --accent-red: #dc2626;
-  --accent-blue: #2563eb;
-  --accent-red-hover: #b91c1c;
-  --accent-blue-hover: #1d4ed8;
-  --success: #22c55e;
-  --warning: #facc15;
+	--background: #0a0a0a;
+	--foreground: #f4f4f5;
+	--card-background: #18181b;
+	--border-color: #27272a;
+	--text-secondary: #a1a1aa;
+	--text-disabled: #52525b;
+	--accent-red: #dc2626;
+	--accent-blue: #2563eb;
+	--accent-red-hover: #b91c1c;
+	--accent-blue-hover: #1d4ed8;
+	--success: #22c55e;
+	--warning: #facc15;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: 'Inter', sans-serif;
+	background: var(--background);
+	color: var(--foreground);
+	font-family: "Inter", sans-serif;
 }
 
 @layer components {
-  .btn-primary {
-    @apply rounded-md bg-red-600 text-white px-4 py-1.5 text-sm font-medium 
-           transition-colors hover:bg-red-700 cursor-pointer;
-  }
-  
-  .btn-secondary {
-    @apply rounded-md border border-gray-700 text-gray-300 px-4 py-1.5 
-           text-sm font-medium transition-colors hover:bg-gray-800 cursor-pointer;
-  }
+	/* HeroUI-inspired Button Styles */
+	.btn {
+		@apply inline-flex items-center justify-center gap-2 text-sm font-medium transition-colors rounded-md;
+	}
 
-  .container-card {
-    @apply bg-gray-900 border border-gray-800 rounded-xl p-6 shadow-lg;
-  }
-  
-  .nav-link {
-    @apply px-3 py-1.5 text-sm font-medium transition-colors duration-200;
-  }
-  
-  .nav-link-active {
-    @apply text-white border-b border-red-600;
-  }
-  
-  .nav-link-inactive {
-    @apply text-gray-400 hover:text-white;
-  }
-  
-  .logo-accent-red {
-    filter: invert(17%) sepia(92%) saturate(3086%) hue-rotate(353deg) brightness(100%) contrast(100%);
-  }
+	/* Button Sizes */
+	.btn-sm {
+		@apply px-3 py-1 text-xs;
+	}
+
+	.btn-md {
+		@apply px-4 py-1.5;
+	}
+
+	.btn-lg {
+		@apply px-5 py-2 text-base;
+	}
+
+	/* Button Variants */
+	.btn-solid {
+		@apply bg-red-600 text-white hover:bg-red-700;
+	}
+
+	.btn-outline {
+		@apply border border-gray-700 text-gray-300 hover:bg-gray-800;
+	}
+
+	.btn-ghost {
+		@apply text-gray-300 hover:bg-gray-800 hover:bg-opacity-50;
+	}
+
+	.btn-shadow {
+		@apply bg-red-600 text-white hover:bg-red-700 shadow-lg shadow-red-600/20;
+	}
+
+	/* Loading State */
+	.btn-loading {
+		@apply relative cursor-wait;
+	}
+
+	/* Legacy button styles for backward compatibility */
+	.btn-primary {
+		@apply btn btn-md btn-solid;
+	}
+
+	.btn-secondary {
+		@apply btn btn-md btn-outline;
+	}
+
+	.container-card {
+		@apply bg-gray-900 border border-gray-800 rounded-xl p-6 shadow-lg;
+	}
+
+	.nav-link {
+		@apply px-3 py-1.5 text-sm font-medium transition-colors duration-200;
+	}
+
+	.nav-link-active {
+		@apply text-white border-b border-red-600;
+	}
+
+	.nav-link-inactive {
+		@apply text-gray-400 hover:text-white;
+	}
+
+	.logo-accent-red {
+		filter: invert(17%) sepia(92%) saturate(3086%) hue-rotate(353deg)
+			brightness(100%) contrast(100%);
+	}
 }
