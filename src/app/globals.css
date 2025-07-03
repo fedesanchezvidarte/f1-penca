@@ -20,7 +20,7 @@
 body {
 	background: var(--background);
 	color: var(--foreground);
-	font-family: "Inter", sans-serif;
+	font-family: "Roboto", sans-serif;
 }
 
 @layer components {
@@ -75,18 +75,6 @@ body {
 
 	.container-card {
 		@apply bg-gray-900 border border-gray-800 rounded-xl p-6 shadow-lg;
-	}
-
-	.nav-link {
-		@apply px-3 py-1.5 text-sm font-medium transition-colors duration-200;
-	}
-
-	.nav-link-active {
-		@apply text-white border-b border-red-600;
-	}
-
-	.nav-link-inactive {
-		@apply text-gray-400 hover:text-white;
 	}
 
 	.logo-accent-red {

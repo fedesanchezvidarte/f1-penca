@@ -1,102 +1,132 @@
 "use client";
 
-import Link from "next/link";
+import React from "react";
+import {
+  Navbar as HeroNavbar,
+  NavbarBrand,
+  NavbarContent,
+  NavbarItem,
+  NavbarMenuToggle,
+  NavbarMenu,
+  NavbarMenuItem,
+  Link,
+  Button,
+  Tabs,
+  Tab,
+} from "@heroui/react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { UserProfile } from "../user/user-profile";
 import { useSession } from "next-auth/react";
 
+// F1 Penca Logo Component
+export const F1PencaLogo = () => {
+  return (
+    <Image
+      src="/brand/f1-penca-logo.svg"
+      alt="F1 Penca Logo"
+      width={28}
+      height={14}
+      className="logo-accent-red"
+    />
+  );
+};
+
 export function Navbar() {
-	const pathname = usePathname();
-	const { status } = useSession();
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const pathname = usePathname();
+  const { status } = useSession();
 
-	const isActive = (path: string) => {
-		if (path === "/") {
-			return pathname === path;
-		}
-		return pathname === path || pathname.startsWith(path);
-	};
+  const isActive = (path: string) => {
+    if (path === "/") {
+      return pathname === path;
+    }
+    return pathname === path || pathname.startsWith(path);
+  };
 
-	return (
-		<nav className="bg-gray-900 border-b border-gray-800 py-4 px-4">
-			<div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center">
-				<div className="flex items-center space-x-4">
-					<Link href="/" className="flex items-center space-x-2">
-						<Image
-							src="/brand/f1-penca-logo.svg"
-							alt="F1 Penca Logo"
-							width={28}
-							height={14}
-							className="logo-accent-red"
-						/>
-						<span className="text-xl font-bold text-gray-100">F1 Penca</span>
-					</Link>
-				</div>
+  const menuItems = [
+    { name: "Home", href: "/" },
+    { name: "Leaderboard", href: "/leaderboard", requiresAuth: true },
+    { name: "My Predictions", href: "/predictions", requiresAuth: true },
+    { name: "Races", href: "/races" },
+  ];
 
-				<div className="flex justify-center mt-4 md:mt-0">
-					<div className="inline-flex overflow-hidden">
-						<Link
-							href="/"
-							className={`nav-link ${
-								isActive("/") ? "nav-link-active" : "nav-link-inactive"
-							}`}
-						>
-							Home
-						</Link>
+  return (
+    <HeroNavbar onMenuOpenChange={setIsMenuOpen} className="bg-gray-900 border-b border-gray-800">
+      <NavbarContent>
+        <NavbarMenuToggle
+          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+          className="sm:hidden"
+        />
+        <NavbarBrand>
+          <Link href="/" className="flex items-center space-x-2">
+            <F1PencaLogo />
+            <span className="text-xl font-bold text-gray-100">F1 Penca</span>
+          </Link>
+        </NavbarBrand>
+      </NavbarContent>
 
-						<Link
-							href="/leaderboard"
-							className={`nav-link ${
-								isActive("/leaderboard")
-									? "nav-link-active"
-									: `nav-link-inactive ${
-											status !== "authenticated"
-												? "opacity-50 pointer-events-none"
-												: ""
-									  }`
-							}`}
-						>
-							Leaderboard
-						</Link>
+      <NavbarContent className="hidden sm:flex gap-4" justify="center">
+        <Tabs 
+          aria-label="Navigation tabs" 
+          variant="underlined"
+          selectedKey={pathname}
+          className="flex gap-4"
+        >
+          {menuItems.map((item) => (
+            <Tab
+              key={item.href}
+              href={item.href}
+              title={item.name}
+              isDisabled={item.requiresAuth && status !== "authenticated"}
+            />
+          ))}
+        </Tabs>
+      </NavbarContent>
 
-						<Link
-							href="/predictions"
-							className={`nav-link ${
-								isActive("/predictions")
-									? "nav-link-active"
-									: `nav-link-inactive ${
-											status !== "authenticated"
-												? "opacity-50 pointer-events-none"
-												: ""
-									  }`
-							}`}
-						>
-							My Predictions
-						</Link>
+      <NavbarContent justify="end">
+        {status === "authenticated" ? (
+          <NavbarItem>
+            <UserProfile />
+          </NavbarItem>
+        ) : status === "unauthenticated" ? (
+          <NavbarItem>
+            <Button 
+              as={Link} 
+              href="/auth/signin" 
+              variant="solid"
+              size="sm"
+              radius="md"
+              className="bg-red-600 hover:bg-red-700 text-white"
+            >
+              Sign In
+            </Button>
+          </NavbarItem>
+        ) : (
+          <NavbarItem>
+            <div className="h-8 w-20 bg-gray-800 animate-pulse rounded-md"></div>
+          </NavbarItem>
+        )}
+      </NavbarContent>
 
-						<Link
-							href="/races"
-							className={`nav-link ${
-								isActive("/races") ? "nav-link-active" : "nav-link-inactive"
-							}`}
-						>
-							Races
-						</Link>
-					</div>
-				</div>
-
-				<div className="flex items-center mt-4 md:mt-0">
-					{status === "authenticated" ? (
-						<UserProfile />
-					) : status === "unauthenticated" ? (
-						<Link href="/auth/signin">
-							<button className="btn btn-md btn-solid">Sign In</button>
-						</Link>
-					) : (
-						<div className="h-8 w-20 bg-gray-800 animate-pulse rounded-md"></div>
-					)}
-				</div>
-			</div>
-		</nav>
-	);
+      <NavbarMenu>
+        {menuItems.map((item, index) => (
+          <NavbarMenuItem key={`${item.name}-${index}`}>
+            <Link
+              className={`w-full ${
+                item.requiresAuth && status !== "authenticated"
+                  ? "opacity-50 pointer-events-none"
+                  : ""
+              }`}
+              color={isActive(item.href) ? "primary" : "foreground"}
+              href={item.href}
+              size="lg"
+            >
+              {item.name}
+            </Link>
+          </NavbarMenuItem>
+        ))}
+      </NavbarMenu>
+    </HeroNavbar>
+  );
 }
