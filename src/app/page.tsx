@@ -4,8 +4,8 @@ import {Button} from "@heroui/react";
 
 export default function Home() {
 	return (
-		<div className="min-h-screen flex flex-col items-center justify-center p-8 gap-8">
-			<main className="flex flex-col items-center gap-8 max-w-2xl text-center">
+		<div className="container mx-auto px-4 py-8">
+			<div className="flex flex-col items-center justify-center gap-8 max-w-2xl mx-auto text-center">
 				<h1 className="text-4xl font-bold text-gray-100">F1 Penca</h1>
 				<p className="text-xl text-gray-400 mb-4">
 					Predict F1 race results and compete with your friends
@@ -15,7 +15,7 @@ export default function Home() {
 					<Button
 						as="a"
 						href="/auth/signin"
-						className="bg-gradient-to-tr from-red-600 to-red-500 text-white shadow-lg"
+						className="btn-red-gradient text-white"
 						radius="md"
 					>
 						Get Started
@@ -24,13 +24,13 @@ export default function Home() {
 						as="a"
 						href="/about"
 						color="default"
-						className="text-white"
+						className="btn-blue-teal-gradient text-white"
 						variant="flat"
 					>
 						About the Project
 					</Button>
 				</div>
-			</main>
+			</div>
 		</div>
 	);
 }

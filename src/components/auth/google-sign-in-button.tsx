@@ -20,10 +20,10 @@ export function GoogleSignInButton() {
 
 	return (
 		<Button
-			onClick={handleSignIn}
+			onPress={handleSignIn}
 			disabled={isLoading}
 			isLoading={isLoading}
-			className="bg-gradient-to-tr from-red-600 to-red-500 text-white shadow-lg w-full"
+			className="btn-red-gradient text-white shadow-lg w-full"
 			radius="md"
 			startContent={
 				!isLoading ? (

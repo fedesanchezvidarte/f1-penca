@@ -58,7 +58,7 @@ export function Navbar() {
   return (
     <HeroNavbar 
       onMenuOpenChange={setIsMenuOpen} 
-      className="bg-gray-900 border-b border-gray-800 navbar-container"
+      className="border-line-bottom"
       maxWidth="full"
       isBordered={false}
     >
@@ -98,7 +98,7 @@ export function Navbar() {
       </NavbarContent>
 
       <NavbarContent justify="end">
-        <NavbarItem className="navbar-item-container min-w-[120px] flex justify-end">
+        <NavbarItem className="min-w-[120px] flex justify-end">
           {status === "authenticated" ? (
             <UserProfile />
           ) : (
@@ -108,7 +108,7 @@ export function Navbar() {
               variant="solid"
               size="sm"
               radius="md"
-              className="bg-red-600 hover:bg-red-700 text-white"
+              className="btn-red-gradient text-white w-20"
             >
               Sign In
             </Button>

@@ -18,9 +18,10 @@
 }
 
 body {
-	background: var(--background);
+	background: linear-gradient(to bottom, #0a0a0a, #131212);
 	color: var(--foreground);
 	font-family: "Roboto", sans-serif;
+	min-height: 100vh;
 }
 
 @layer components {
@@ -28,17 +29,26 @@ body {
 		@apply bg-gray-900 border border-gray-800 rounded-xl p-6 shadow-lg;
 	}
 
+	.border-line-bottom {
+		@apply border-b border-gray-500;
+	}
+
+	.border-line-top {
+		@apply border-t border-gray-500;
+	}
+
+	/* Button Styles */
+	.btn-red-gradient {
+		@apply bg-gradient-to-tr from-red-700 to-red-500 shadow-lg;
+	}
+	
+	.btn-blue-teal-gradient {
+		@apply bg-gradient-to-tr from-blue-600 to-teal-400 shadow-lg;
+	}
+
+	/* Logo styles */
 	.logo-accent-red {
 		filter: invert(17%) sepia(92%) saturate(3086%) hue-rotate(353deg)
 			brightness(100%) contrast(100%);
-	}
-
-	.navbar-container {
-		min-height: 64px; /* Ensure consistent height - Prevent jumping*/
-	}
-
-	/* Prevent layout shift in navbar items */
-	.navbar-item-container {
-		min-width: fit-content;
 	}
 }
