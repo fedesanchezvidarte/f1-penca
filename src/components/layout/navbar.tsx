@@ -46,14 +46,23 @@ export function Navbar() {
 
   const menuItems = [
     { name: "Home", href: "/" },
-    { name: "Leaderboard", href: "/leaderboard", requiresAuth: true },
-    { name: "My Predictions", href: "/predictions", requiresAuth: true },
+    { name: "Leaderboard", href: "/leaderboard" },
     { name: "Races", href: "/races" },
   ];
 
+  // Prevent hydration mismatch by using the current pathname for selection
+  const selectedKey = React.useMemo(() => {
+    return pathname;
+  }, [pathname]);
+
   return (
-    <HeroNavbar onMenuOpenChange={setIsMenuOpen} className="bg-gray-900 border-b border-gray-800">
-      <NavbarContent>
+    <HeroNavbar 
+      onMenuOpenChange={setIsMenuOpen} 
+      className="bg-gray-900 border-b border-gray-800 navbar-container"
+      maxWidth="full"
+      isBordered={false}
+    >
+      <NavbarContent className="navbar-content">
         <NavbarMenuToggle
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
           className="sm:hidden"
@@ -70,27 +79,29 @@ export function Navbar() {
         <Tabs 
           aria-label="Navigation tabs" 
           variant="underlined"
-          selectedKey={pathname}
-          className="flex gap-4"
+          selectedKey={selectedKey}
+          className="navbar-tabs"
+          disableAnimation={false}
+          classNames={{
+            tab: "transition-colors duration-200 hover:text-red-500",
+            cursor: "transition-all duration-300"
+          }}
         >
           {menuItems.map((item) => (
             <Tab
               key={item.href}
               href={item.href}
               title={item.name}
-              isDisabled={item.requiresAuth && status !== "authenticated"}
             />
           ))}
         </Tabs>
       </NavbarContent>
 
       <NavbarContent justify="end">
-        {status === "authenticated" ? (
-          <NavbarItem>
+        <NavbarItem className="navbar-item-container min-w-[120px] flex justify-end">
+          {status === "authenticated" ? (
             <UserProfile />
-          </NavbarItem>
-        ) : status === "unauthenticated" ? (
-          <NavbarItem>
+          ) : (
             <Button 
               as={Link} 
               href="/auth/signin" 
@@ -101,23 +112,15 @@ export function Navbar() {
             >
               Sign In
             </Button>
-          </NavbarItem>
-        ) : (
-          <NavbarItem>
-            <div className="h-8 w-20 bg-gray-800 animate-pulse rounded-md"></div>
-          </NavbarItem>
-        )}
+          )}
+        </NavbarItem>
       </NavbarContent>
 
       <NavbarMenu>
         {menuItems.map((item, index) => (
           <NavbarMenuItem key={`${item.name}-${index}`}>
             <Link
-              className={`w-full ${
-                item.requiresAuth && status !== "authenticated"
-                  ? "opacity-50 pointer-events-none"
-                  : ""
-              }`}
+              className="w-full"
               color={isActive(item.href) ? "primary" : "foreground"}
               href={item.href}
               size="lg"

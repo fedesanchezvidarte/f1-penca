@@ -24,55 +24,6 @@ body {
 }
 
 @layer components {
-	/* HeroUI-inspired Button Styles */
-	.btn {
-		@apply inline-flex items-center justify-center gap-2 text-sm font-medium transition-colors rounded-md;
-	}
-
-	/* Button Sizes */
-	.btn-sm {
-		@apply px-3 py-1 text-xs;
-	}
-
-	.btn-md {
-		@apply px-4 py-1.5;
-	}
-
-	.btn-lg {
-		@apply px-5 py-2 text-base;
-	}
-
-	/* Button Variants */
-	.btn-solid {
-		@apply bg-red-600 text-white hover:bg-red-700;
-	}
-
-	.btn-outline {
-		@apply border border-gray-700 text-gray-300 hover:bg-gray-800;
-	}
-
-	.btn-ghost {
-		@apply text-gray-300 hover:bg-gray-800 hover:bg-opacity-50;
-	}
-
-	.btn-shadow {
-		@apply bg-red-600 text-white hover:bg-red-700 shadow-lg shadow-red-600/20;
-	}
-
-	/* Loading State */
-	.btn-loading {
-		@apply relative cursor-wait;
-	}
-
-	/* Legacy button styles for backward compatibility */
-	.btn-primary {
-		@apply btn btn-md btn-solid;
-	}
-
-	.btn-secondary {
-		@apply btn btn-md btn-outline;
-	}
-
 	.container-card {
 		@apply bg-gray-900 border border-gray-800 rounded-xl p-6 shadow-lg;
 	}
@@ -80,5 +31,14 @@ body {
 	.logo-accent-red {
 		filter: invert(17%) sepia(92%) saturate(3086%) hue-rotate(353deg)
 			brightness(100%) contrast(100%);
+	}
+
+	.navbar-container {
+		min-height: 64px; /* Ensure consistent height - Prevent jumping*/
+	}
+
+	/* Prevent layout shift in navbar items */
+	.navbar-item-container {
+		min-width: fit-content;
 	}
 }

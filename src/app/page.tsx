@@ -1,3 +1,7 @@
+"use client";
+
+import {Button} from "@heroui/react";
+
 export default function Home() {
 	return (
 		<div className="min-h-screen flex flex-col items-center justify-center p-8 gap-8">
@@ -8,12 +12,23 @@ export default function Home() {
 				</p>
 
 				<div className="flex gap-4 flex-col sm:flex-row">
-					<a href="/auth/signin" className="btn btn-md btn-shadow text-center">
+					<Button
+						as="a"
+						href="/auth/signin"
+						className="bg-gradient-to-tr from-red-600 to-red-500 text-white shadow-lg"
+						radius="md"
+					>
 						Get Started
-					</a>
-					<a href="/about" className="btn btn-md btn-outline text-center">
+					</Button>
+					<Button
+						as="a"
+						href="/about"
+						color="default"
+						className="text-white"
+						variant="flat"
+					>
 						About the Project
-					</a>
+					</Button>
 				</div>
 			</main>
 		</div>

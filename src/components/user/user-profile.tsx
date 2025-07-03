@@ -11,7 +11,7 @@ export function UserProfile() {
 		return (
 			<div className="flex items-center space-x-2">
 				<div className="h-8 w-8 rounded-full bg-gray-800 animate-pulse"></div>
-				<div className="h-4 w-20 bg-gray-800 animate-pulse"></div>
+				<div className="h-4 w-20 bg-gray-800 animate-pulse rounded"></div>
 			</div>
 		);
 	}
