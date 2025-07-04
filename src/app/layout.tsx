@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/components/auth/auth-provider";
+import { AuthModalProvider } from "@/components/auth/auth-modal-context";
+import { AuthModal } from "@/components/auth/auth-modal";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { HeroUIProviderWrapper } from "@/components/layout/hero-ui-provider";
@@ -33,13 +35,16 @@ export default function RootLayout({
       >
         <HeroUIProviderWrapper>
           <AuthProvider>
-            <div className="flex flex-col min-h-screen">
-              <Navbar />
-              <main className="flex-grow">
-                {children}
-              </main>
-              <Footer />
-            </div>
+            <AuthModalProvider>
+              <div className="flex flex-col min-h-screen">
+                <Navbar />
+                <main className="flex-grow">
+                  {children}
+                </main>
+                <Footer />
+              </div>
+              <AuthModal />
+            </AuthModalProvider>
           </AuthProvider>
         </HeroUIProviderWrapper>
       </body>

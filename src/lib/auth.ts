@@ -15,11 +15,6 @@ export const authConfig: NextAuthConfig = {
   session: {
     strategy: "jwt",
   },
-  pages: {
-    signIn: "/auth/signin",
-    // error: '/auth/error', // Error code passed in query string as ?error=
-    // signOut: '/auth/signout',
-  },
   callbacks: {
     async session({ session, token }) {
       if (token.sub && session.user) {

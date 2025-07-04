@@ -13,7 +13,6 @@ export function Footer() {
 						alt="F1 Penca Logo"
 						width={24}
 						height={12}
-						className="logo-accent-red"
 					/>
 					<span className="text-sm text-gray-400">
 						© {new Date().getFullYear()} F1 Penca

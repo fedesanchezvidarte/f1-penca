@@ -45,10 +45,4 @@ body {
 	.btn-blue-teal-gradient {
 		@apply bg-gradient-to-tr from-blue-600 to-teal-400 shadow-lg;
 	}
-
-	/* Logo styles */
-	.logo-accent-red {
-		filter: invert(17%) sepia(92%) saturate(3086%) hue-rotate(353deg)
-			brightness(100%) contrast(100%);
-	}
 }

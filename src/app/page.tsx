@@ -1,8 +1,25 @@
 "use client";
 
-import {Button} from "@heroui/react";
+import { Button } from "@heroui/react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useAuthModal } from "@/components/auth/auth-modal-context";
 
 export default function Home() {
+	const { data: session } = useSession();
+	const router = useRouter();
+	const { onOpen } = useAuthModal();
+
+	const handleGetStarted = () => {
+		if (session) {
+			// If the user is logged in, redirect to the leaderboard
+			router.push("/leaderboard");
+		} else {
+			// Otherwise, open the modal
+			onOpen();
+		}
+	};
+
 	return (
 		<div className="container mx-auto px-4 py-8">
 			<div className="flex flex-col items-center justify-center gap-8 max-w-2xl mx-auto text-center">
@@ -13,8 +30,7 @@ export default function Home() {
 
 				<div className="flex gap-4 flex-col sm:flex-row">
 					<Button
-						as="a"
-						href="/auth/signin"
+						onPress={handleGetStarted}
 						className="btn-red-gradient text-white"
 						radius="md"
 					>

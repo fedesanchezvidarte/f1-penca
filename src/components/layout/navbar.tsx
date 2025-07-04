@@ -18,6 +18,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { UserProfile } from "../user/user-profile";
 import { useSession } from "next-auth/react";
+import { useAuthModal } from "../auth/auth-modal-context";
 
 // F1 Penca Logo Component
 export const F1PencaLogo = () => {
@@ -27,7 +28,6 @@ export const F1PencaLogo = () => {
       alt="F1 Penca Logo"
       width={28}
       height={14}
-      className="logo-accent-red"
     />
   );
 };
@@ -36,6 +36,7 @@ export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const pathname = usePathname();
   const { status } = useSession();
+  const { onOpen } = useAuthModal();
 
   const isActive = (path: string) => {
     if (path === "/") {
@@ -103,8 +104,7 @@ export function Navbar() {
             <UserProfile />
           ) : (
             <Button 
-              as={Link} 
-              href="/auth/signin" 
+              onPress={onOpen}
               variant="solid"
               size="sm"
               radius="md"
