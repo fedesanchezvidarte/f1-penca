@@ -6,7 +6,7 @@ import NextImage from "next/image";
 
 export function SignInModalCard() {
 	return (
-		<Card isFooterBlurred className="w-full h-[400px]">
+		<Card isFooterBlurred className="w-full h-[400px] border border-gray-500">
 			<CardHeader className="absolute z-10 top-1 flex-col items-center justify-center text-center w-full pt-8">
 				<NextImage
 					src="/brand/f1-penca-logo.svg"
@@ -20,7 +20,7 @@ export function SignInModalCard() {
 			<Image
 				removeWrapper
 				alt="F1 background with sparks"
-				className="z-0 w-full h-full object-cover"
+				className="z-0 w-full h-full object-cover rounded-large"
 				src="/images/f1-dark-wallpaper.jpg"
 			/>
 			<CardFooter className="absolute bg-black/40 bottom-0 z-10 border-line-top py-6">
