@@ -23,7 +23,7 @@ export default function Home() {
 	return (
 		<div className="container mx-auto px-4 py-8">
 			<div className="flex items-center justify-center min-h-[70vh]">
-				<Card className="max-w-xl w-full bg-black/20 border border-gray-500/50">
+				<Card className="max-w-xl w-full bg-black/20 border-line">
 					<CardHeader className="flex flex-col items-center pt-16 pb-6">
 						<h1 className="text-6xl font-bold text-gray-100 mb-2">F1 Penca</h1>
 						<p className="text-xl text-gray-400 text-center">

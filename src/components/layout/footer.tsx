@@ -12,7 +12,8 @@ export function Footer() {
 						src="/brand/f1-penca-logo.svg"
 						alt="F1 Penca Logo"
 						width={24}
-						height={12}
+						height={0}
+						style={{ height: "auto" }}
 					/>
 					<span className="text-sm text-gray-400">
 						© {new Date().getFullYear()} F1 Penca

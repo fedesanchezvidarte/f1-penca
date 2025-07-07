@@ -12,7 +12,8 @@ export function SignInModalCard() {
 					src="/brand/f1-penca-logo.svg"
 					alt="F1 Penca Logo"
 					width={60}
-					height={32}
+					height={0}
+					style={{ height: "auto" }}
 					className="mb-4"
 				/>
 				<h1 className="text-white font-bold text-6xl">F1 Penca</h1>

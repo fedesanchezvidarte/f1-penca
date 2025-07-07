@@ -27,7 +27,8 @@ export const F1PencaLogo = () => {
       src="/brand/f1-penca-logo.svg"
       alt="F1 Penca Logo"
       width={28}
-      height={14}
+      height={0}
+      style={{ height: "auto" }}
     />
   );
 };

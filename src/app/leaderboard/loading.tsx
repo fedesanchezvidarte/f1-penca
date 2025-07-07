@@ -1,32 +1,61 @@
+"use client";
+
+import {
+	Table,
+	TableHeader,
+	TableColumn,
+	TableBody,
+	TableRow,
+	TableCell,
+	Skeleton,
+} from "@heroui/react";
+
 export default function Loading() {
-    return (
-        <div className="container mx-auto px-4 py-8 text-gray-100">
-            <h1 className="text-3xl font-bold mb-6 text-center text-gray-100">Leaderboard</h1>
-            <div className="overflow-x-auto rounded-xl max-w-3xl mx-auto">
-                <div className="max-h-[70vh] overflow-y-auto">
-                    <div className="w-full bg-gray-900 border border-gray-800 font-sans">
-                        <div className="bg-gray-800 text-left text-gray-400 py-3 px-4 flex">
-                            <div className="w-1/4 font-semibold">Position</div>
-                            <div className="w-2/4 font-semibold">User</div>
-                            <div className="w-1/4 font-semibold">Points</div>
-                        </div>
-                        {Array(11).fill(0).map((_, index) => (
-                            <div key={index} className="border-b border-gray-800 flex items-center">
-                                <div className="py-3 px-4 w-1/4">
-                                    <div className="h-5 bg-gray-800 animate-pulse rounded-md w-6"></div>
-                                </div>
-                                <div className="py-3 px-4 w-2/4 flex items-center">
-                                    <div className="h-8 w-8 bg-gray-800 animate-pulse rounded-full mr-3"></div>
-                                    <div className="h-5 bg-gray-800 animate-pulse rounded-md w-24"></div>
-                                </div>
-                                <div className="py-3 px-4 w-1/4">
-                                    <div className="h-5 bg-gray-800 animate-pulse rounded-md w-10"></div>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
+	return (
+		<div className="container mx-auto px-4 py-8 text-gray-100">
+			<h1 className="text-3xl font-bold mb-6 text-center text-gray-100">
+				Leaderboard
+			</h1>
+			<div className="max-w-3xl mx-auto bg-black/20 border-line">
+				<Table
+					aria-label="Loading leaderboard"
+					className="max-h-[80vh] overflow-y-auto"
+					classNames={{
+						wrapper: "bg-black/20",
+						th: "bg-gray-800 text-gray-400 font-semibold",
+						td: "text-gray-100",
+					}}
+				>
+					<TableHeader>
+						<TableColumn>Position</TableColumn>
+						<TableColumn>User</TableColumn>
+						<TableColumn>Points</TableColumn>
+					</TableHeader>
+					<TableBody>
+						{Array(10)
+							.fill(0)
+							.map((_, index) => (
+								<TableRow key={index}>
+									<TableCell className="py-2.5">
+										<Skeleton className="w-8 h-4 rounded-lg" />
+									</TableCell>
+									<TableCell className="py-2.5">
+										<div className="flex items-center space-x-3">
+											<Skeleton className="w-8 h-8 rounded-full" />
+											<Skeleton className="w-24 h-4 rounded-lg" />
+										</div>
+									</TableCell>
+									<TableCell className="py-2.5">
+										<Skeleton className="w-12 h-4 rounded-lg" />
+									</TableCell>
+								</TableRow>
+							))}
+					</TableBody>
+				</Table>
+				<div className="bg-black/20 flex justify-center pb-4">
+					<Skeleton className="w-60 h-8 rounded-lg" />
+				</div>
+			</div>
+		</div>
+	);
 }
