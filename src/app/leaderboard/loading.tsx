@@ -16,14 +16,14 @@ export default function Loading() {
 			<h1 className="text-3xl font-bold mb-6 text-center text-foreground">
 				Leaderboard
 			</h1>
-			<div className="max-w-3xl mx-auto card-racing-translucent">
+			<div className="max-w-3xl mx-auto">
 				<Table
 					aria-label="Loading leaderboard"
 					className="max-h-[80vh] overflow-y-auto"
 					classNames={{
 						wrapper: "card-racing-translucent",
-						th: "bg-content2 text-muted font-semibold",
-						td: "text-foreground",
+						th: "bg-content2/70 text-muted font-semibold border-b border-default-200",
+						td: "text-foreground border-b border-default-100/50",
 					}}
 				>
 					<TableHeader>
@@ -37,23 +37,23 @@ export default function Loading() {
 							.map((_, index) => (
 								<TableRow key={index}>
 									<TableCell className="py-2.5">
-										<Skeleton className="w-8 h-4 rounded-lg" />
+										<Skeleton className="w-8 h-4 rounded-lg bg-default-300/30" />
 									</TableCell>
 									<TableCell className="py-2.5">
 										<div className="flex items-center space-x-3">
-											<Skeleton className="w-8 h-8 rounded-full" />
-											<Skeleton className="w-24 h-4 rounded-lg" />
+											<Skeleton className="w-8 h-8 rounded-full bg-default-300/30" />
+											<Skeleton className="w-24 h-4 rounded-lg bg-default-300/30" />
 										</div>
 									</TableCell>
 									<TableCell className="py-2.5">
-										<Skeleton className="w-12 h-4 rounded-lg" />
+										<Skeleton className="w-12 h-4 rounded-lg bg-default-300/30" />
 									</TableCell>
 								</TableRow>
 							))}
 					</TableBody>
 				</Table>
-				<div className="card-racing-translucent flex justify-center pb-4">
-					<Skeleton className="w-60 h-8 rounded-lg" />
+				<div className="card-racing-translucent flex justify-center pb-4 mt-4">
+					<Skeleton className="w-60 h-8 rounded-lg bg-default-300/30" />
 				</div>
 			</div>
 		</div>

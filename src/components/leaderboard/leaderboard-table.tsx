@@ -39,8 +39,8 @@ export default function LeaderboardTable({ standings }: LeaderboardTableProps) {
                     className="max-h-[80vh] overflow-y-auto"
                     classNames={{
                         wrapper: "card-racing-translucent",
-                        th: "bg-content2 text-muted font-semibold",
-                        td: "text-foreground",
+                        th: "bg-content2/70 text-muted font-semibold border-b border-default-200",
+                        td: "text-foreground border-b border-default-100/50",
                     }}
                 >
                     <TableHeader>
@@ -85,8 +85,8 @@ export default function LeaderboardTable({ standings }: LeaderboardTableProps) {
                 }
                 classNames={{
                     wrapper: "card-racing-translucent",
-                    th: "bg-content2 text-muted font-semibold",
-                    td: "text-foreground",
+                    th: "bg-content2/70 text-muted font-semibold border-b border-default-200",
+                    td: "text-foreground border-b border-default-100/50",
                 }}
             >
                 <TableHeader>

@@ -6,6 +6,9 @@
   /* Custom font integration */
   body {
     font-family: "Inter", var(--font-geist-sans), system-ui, sans-serif;
+    /* Crimson Shadow Background with Top Glow */
+    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(255, 80, 120, 0.25), transparent 70%), #000000;
+    min-height: 100vh;
   }
 }
 
@@ -47,7 +50,7 @@
   }
   
   .card-racing-translucent {
-    @apply bg-content1/80 border border-default-200 backdrop-blur-md shadow-xl;
+    @apply bg-content1/70 border border-default-200 backdrop-blur-md shadow-xl !important;
   }
 
   /* Enhanced text utilities */
@@ -57,5 +60,39 @@
   
   .text-emphasis {
     @apply text-primary font-semibold;
+  }
+
+  /* Crimson Shadow Background Pattern */
+  .bg-crimson-shadow {
+    @apply min-h-screen w-full relative bg-black;
+  }
+  
+  .bg-crimson-shadow::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(255, 80, 120, 0.25), transparent 70%), #000000;
+  }
+
+  /* Mobile-specific modal positioning */
+  @media (max-width: 640px) {
+    .auth-modal-mobile {
+      @apply fixed bottom-0 left-0 right-0 mx-4 mb-4 mt-auto;
+    }
+    
+    .auth-modal-mobile .modal-content {
+      @apply rounded-t-2xl;
+    }
+  }
+}
+
+/* High-priority utility classes */
+@layer utilities {
+  .card-racing-translucent {
+    background-color: hsl(var(--heroui-content1) / 0.5) !important;
+    border: 1px solid hsl(var(--heroui-default-200)) !important;
+    backdrop-filter: blur(12px) !important;
+    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25) !important;
   }
 }

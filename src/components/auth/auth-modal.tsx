@@ -24,8 +24,9 @@ export function AuthModal() {
       onClose={onClose}
       hideCloseButton={false}
       className="max-w-md"
+      placement="center"
     >
-      <ModalContent className="p-0 overflow-hidden">
+      <ModalContent className="p-0 overflow-hidden m-8">
         <SignInModalCard />
       </ModalContent>
     </Modal>
