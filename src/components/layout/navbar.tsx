@@ -60,7 +60,7 @@ export function Navbar() {
   return (
     <HeroNavbar 
       onMenuOpenChange={setIsMenuOpen} 
-      className="border-line-bottom"
+      className="border-themed-bottom"
       maxWidth="full"
       isBordered={false}
     >
@@ -72,7 +72,7 @@ export function Navbar() {
         <NavbarBrand>
           <Link href="/" className="flex items-center space-x-2">
             <F1PencaLogo />
-            <span className="text-xl font-bold text-gray-100">F1 Penca</span>
+            <span className="text-xl font-bold text-foreground">F1 Penca</span>
           </Link>
         </NavbarBrand>
       </NavbarContent>
@@ -82,11 +82,12 @@ export function Navbar() {
           aria-label="Navigation tabs" 
           variant="underlined"
           selectedKey={selectedKey}
+          color="primary"
           className="navbar-tabs"
           disableAnimation={false}
           classNames={{
-            tab: "transition-colors duration-200 hover:text-red-500",
-            cursor: "transition-all duration-300"
+            tab: "transition-colors duration-200 hover:text-primary",
+            cursor: "transition-all duration-300 bg-primary"
           }}
         >
           {menuItems.map((item) => (
@@ -106,10 +107,11 @@ export function Navbar() {
           ) : (
             <Button 
               onPress={onOpen}
+              color="primary"
               variant="solid"
               size="sm"
               radius="md"
-              className="btn-red-gradient text-white w-20"
+              className="btn-f1-red w-20"
             >
               Sign In
             </Button>

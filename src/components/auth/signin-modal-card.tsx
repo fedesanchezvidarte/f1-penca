@@ -6,7 +6,7 @@ import NextImage from "next/image";
 
 export function SignInModalCard() {
 	return (
-		<Card isFooterBlurred className="w-full h-[400px] border border-gray-500">
+		<Card isFooterBlurred className="w-full h-[400px] border-themed">
 			<CardHeader className="absolute z-10 top-1 flex-col items-center justify-center text-center w-full pt-8">
 				<NextImage
 					src="/brand/f1-penca-logo.svg"
@@ -16,7 +16,7 @@ export function SignInModalCard() {
 					style={{ height: "auto" }}
 					className="mb-4"
 				/>
-				<h1 className="text-white font-bold text-6xl">F1 Penca</h1>
+				<h1 className="text-foreground font-bold text-6xl">F1 Penca</h1>
 			</CardHeader>
 			<Image
 				removeWrapper
@@ -24,7 +24,7 @@ export function SignInModalCard() {
 				className="z-0 w-full h-full object-cover rounded-large"
 				src="/images/f1-dark-wallpaper.jpg"
 			/>
-			<CardFooter className="absolute bg-black/40 bottom-0 z-10 border-line-top py-6">
+			<CardFooter className="absolute bg-black/40 bottom-0 z-10 border-themed-top py-6">
 				<div className="flex justify-center w-full">
 					<div className="w-48">
 						<GoogleSignInButton />

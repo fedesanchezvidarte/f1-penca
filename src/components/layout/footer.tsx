@@ -5,7 +5,7 @@ import Image from "next/image";
 
 export function Footer() {
 	return (
-		<footer className="border-line-top py-8 px-6">
+		<footer className="border-themed-top py-8 px-6">
 			<div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
 				<div className="flex items-center space-x-2">
 					<Image
@@ -15,7 +15,7 @@ export function Footer() {
 						height={0}
 						style={{ height: "auto" }}
 					/>
-					<span className="text-sm text-gray-400">
+					<span className="text-sm text-muted">
 						© {new Date().getFullYear()} F1 Penca
 					</span>
 				</div>
@@ -26,7 +26,7 @@ export function Footer() {
 						href="https://github.com/fedesanchezvidarte/f1-penca"
 						target="_blank"
 						rel="noopener noreferrer"
-						className="text-sm font-medium text-gray-400 hover:text-gray-100 transition-colors"
+						className="text-sm font-medium text-muted hover:text-foreground transition-colors"
 					>
 						GitHub
 					</Link>
@@ -34,7 +34,7 @@ export function Footer() {
 						href="https://github.com/fedesanchezvidarte/f1-penca/blob/main/LICENSE"
 						target="_blank"
 						rel="noopener noreferrer"
-						className="text-sm font-medium text-gray-400 hover:text-gray-100 transition-colors"
+						className="text-sm font-medium text-muted hover:text-foreground transition-colors"
 					>
 						Open Source
 					</Link>
@@ -42,7 +42,7 @@ export function Footer() {
 						href="https://buymeacoffee.com/fedesanchezvidarte"
 						target="_blank"
 						rel="noopener noreferrer"
-						className="text-sm font-medium text-gray-400 hover:text-gray-100 transition-colors"
+						className="text-sm font-medium text-muted hover:text-foreground transition-colors"
 					>
 						☕ Buy Me a Coffee
 					</Link>

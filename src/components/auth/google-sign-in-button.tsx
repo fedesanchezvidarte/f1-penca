@@ -23,7 +23,9 @@ export function GoogleSignInButton() {
 			onPress={handleSignIn}
 			disabled={isLoading}
 			isLoading={isLoading}
-			className="btn-red-gradient text-white shadow-lg w-full"
+			color="primary"
+			variant="solid"
+			className="btn-f1-red shadow-lg w-full"
 			radius="md"
 			startContent={
 				!isLoading ? (

@@ -12,18 +12,18 @@ import {
 
 export default function Loading() {
 	return (
-		<div className="container mx-auto px-4 py-8 text-gray-100">
-			<h1 className="text-3xl font-bold mb-6 text-center text-gray-100">
+		<div className="container mx-auto px-4 py-8 text-foreground">
+			<h1 className="text-3xl font-bold mb-6 text-center text-foreground">
 				Leaderboard
 			</h1>
-			<div className="max-w-3xl mx-auto bg-black/20 border-line">
+			<div className="max-w-3xl mx-auto card-racing-translucent">
 				<Table
 					aria-label="Loading leaderboard"
 					className="max-h-[80vh] overflow-y-auto"
 					classNames={{
-						wrapper: "bg-black/20",
-						th: "bg-gray-800 text-gray-400 font-semibold",
-						td: "text-gray-100",
+						wrapper: "card-racing-translucent",
+						th: "bg-content2 text-muted font-semibold",
+						td: "text-foreground",
 					}}
 				>
 					<TableHeader>
@@ -52,7 +52,7 @@ export default function Loading() {
 							))}
 					</TableBody>
 				</Table>
-				<div className="bg-black/20 flex justify-center pb-4">
+				<div className="card-racing-translucent flex justify-center pb-4">
 					<Skeleton className="w-60 h-8 rounded-lg" />
 				</div>
 			</div>

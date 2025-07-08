@@ -2,47 +2,60 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-	--background: #0a0a0a;
-	--foreground: #f4f4f5;
-	--card-background: #18181b;
-	--border-color: #27272a;
-	--text-secondary: #a1a1aa;
-	--text-disabled: #52525b;
-	--accent-red: #dc2626;
-	--accent-blue: #2563eb;
-	--accent-red-hover: #b91c1c;
-	--accent-blue-hover: #1d4ed8;
-	--success: #22c55e;
-	--warning: #facc15;
-}
-
-body {
-	background: linear-gradient(to bottom, #0a0a0a, #131212);
-	color: var(--foreground);
-	font-family: "Roboto", sans-serif;
-	min-height: 100vh;
+@layer base {
+  /* Custom font integration */
+  body {
+    font-family: "Inter", var(--font-geist-sans), system-ui, sans-serif;
+  }
 }
 
 @layer components {
-	.border-line {
-		@apply border border-gray-500;
-	}
+  /* Custom gradient button variants that complement HeroUI themes */
+  .btn-gradient-primary {
+    @apply bg-gradient-to-r from-primary-600 to-primary-500 text-primary-foreground shadow-lg hover:shadow-xl transition-shadow;
+  }
+  
+  .btn-gradient-secondary {
+    @apply bg-gradient-to-r from-secondary-600 to-secondary-400 text-secondary-foreground shadow-lg hover:shadow-xl transition-shadow;
+  }
+  
+  /* F1 Racing themed gradients using theme colors */
+  .btn-f1-red {
+    @apply bg-gradient-to-r from-primary-400 to-primary-300 text-primary-foreground shadow-lg hover:shadow-xl transition-all hover:scale-105;
+  }
+  
+  .btn-f1-blue {
+    @apply bg-gradient-to-r from-secondary-600 to-secondary-400 text-primary-foreground shadow-lg hover:shadow-xl transition-all hover:scale-105;
+  }
 
-	.border-line-bottom {
-		@apply border-b border-gray-500;
-	}
+  /* Enhanced border utilities using theme colors */
+  .border-themed {
+    @apply border-default-200;
+  }
+  
+  .border-themed-bottom {
+    @apply border-b border-default-200;
+  }
+  
+  .border-themed-top {
+    @apply border-t border-default-200;
+  }
 
-	.border-line-top {
-		@apply border-t border-gray-500;
-	}
+  /* Racing-themed card variants */
+  .card-racing {
+    @apply bg-content1 border border-default-200 shadow-lg backdrop-blur-sm;
+  }
+  
+  .card-racing-translucent {
+    @apply bg-content1/80 border border-default-200 backdrop-blur-md shadow-xl;
+  }
 
-	/* Button Styles */
-	.btn-red-gradient {
-		@apply bg-gradient-to-tr from-red-700 to-red-500 shadow-lg;
-	}
-
-	.btn-blue-teal-gradient {
-		@apply bg-gradient-to-tr from-blue-600 to-teal-400 shadow-lg;
-	}
+  /* Enhanced text utilities */
+  .text-muted {
+    @apply text-default-500;
+  }
+  
+  .text-emphasis {
+    @apply text-primary font-semibold;
+  }
 }

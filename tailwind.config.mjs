@@ -9,24 +9,237 @@ const config = {
     "./node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {
-      colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
-        card: "var(--card-background)",
-        border: "var(--border-color)",
-        "text-secondary": "var(--text-secondary)",
-        "text-disabled": "var(--text-disabled)",
-        "accent-red": "var(--accent-red)",
-        "accent-blue": "var(--accent-blue)",
-        "accent-red-hover": "var(--accent-red-hover)",
-        "accent-blue-hover": "var(--accent-blue-hover)",
-        success: "var(--success)",
-        warning: "var(--warning)",
-      },
-    },
+    extend: {},
   },
-  plugins: [heroui()],
+  darkMode: "class",
+  plugins: [
+    heroui({
+      addCommonColors: false,
+      defaultTheme: "dark",
+      defaultExtendTheme: "dark",
+      layout: {
+        disabledOpacity: "0.4"
+      },
+      themes: {
+        light: {
+          colors: {
+            default: {
+              50: "#fafafa",
+              100: "#f2f2f3",
+              200: "#ebebec",
+              300: "#e3e3e6",
+              400: "#dcdcdf",
+              500: "#d4d4d8",
+              600: "#afafb2",
+              700: "#8a8a8c",
+              800: "#656567",
+              900: "#404041",
+              foreground: "#000",
+              DEFAULT: "#d4d4d8"
+            },
+            primary: {
+              50: "#fbe4e4",
+              100: "#f5bebe",
+              200: "#ee9898",
+              300: "#e87272",
+              400: "#e24c4c",
+              500: "#dc2626",
+              600: "#b61f1f",
+              700: "#8f1919",
+              800: "#691212",
+              900: "#420b0b",
+              foreground: "#fff",
+              DEFAULT: "#dc2626"
+            },
+            secondary: {
+              50: "#e4ecfd",
+              100: "#bed0f9",
+              200: "#97b5f6",
+              300: "#719af2",
+              400: "#4b7eef",
+              500: "#2563eb",
+              600: "#1f52c2",
+              700: "#184099",
+              800: "#122f70",
+              900: "#0b1e47",
+              foreground: "#fff",
+              DEFAULT: "#2563eb"
+            },
+            success: {
+              50: "#e1fdeb",
+              100: "#b6f9ce",
+              200: "#8bf6b2",
+              300: "#60f296",
+              400: "#36ef79",
+              500: "#0beb5d",
+              600: "#09c24d",
+              700: "#07993c",
+              800: "#05702c",
+              900: "#03471c",
+              foreground: "#000",
+              DEFAULT: "#0beb5d"
+            },
+            warning: {
+              50: "#fef9e2",
+              100: "#fef0b9",
+              200: "#fde790",
+              300: "#fcde67",
+              400: "#fbd53e",
+              500: "#facc15",
+              600: "#cea811",
+              700: "#a3850e",
+              800: "#77610a",
+              900: "#4b3d06",
+              foreground: "#000",
+              DEFAULT: "#facc15"
+            },
+            danger: {
+              50: "#eee4f8",
+              100: "#d7bfef",
+              200: "#bf99e5",
+              300: "#a773db",
+              400: "#904ed2",
+              500: "#7828c8",
+              600: "#6321a5",
+              700: "#4e1a82",
+              800: "#39135f",
+              900: "#240c3c",
+              foreground: "#fff",
+              DEFAULT: "#7828c8"
+            },
+            background: "#ffffff",
+            foreground: "#000000",
+            content1: {
+              DEFAULT: "#ffffff",
+              foreground: "#000"
+            },
+            content2: {
+              DEFAULT: "#f4f4f5",
+              foreground: "#000"
+            },
+            content3: {
+              DEFAULT: "#e4e4e7",
+              foreground: "#000"
+            },
+            content4: {
+              DEFAULT: "#d4d4d8",
+              foreground: "#000"
+            },
+            focus: "#006FEE",
+            overlay: "#000000"
+          }
+        },
+        dark: {
+          colors: {
+            default: {
+              50: "#0d0d0e",
+              100: "#19191c",
+              200: "#26262a",
+              300: "#323238",
+              400: "#3f3f46",
+              500: "#65656b",
+              600: "#8c8c90",
+              700: "#b2b2b5",
+              800: "#d9d9da",
+              900: "#ffffff",
+              foreground: "#fff",
+              DEFAULT: "#3f3f46"
+            },
+            primary: {
+              50: "#420b0b",
+              100: "#691212",
+              200: "#8f1919",
+              300: "#b61f1f",
+              400: "#dc2626",
+              500: "#e24c4c",
+              600: "#e87272",
+              700: "#ee9898",
+              800: "#f5bebe",
+              900: "#fbe4e4",
+              foreground: "#fff",
+              DEFAULT: "#dc2626"
+            },
+            secondary: {
+              50: "#0b1e47",
+              100: "#122f70",
+              200: "#184099",
+              300: "#1f52c2",
+              400: "#2563eb",
+              500: "#4b7eef",
+              600: "#719af2",
+              700: "#97b5f6",
+              800: "#bed0f9",
+              900: "#e4ecfd",
+              foreground: "#fff",
+              DEFAULT: "#2563eb"
+            },
+            success: {
+              50: "#03471c",
+              100: "#05702c",
+              200: "#07993c",
+              300: "#09c24d",
+              400: "#0beb5d",
+              500: "#36ef79",
+              600: "#60f296",
+              700: "#8bf6b2",
+              800: "#b6f9ce",
+              900: "#e1fdeb",
+              foreground: "#000",
+              DEFAULT: "#0beb5d"
+            },
+            warning: {
+              50: "#4b3d06",
+              100: "#77610a",
+              200: "#a3850e",
+              300: "#cea811",
+              400: "#facc15",
+              500: "#fbd53e",
+              600: "#fcde67",
+              700: "#fde790",
+              800: "#fef0b9",
+              900: "#fef9e2",
+              foreground: "#000",
+              DEFAULT: "#facc15"
+            },
+            danger: {
+              50: "#240c3c",
+              100: "#39135f",
+              200: "#4e1a82",
+              300: "#6321a5",
+              400: "#7828c8",
+              500: "#904ed2",
+              600: "#a773db",
+              700: "#bf99e5",
+              800: "#d7bfef",
+              900: "#eee4f8",
+              foreground: "#fff",
+              DEFAULT: "#7828c8"
+            },
+            background: "#000000",
+            foreground: "#ffffff",
+            content1: {
+              DEFAULT: "#18181b",
+              foreground: "#fff"
+            },
+            content2: {
+              DEFAULT: "#27272a",
+              foreground: "#fff"
+            },
+            content3: {
+              DEFAULT: "#3f3f46",
+              foreground: "#fff"
+            },
+            content4: {
+              DEFAULT: "#52525b",
+              foreground: "#fff"
+            },
+            focus: "#006FEE",
+            overlay: "#ffffff"
+          }
+        }
+      }
+    })
+  ],
 };
 
 export default config;

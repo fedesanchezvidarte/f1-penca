@@ -23,10 +23,10 @@ export default function Home() {
 	return (
 		<div className="container mx-auto px-4 py-8">
 			<div className="flex items-center justify-center min-h-[70vh]">
-				<Card className="max-w-xl w-full bg-black/20 border-line">
+				<Card className="max-w-xl w-full card-racing-translucent">
 					<CardHeader className="flex flex-col items-center pt-16 pb-6">
-						<h1 className="text-6xl font-bold text-gray-100 mb-2">F1 Penca</h1>
-						<p className="text-xl text-gray-400 text-center">
+						<h1 className="text-6xl font-bold text-foreground mb-2">F1 Penca</h1>
+						<p className="text-xl text-muted text-center">
 							Lights out and away we go!
 						</p>
 					</CardHeader>
@@ -34,7 +34,8 @@ export default function Home() {
 						<div className="flex gap-4 flex-col sm:flex-row">
 							<Button
 								onPress={handleGetStarted}
-								className="btn-red-gradient text-white"
+								color="primary"
+								className="btn-f1-red"
 								radius="md"
 								size="lg"
 							>
@@ -46,8 +47,7 @@ export default function Home() {
 								href="https://github.com/fedesanchezvidarte/f1-penca"
 								target="_blank"
 								rel="noopener noreferrer"
-								color="default"
-								className="btn-blue-teal-gradient text-white"
+								color="secondary"
 								variant="flat"
 								size="lg"
 							>

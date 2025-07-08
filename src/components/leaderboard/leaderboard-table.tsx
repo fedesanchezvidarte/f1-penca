@@ -38,9 +38,9 @@ export default function LeaderboardTable({ standings }: LeaderboardTableProps) {
                     aria-label="Empty leaderboard table"
                     className="max-h-[80vh] overflow-y-auto"
                     classNames={{
-                        wrapper: "bg-black/20 border-line",
-                        th: "bg-gray-800 text-gray-400 font-semibold",
-                        td: "text-gray-100",
+                        wrapper: "card-racing-translucent",
+                        th: "bg-content2 text-muted font-semibold",
+                        td: "text-foreground",
                     }}
                 >
                     <TableHeader>
@@ -68,25 +68,25 @@ export default function LeaderboardTable({ standings }: LeaderboardTableProps) {
                                 isCompact
                                 showControls
                                 showShadow
-                                color="danger"
+                                color="primary"
                                 page={page}
                                 total={pages}
                                 onChange={(page) => setPage(page)}
                                 classNames={{
-                                    wrapper: "gap-0 overflow-visible h-8 rounded border border-gray-700 bg-gray-900",
-                                    item: "w-8 h-8 text-small rounded-none bg-transparent text-gray-400 hover:bg-gray-800",
-                                    cursor: "btn-red-gradient shadow-lg text-white font-bold",
-                                    prev: "bg-transparent text-gray-400 hover:bg-gray-800 border-r border-gray-700",
-                                    next: "bg-transparent text-gray-400 hover:bg-gray-800 border-l border-gray-700",
+                                    wrapper: "gap-0 overflow-visible h-8 rounded border-themed bg-content2",
+                                    item: "w-8 h-8 text-small rounded-none bg-transparent text-muted hover:bg-content3",
+                                    cursor: "btn-f1-red shadow-lg text-white font-bold",
+                                    prev: "bg-transparent text-muted hover:bg-content3 border-r border-divider",
+                                    next: "bg-transparent text-muted hover:bg-content3 border-l border-divider",
                                 }}
                             />
                         </div>
                     ) : null
                 }
                 classNames={{
-                    wrapper: "bg-black/20 border-line",
-                    th: "bg-gray-800 text-gray-400 font-semibold",
-                    td: "text-gray-100",
+                    wrapper: "card-racing-translucent",
+                    th: "bg-content2 text-muted font-semibold",
+                    td: "text-foreground",
                 }}
             >
                 <TableHeader>
@@ -108,11 +108,11 @@ export default function LeaderboardTable({ standings }: LeaderboardTableProps) {
                                         }}
                                         name={user.name || 'User'}
                                         classNames={{
-                                            name: "text-gray-100",
+                                            name: "text-foreground",
                                         }}
                                     />
                                 </TableCell>
-                                <TableCell className="font-bold text-white">{user.totalPoints}</TableCell>
+                                <TableCell className="font-bold text-emphasis">{user.totalPoints}</TableCell>
                             </TableRow>
                         );
                     })}
