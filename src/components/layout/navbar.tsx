@@ -36,8 +36,25 @@ export const F1PencaLogo = () => {
 export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const pathname = usePathname();
-  const { status } = useSession();
+  const { data: session, status } = useSession();
   const { onOpen } = useAuthModal();
+
+  // Track authentication state to prevent flickering
+  const [wasAuthenticated, setWasAuthenticated] = React.useState(false);
+  
+  // More robust authentication check with memoization
+  const isAuthenticated = React.useMemo(() => {
+    return status === "authenticated" && session?.user;
+  }, [status, session?.user]);
+
+  // Update the wasAuthenticated state when user logs in
+  React.useEffect(() => {
+    if (isAuthenticated) {
+      setWasAuthenticated(true);
+    } else if (status === "unauthenticated") {
+      setWasAuthenticated(false);
+    }
+  }, [isAuthenticated, status]);
 
   const isActive = (path: string) => {
     if (path === "/") {
@@ -102,8 +119,14 @@ export function Navbar() {
 
       <NavbarContent justify="end">
         <NavbarItem className="min-w-[120px] flex justify-end">
-          {status === "authenticated" ? (
+          {isAuthenticated ? (
             <UserProfile />
+          ) : status === "loading" && wasAuthenticated ? (
+            // Show loading state if user was authenticated before (prevents flickering)
+            <div className="h-8 w-20 bg-content2 animate-pulse rounded"></div>
+          ) : status === "loading" ? (
+            // Show loading state for initial load
+            <div className="h-8 w-20 bg-content2 animate-pulse rounded"></div>
           ) : (
             <Button 
               onPress={onOpen}

@@ -52,9 +52,6 @@ export default function Loading() {
 							))}
 					</TableBody>
 				</Table>
-				<div className="card-racing-translucent flex justify-center pb-4 mt-4">
-					<Skeleton className="w-60 h-8 rounded-lg bg-default-300/30" />
-				</div>
 			</div>
 		</div>
 	);
