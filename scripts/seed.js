@@ -19,25 +19,30 @@ async function main() {
   const racesPath = join(__dirname, '..', 'data', 'dev', 'races.json');
   const usersPath = join(__dirname, '..', 'data', 'dev', 'users.json');
   const predictionsPath = join(__dirname, '..', 'data', 'dev', 'predictions.json');
-  const userRacePointsPath = join(__dirname, '..', 'data', 'dev', 'user-race-points.json');
+  const resultsPath = join(__dirname, '..', 'data', 'dev', 'results.json');
 
   const driversData = JSON.parse(readFileSync(driversPath, 'utf-8'));
   const racesData = JSON.parse(readFileSync(racesPath, 'utf-8'));
   const usersData = JSON.parse(readFileSync(usersPath, 'utf-8'));
   const predictionsData = JSON.parse(readFileSync(predictionsPath, 'utf-8'));
-  const userRacePointsData = JSON.parse(readFileSync(userRacePointsPath, 'utf-8'));
+  const resultsData = JSON.parse(readFileSync(resultsPath, 'utf-8'));
 
   // Clean up existing data
+  console.log('Cleaning existing data...');
   await prisma.prediction.deleteMany({});
   await prisma.raceResult.deleteMany({});
   await prisma.race.deleteMany({});
   await prisma.driver.deleteMany({});
   await prisma.user.deleteMany({});
-  
+
+  // Seed drivers
+  console.log('Seeding drivers...');
   await prisma.driver.createMany({
     data: driversData,
   });
 
+  // Seed races
+  console.log('Seeding races...');
   await prisma.race.createMany({
     data: racesData.map(race => ({
       ...race,
@@ -45,92 +50,52 @@ async function main() {
     })),
   });
 
+  // Seed users (beta users)
+  console.log('Seeding beta users...');
   await prisma.user.createMany({
     data: usersData.map((user, index) => ({
       ...user,
-      role: index === 0 ? 'ADMIN' : 'USER',
+      role: index === 0 ? 'ADMIN' : 'USER', // Make first user admin
     })),
   });
 
-  // Create predictions with simulated points for the first 12 races
-  console.log('Creating predictions with simulated points...');
-  
-  // Create a points map by user and race for quick lookup
-  const pointsMap = new Map();
-  userRacePointsData.forEach(item => {
-    const key = `${item.userId}-${item.raceId}`;
-    pointsMap.set(key, item.points);
+  // Seed race results for completed races
+  console.log('Seeding race results...');
+  const raceResultsToCreate = resultsData.map(result => ({
+    raceId: result.raceId,
+    polePosition: result.polePosition,
+    raceResult: result.raceResult,
+    fastestLap: result.fastestLap,
+    sprintRace: result.sprintRace,
+    sprintPolePosition: result.sprintPolePosition || null,
+    sprintResult: result.sprintResult || null,
+  }));
+
+  await prisma.raceResult.createMany({
+    data: raceResultsToCreate,
   });
 
-  // Get the first 12 races
-  const first12Races = racesData.filter(race => race.round <= 12);
-  
-  // Create simulated predictions for all users in the first 12 races
-  const predictionsToCreate = [];
-  
-  for (const user of usersData) {
-    for (const race of first12Races) {
-      const key = `${user.id}-${race.id}`;
-      const points = pointsMap.get(key) || 0;
-      
-      // Only create prediction if user has points (participated)
-      if (points > 0 || Math.random() > 0.1) { // 90% chance of creating prediction even with 0 points
-        predictionsToCreate.push({
-          userId: user.id,
-          raceId: race.id,
-          positions: ["VER", "HAM", "LEC", "SAI", "PER"], // Generic predictions to have data
-          points: points
-        });
-      }
-    }
-  }
-
-  console.log(`Creating ${predictionsToCreate.length} predictions with points...`);
-  
+  // Seed predictions
+  console.log('Seeding predictions...');
   await prisma.prediction.createMany({
-    data: predictionsToCreate,
+    data: predictionsData.map(prediction => ({
+      userId: prediction.userId,
+      raceId: prediction.raceId,
+      positions: prediction.positions,
+      polePositionPrediction: prediction.polePositionPrediction,
+      fastestLapPrediction: prediction.fastestLapPrediction,
+      sprintPositions: prediction.sprintPositions,
+      sprintPolePrediction: prediction.sprintPolePrediction,
+      points: 0, // Initialize with 0, will be calculated later
+    })),
   });
 
-  // Also create the original predictions from predictions.json file (if they don't exist already)
-  const existingPredictionsSet = new Set(
-    predictionsToCreate.map(p => `${p.userId}-${p.raceId}`)
-  );
-  
-  const originalPredictionsToCreate = predictionsData.filter(pred => 
-    !existingPredictionsSet.has(`${pred.userId}-${pred.raceId}`)
-  );
-
-  if (originalPredictionsToCreate.length > 0) {
-    console.log(`Creating ${originalPredictionsToCreate.length} additional original predictions...`);
-    await prisma.prediction.createMany({
-      data: originalPredictionsToCreate,
-    });
-  }
-
-  // Update user total points based on the first 12 races
-  console.log('Updating user total points...');
-  
-  const userTotalPoints = new Map();
-  userRacePointsData.forEach(item => {
-    if (!userTotalPoints.has(item.userId)) {
-      userTotalPoints.set(item.userId, 0);
-    }
-    userTotalPoints.set(item.userId, userTotalPoints.get(item.userId) + item.points);
-  });
-
-  for (const [userId, totalPoints] of userTotalPoints) {
-    await prisma.user.update({
-      where: { id: userId },
-      data: { totalPoints: totalPoints }
-    });
-  }
-
-  console.log('Seeding finished.');
+  console.log('Seeding finished successfully!');
   console.log(`- ${driversData.length} drivers created`);
   console.log(`- ${racesData.length} races created`);
-  console.log(`- ${usersData.length} users created`);
-  console.log(`- ${predictionsToCreate.length} predictions with simulated points created`);
-  console.log(`- User total points updated based on first 12 races`);
+  console.log(`- ${usersData.length} beta users created`);
+  console.log(`- ${raceResultsToCreate.length} race results created`);
+  console.log(`- ${predictionsData.length} predictions created`);
 }
 
 main()

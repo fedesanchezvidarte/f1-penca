@@ -11,55 +11,18 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// NextAuth.js Models
-model Account {
-  id                String  @id @default(cuid())
-  userId            String
-  type              String
-  provider          String
-  providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
-  expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String? @db.Text
-  session_state     String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([provider, providerAccountId])
-}
-
-model Session {
-  id           String   @id @default(cuid())
-  sessionToken String   @unique
-  userId       String
-  expires      DateTime
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
+// User Models
 model User {
   id            String       @id @default(cuid())
   name          String?
   email         String?      @unique
-  emailVerified DateTime?
+  password      String?      // For beta users
   image         String?
   totalPoints   Int          @default(0)
   role          UserRole     @default(USER)
   createdAt     DateTime     @default(now())
   updatedAt     DateTime     @updatedAt
-  accounts      Account[]
-  sessions      Session[]
   predictions   Prediction[]
-}
-
-model VerificationToken {
-  identifier String
-  token      String   @unique
-  expires    DateTime
-
-  @@unique([identifier, token])
 }
 
 // F1 Penca Models
@@ -102,22 +65,31 @@ enum RaceStatus {
 }
 
 model Prediction {
-  id        String   @id @default(cuid())
-  userId    String
-  raceId    String
-  positions Json // Store ordered array of driver positions
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  points    Int      @default(0)
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  race      Race     @relation(fields: [raceId], references: [id], onDelete: Cascade)
+  id                    String   @id @default(cuid())
+  userId                String
+  raceId                String
+  positions             Json     // Store ordered array of driver positions for main race
+  polePositionPrediction String? // Driver code prediction for pole position
+  fastestLapPrediction   String? // Driver code prediction for fastest lap
+  sprintPositions        Json?   // Store ordered array of driver positions for sprint race
+  sprintPolePrediction   String? // Driver code prediction for sprint pole position
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+  points                Int      @default(0)
+  user                  User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  race                  Race     @relation(fields: [raceId], references: [id], onDelete: Cascade)
 }
 
 model RaceResult {
-  id        String   @id @default(cuid())
-  raceId    String
-  positions Json // Store actual race results
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  race      Race     @relation(fields: [raceId], references: [id], onDelete: Cascade)
+  id                 String   @id @default(cuid())
+  raceId             String
+  polePosition       String? // Driver code for pole position
+  raceResult         Json    // Store race results array with positions
+  fastestLap         String? // Driver code for fastest lap
+  sprintRace         Boolean  @default(false)
+  sprintPolePosition String? // Driver code for sprint pole position
+  sprintResult       Json?   // Store sprint results array with positions
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+  race               Race     @relation(fields: [raceId], references: [id], onDelete: Cascade)
 }

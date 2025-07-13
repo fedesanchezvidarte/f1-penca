@@ -14,10 +14,10 @@
 		"build": "next build",
 		"start": "next start",
 		"lint": "next lint",
-		"seed": "dotenv -e .env.local -- node scripts/seed.js",
-		"seed:users": "dotenv -e .env.local -- node scripts/seed-users.js",
-		"prisma:dev": "dotenv -e .env.local -- prisma migrate dev",
-		"prisma:studio": "dotenv -e .env.local -- prisma studio",
+		"seed": "dotenv -- node scripts/seed.js",
+		"seed:beta": "dotenv -- node scripts/seed-beta.js",
+		"prisma:dev": "dotenv -- prisma migrate dev",
+		"prisma:studio": "dotenv -- prisma studio",
 		"postinstall": "prisma generate"
 	},
 	"dependencies": {

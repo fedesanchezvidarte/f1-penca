@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
-    domains: ['lh3.googleusercontent.com', 'i.pravatar.cc'], // Allow Google and Pravatar profile images
+    domains: ['i.pravatar.cc'], // Allow Pravatar profile images for beta users
   },
 };
 
