@@ -12,7 +12,7 @@ For each Grand Prix, users can make predictions in the following categories:
 2.  **Race Winner**: The driver who will win the main race.
 3.  **2nd Place**: The driver who will finish in second place.
 4.  **3rd Place**: The driver who will finish in third place.
-5.  **Positions 4-10**: Prediction of the drivers who will complete the top 10.
+5.  **Top-5**: Prediction of the drivers who will complete the top 5.
 
 ### Weekend with Sprint Race
 
@@ -33,9 +33,10 @@ The scoring system is designed to reward the accuracy of predictions, with a gre
 | --- | --- | --- |
 | Pole Position | 10 points | N/A |
 | Race Winner | 15 points | N/A |
-| 2nd Place | 10 points | 5 points (if they finish on the podium) |
-| 3rd Place | 8 points | 4 points (if they finish on the podium) |
-| Positions 4-10 | 5 points for each exact position | 2 points for each correct driver but in the wrong position within the top 10 |
+| Race 2nd Place | 10 points | 5 points (if they finish on the podium) |
+| Race 3rd Place | 8 points | 3 points (if they finish on the podium) |
+| Race Top 5 | 5 points for each exact position | 1 points for each correct driver but in the wrong position within the top 5 |
+| Fastest Lap | 1 point | N/A
 
 ### Scoring for Sprint Race
 
@@ -43,35 +44,28 @@ The scoring system is designed to reward the accuracy of predictions, with a gre
 | --- | --- | --- |
 | Sprint Pole | 5 points | N/A |
 | Sprint Winner | 8 points | N/A |
+| Sprint 2nd Place | 5 points | 3 |
+| Sprint 3rd Place | 3 points | 1 |
 
 ### Bonuses
 
-Bonuses are not cumulative; only the highest achieved bonus is awarded.
-
 *   **Perfect Podium**: 10 additional points if the 3 podium drivers are correctly predicted in the exact order.
-*   **Perfect Top 5**: 15 additional points if the top 5 drivers are correctly predicted in the exact order.
-*   **Perfect Top 10**: 22 additional points if the top 10 drivers are correctly predicted in the exact order (very difficult!).
+*   **Perfect Top 5**: 10 additional points if the top 5 drivers are correctly predicted in the exact order.
+*   **Perfect Sprint Podium**: 5 additional points if the 3 podium drivers are correctly predicted in the exact order.
 
 ### Maximum Possible Score
 
-The maximum scores are calculated as follows:
-
-*   **Regular Weekend**: 100 points
-    *   **Base Points (all correct positions):** 78 points
-    *   **Perfect Top 10 Bonus:** 22 points
-*   **Sprint Weekend**: 113 points
-    *   **Max Regular Weekend Score:** 100 points
-    *   **Sprint Pole:** 5 points
-    *   **Sprint Winner:** 8 points
+#### Normal Weekend: 74 points
+#### Sprint Weekend: 100 points
 
 ## Additional Rules
 
 1.  **Prediction Deadlines**:
-    *   For qualifying/pole: Predictions must be submitted at least 1 hour before the start of the qualifying session.
-    *   For the race/sprint: Predictions must be submitted at least 1 hour before the start of the corresponding race.
+    *   Predictions must be submitted at least 1 hour before the start of the qualifying session.
+    *   In case of sprint weekend, predictions must be at least 1 hour before the start of the sprint qualifying session.
 2.  **Modifications**:
     *   Users can modify their predictions until the deadline.
-    *   No modifications will be allowed after the deadline under any circumstances.
+    *   No modifications will be allowed after the deadline.
 3.  **Disqualifications and Penalties**:
     *   If a driver is disqualified after the race, the official post-penalty result will be considered.
     *   If a driver cannot participate in the race after predictions have closed, predictions including them will not receive points for that position.
@@ -79,7 +73,10 @@ The maximum scores are calculated as follows:
     *   In case of a tie in the overall standings, the tie will be broken by:
         1.  Highest number of perfect predictions (highest score in a single race)
         2.  Highest number of correctly predicted winners
-        3.  Highest number of correctly predicted podiums
+        3.  Highest number of correctly predicted 2nd places.
+        4.  Highest number of correctly predicted 3nd places.
+        5.  Highest number of correctly predicted 4nd places.
+        6.  Highest number of correctly predicted 5nd places.
 
 ## Leaderboard
 
@@ -97,15 +94,4 @@ The system will maintain an updated leaderboard after each race, showing:
 2.  User
 3.  Points
 4.  All season races prediction score
-5.  Highlight best prediction
-6.  Perfect predictions (if any)
 7.  Total season score
-
-## Future Improvements
-
-We will consider adding in future versions:
-
-*   Predictions for fastest lap
-*   Predictions for retirements
-*   Predictions for specific incidents (safety car, red flag, etc.)
-*   Predictions for duels between teammates
