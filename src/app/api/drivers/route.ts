@@ -9,16 +9,37 @@ import { prisma } from '@/lib/prisma';
  */
 export async function GET(request: NextRequest) {
     try {
-        const session = await auth();
-        // Verify authentication
-        if (!session?.user) {
-            return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-        }
-
         // Get query parameters
         const searchParams = request.nextUrl.searchParams;
         const activeFilter = searchParams.get('active');
         const teamFilter = searchParams.get('team');
+
+        // For basic driver list (no auth required)
+        if (!activeFilter && !teamFilter) {
+            const drivers = await prisma.driver.findMany({
+                where: {
+                    active: true,
+                },
+                orderBy: [
+                    { number: 'asc' }
+                ],
+                select: {
+                    id: true,
+                    number: true,
+                    fullname: true,
+                    team: true,
+                    active: true,
+                },
+            });
+
+            return NextResponse.json(drivers);
+        }
+
+        // For advanced filtering, require authentication
+        const session = await auth();
+        if (!session?.user) {
+            return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+        }
 
         // If activeFilter is not 'true' or 'false', set it to null
         const whereClause = {

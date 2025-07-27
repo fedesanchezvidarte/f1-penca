@@ -2,6 +2,7 @@
 
 import React from "react";
 import { Card, CardBody, Chip } from "@heroui/react";
+import { useRouter } from "next/navigation";
 import { Race } from "@/services/races";
 
 interface RaceCardProps {
@@ -34,7 +35,7 @@ function getStatusText(status: string) {
         case 'COMPLETED':
             return 'Completed';
         case 'LIVE':
-            return 'Live';
+            return 'LIVE';
         case 'UPCOMING':
             return 'Upcoming';
         default:
@@ -43,8 +44,24 @@ function getStatusText(status: string) {
 }
 
 export default function RaceCard({ race }: RaceCardProps) {
+    const router = useRouter();
+
+    const handleCardClick = (e: React.MouseEvent) => {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log('Clicking race card with ID:', race.id);
+        console.log('Navigating to:', `/races/${race.id}`);
+        router.push(`/races/${race.id}`);
+    };
+
     return (
-        <Card className="w-full h-32 hover:scale-105 transition-transform duration-200 bg-content1 border border-divider hover:border-primary/50 hover:shadow-lg">
+        <div 
+            className="cursor-pointer"
+            onClick={handleCardClick}
+        >
+            <Card 
+                className="w-full h-32 hover:scale-105 transition-transform duration-200 card-racing-translucent hover:border-primary/50 hover:shadow-lg"
+            >
             <CardBody className="p-4 flex flex-row justify-between items-start h-full">
                 {/* Left side content */}
                 <div className="flex flex-col justify-between h-full flex-1">
@@ -69,11 +86,11 @@ export default function RaceCard({ race }: RaceCardProps) {
                 {/* Right side content */}
                 <div className="flex flex-col items-center justify-between h-full ml-4">
                     {/* Points container */}
-                    <div className="flex flex-col items-center justify-center bg-gradient-to-br from-content2 to-content3 rounded-lg px-3 py-2 min-w-[60px] border border-divider">
-                        <p className="text-xs text-default-500 uppercase tracking-wider font-semibold">
+                    <div className="flex flex-col items-center justify-center bg-gradient-to-br from-content2 to-content3 rounded-lg px-3 py-2 min-w-[60px] border border-default-700/50 shadow-lg">
+                        <p className="text-xs text-white uppercase tracking-wider font-semibold">
                             POINTS
                         </p>
-                        <p className="text-2xl font-bold text-primary leading-none">
+                        <p className="text-3xl font-bold text-primary leading-none">
                             {race.userPoints || 0}
                         </p>
                     </div>
@@ -90,5 +107,6 @@ export default function RaceCard({ race }: RaceCardProps) {
                 </div>
             </CardBody>
         </Card>
+        </div>
     );
 }

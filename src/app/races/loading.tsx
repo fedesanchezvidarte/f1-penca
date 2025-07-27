@@ -9,7 +9,7 @@ export default function RacesLoading() {
             <div className="max-h-[calc(100vh-200px)] overflow-y-auto races-scroll">
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4 pb-4">
                     {Array.from({ length: 12 }).map((_, index) => (
-                        <Card key={index} className="w-full h-32 bg-content1 border border-divider">
+                        <Card key={index} className="w-full h-32 card-racing-translucent">
                             <CardBody className="p-4 flex flex-row justify-between items-start h-full">
                                 {/* Left side skeleton */}
                                 <div className="flex flex-col justify-between h-full flex-1">
@@ -22,9 +22,9 @@ export default function RacesLoading() {
 
                                 {/* Right side skeleton */}
                                 <div className="flex flex-col items-center justify-between h-full ml-4">
-                                    <div className="flex flex-col items-center justify-center bg-content2 rounded-lg px-3 py-2 min-w-[60px]">
-                                        <div className="h-3 w-12 bg-default-200 animate-pulse rounded mb-1"></div>
-                                        <div className="h-6 w-8 bg-default-200 animate-pulse rounded"></div>
+                                    <div className="flex flex-col items-center justify-center bg-gradient-to-br from-content2 to-content3 rounded-lg px-3 py-2 min-w-[60px] border border-default-700/50 shadow-lg">
+                                        <div className="h-3 w-12 bg-white/30 animate-pulse rounded mb-1"></div>
+                                        <div className="h-8 w-10 bg-primary/30 animate-pulse rounded"></div>
                                     </div>
                                     <div className="h-6 w-16 bg-default-200 animate-pulse rounded mt-2"></div>
                                 </div>

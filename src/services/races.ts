@@ -9,6 +9,7 @@ export interface Race {
     season: number;
     status: 'UPCOMING' | 'LIVE' | 'COMPLETED';
     resultsImported: boolean;
+    hasSprint: boolean;
     userPoints?: number;
 }
 
@@ -31,5 +32,23 @@ export async function getRacesWithUserPoints(season?: number) {
     } catch (error) {
         console.error('Error fetching races with user points:', error);
         throw error; // Re-throw to let the component handle it
+    }
+}
+
+export async function getRaceById(id: string) {
+    try {
+        const response = await fetch(`${API_BASE_URL}/api/races/${id}`, {
+            cache: 'no-store',
+            credentials: 'include',
+        });
+
+        if (!response.ok) {
+            throw new Error(`Failed to fetch race: ${response.status}`);
+        }
+
+        return await response.json();
+    } catch (error) {
+        console.error('Error fetching race:', error);
+        throw error;
     }
 }

@@ -7,6 +7,7 @@ interface AuthModalContextType {
   isOpen: boolean;
   onOpen: () => void;
   onClose: () => void;
+  openModal: () => void;
 }
 
 const AuthModalContext = createContext<AuthModalContextType | undefined>(undefined);
@@ -15,7 +16,7 @@ export function AuthModalProvider({ children }: { children: ReactNode }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
-    <AuthModalContext.Provider value={{ isOpen, onOpen, onClose }}>
+    <AuthModalContext.Provider value={{ isOpen, onOpen, onClose, openModal: onOpen }}>
       {children}
     </AuthModalContext.Provider>
   );
