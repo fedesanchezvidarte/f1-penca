@@ -7,12 +7,12 @@ export async function getStandings() {
         });
 
         if (!response.ok) {
-            throw new Error('Failed to fetch standings');
+            throw new Error(`Failed to fetch standings: ${response.status}`);
         }
 
         return await response.json();
     } catch (error) {
         console.error('Error fetching standings:', error);
-        return [];
+        throw error; // Re-throw to let the component handle it
     }
 }
