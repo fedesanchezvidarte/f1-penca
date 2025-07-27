@@ -3,7 +3,7 @@
 ## Frontend Architecture
 
 ### Core Framework
-- **Next.js 14+** (React 18+ with App Router)
+- **Next.js 14+**
   - Server-Side Rendering (SSR)
   - Static Site Generation (SSG)
   - API Routes for backend integration
@@ -27,11 +27,8 @@
   - SVG-based icons for performance
 
 ### Authentication
-- **NextAuth.js (Auth.js) v5**
-  - Google OAuth 2.0 provider
-  - Session management
-  - JWT token handling
-  - Role-based access control
+- **Fixed credentials**
+  - Test users with fixed credentials for beta stage
 
 ### State Management
 - **React State & Context**
@@ -76,12 +73,6 @@
   - Real-time race information
   - Driver and team data
   - Historical race results
-
-### Authentication Provider
-- **Google OAuth 2.0**
-  - Secure user authentication
-  - Profile information access
-  - No password management required
 
 ## Development Tools
 

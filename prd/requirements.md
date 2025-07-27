@@ -3,32 +3,27 @@
 ## Functional Requirements
 
 ### 1. User Authentication & Management
-- **REQ-1.1**: Users must authenticate via Google OAuth 2.0
+- **REQ-1.1**: Test Users must authenticate via simple fixed credentials 
 - **REQ-1.2**: System must support user profile creation and management
 - **REQ-1.3**: Users must have role-based access (User/Admin)
 - **REQ-1.4**: Users can update their display name and preferences
-- **REQ-1.5**: System must support account deletion and data privacy compliance
+- **REQ-1.5**: System must support account deletion
 
 ### 2. Prediction Management
 - **REQ-2.1**: Users can create predictions for:
-  - Race winners and podium positions (1st, 2nd, 3rd)
+  - Race winners and podium positions (1st, 2nd, 3rd, 4th, 5th)
   - Pole position (qualifying results)
   - Sprint race results (when applicable)
   - Top 10 finishing positions
 - **REQ-2.2**: Users can edit predictions until lockout time (1 hour before event)
-- **REQ-2.3**: Users can delete their predictions before lockout
+- **REQ-2.3**: Users can edit their predictions before lockout
 - **REQ-2.4**: System must prevent prediction changes after lockout
 - **REQ-2.5**: Users can view their prediction history
 
 ### 3. Leaderboard & Scoring
 - **REQ-3.1**: System must calculate scores based on defined point system
-- **REQ-3.2**: Leaderboards must be filterable by:
-  - Season/Year
-  - Individual races
-  - User groups
-  - Time periods
-- **REQ-3.3**: Real-time leaderboard updates after race completion
-- **REQ-3.4**: Display detailed scoring breakdown for each prediction
+- **REQ-3.2**: Leaderboard updates after race completion
+- **REQ-3.3**: Display detailed scoring breakdown for each prediction
 
 ### 4. Data Integration
 - **REQ-4.1**: Fetch real-time F1 data from OpenF1 API
@@ -40,9 +35,8 @@
 ### 5. Administrative Features
 - **REQ-5.1**: Admin dashboard for user management
 - **REQ-5.2**: Ability to manually override race results if needed
-- **REQ-5.3**: User moderation tools (suspend/ban accounts)
-- **REQ-5.4**: System health monitoring and reporting
-- **REQ-5.5**: Data export capabilities for analytics
+- **REQ-5.3**: System health monitoring and reporting
+- **REQ-5.4**: Data export capabilities for analytics
 
 ## Non-Functional Requirements
 
@@ -85,14 +79,3 @@
 - **REQ-11.2**: Timezone handling for global users
 - **REQ-11.3**: Currency and number formatting localization
 
-### 12. Social Features
-- **REQ-12.1**: Friend/follower system
-- **REQ-12.2**: Private group competitions
-- **REQ-12.3**: Social sharing capabilities
-- **REQ-12.4**: Comment and discussion features
-
-### 13. Advanced Analytics
-- **REQ-13.1**: User performance analytics
-- **REQ-13.2**: Prediction accuracy statistics
-- **REQ-13.3**: Historical trend analysis
-- **REQ-13.4**: Custom reporting tools

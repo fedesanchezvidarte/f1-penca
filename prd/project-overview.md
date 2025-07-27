@@ -24,7 +24,7 @@ F1 Penca aims to:
 
 ### Primary Goals
 1. **User Experience**: Deliver an intuitive, responsive prediction interface
-2. **Community Building**: Foster engagement through leaderboards and social features
+2. **Community Building**: Foster engagement through leaderboards
 3. **Data Integration**: Provide real-time F1 data from reliable sources
 4. **Scalability**: Build a robust platform capable of growth
 5. **Administration**: Offer comprehensive management tools for platform oversight
@@ -33,7 +33,6 @@ F1 Penca aims to:
 1. **Multi-language Support**: Expand accessibility globally
 2. **Mobile Optimization**: Ensure seamless mobile experience
 3. **Advanced Analytics**: Provide detailed user and prediction statistics
-4. **Social Features**: Enable user interactions and group competitions
 
 ## Target Audience
 
@@ -44,28 +43,7 @@ F1 Penca aims to:
 
 ### Secondary Users
 - **F1 Communities**: Online forums and fan groups
-- **Content Creators**: Streamers and YouTubers for engagement content
 
 ### Administrative Users
 - **Platform Administrators**: Managing users, content, and system health
 - **Moderators**: Ensuring community guidelines and fair play
-
-## Success Metrics
-
-### User Engagement
-- Monthly Active Users (MAU)
-- Prediction Submission Rate
-- Session Duration
-- User Retention Rate
-
-### Community Health
-- Leaderboard Participation
-- User-to-User Interactions
-- Community Growth Rate
-- User Satisfaction Scores
-
-### Technical Performance
-- Application Response Time
-- Data Accuracy Rate
-- System Uptime
-- Error Rate Tracking
