@@ -19,11 +19,16 @@ export async function GET() {
                 image: true,
                 totalPoints: true,
             },
-            orderBy: {
-                totalPoints: 'desc',
-            },
+            orderBy: [
+                {
+                    totalPoints: 'desc',
+                },
+                {
+                    name: 'asc', // Secondary sort by name for consistent ordering
+                }
+            ],
         });
-
+        
         return NextResponse.json(users);
     } catch (error) {
         console.error('Error fetching overall standings:', error);

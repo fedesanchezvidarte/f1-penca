@@ -2,8 +2,15 @@ const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:3
 
 export async function getStandings() {
     try {
-        const response = await fetch(`${API_BASE_URL}/api/standings`, {
+        // Add cache busting parameter to ensure fresh data
+        const timestamp = new Date().getTime();
+        const response = await fetch(`${API_BASE_URL}/api/standings?t=${timestamp}`, {
             cache: 'no-store', // Ensure fresh data
+            headers: {
+                'Cache-Control': 'no-cache, no-store, must-revalidate',
+                'Pragma': 'no-cache',
+                'Expires': '0'
+            }
         });
 
         if (!response.ok) {

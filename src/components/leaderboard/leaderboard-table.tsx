@@ -1,7 +1,8 @@
 "use client";
 
 import React from "react";
-import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, User, Pagination } from "@heroui/react";
+import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Pagination } from "@heroui/react";
+import { UserAvatar } from "../ui/user-avatar";
 
 interface Standing {
     id: string;
@@ -101,16 +102,16 @@ export default function LeaderboardTable({ standings }: LeaderboardTableProps) {
                             <TableRow key={user.id}>
                                 <TableCell>{globalIndex + 1}</TableCell>
                                 <TableCell>
-                                    <User
-                                        avatarProps={{
-                                            src: user.image || undefined,
-                                            size: "sm",
-                                        }}
-                                        name={user.name || 'User'}
-                                        classNames={{
-                                            name: "text-foreground",
-                                        }}
-                                    />
+                                    <div className="flex items-center gap-3">
+                                        <UserAvatar
+                                            name={user.name}
+                                            image={user.image}
+                                            size="sm"
+                                        />
+                                        <span className="text-foreground font-medium">
+                                            {user.name || 'User'}
+                                        </span>
+                                    </div>
                                 </TableCell>
                                 <TableCell className="font-bold text-emphasis">{user.totalPoints}</TableCell>
                             </TableRow>
