@@ -102,19 +102,17 @@ export default function RaceOverview({ race, prediction }: RaceOverviewProps) {
                         </Chip>
                     </div>
 
-                    {/* Sprint Badge */}
-                    {race.hasSprint && (
-                        <div className="mb-4">
-                            <Chip 
-                                color="secondary"
-                                size="sm" 
-                                variant="flat"
-                                className="font-medium"
-                            >
-                                Sprint Weekend
-                            </Chip>
-                        </div>
-                    )}
+                    {/* Weekend Type Badge */}
+                    <div className="mb-4">
+                        <Chip 
+                            color={race.hasSprint ? "danger" : "secondary"}
+                            size="sm" 
+                            variant="flat"
+                            className="font-medium"
+                        >
+                            {race.hasSprint ? "Sprint Weekend" : "Regular Weekend"}
+                        </Chip>
+                    </div>
                 </div>
 
                 {/* Action Button */}

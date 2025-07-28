@@ -10,13 +10,23 @@
 		"active": true
 	},
 	{
+		"number": 22,
+		"code": "TSU",
+		"firstname": "Yuki",
+		"lastname": "Tsunoda",
+		"fullname": "Yuki Tsunoda",
+		"nationality": "Japanese",
+		"team": "Red Bull Racing",
+		"active": true
+	},
+	{
 		"number": 44,
 		"code": "HAM",
 		"firstname": "Lewis",
 		"lastname": "Hamilton",
 		"fullname": "Lewis Hamilton",
 		"nationality": "British",
-		"team": "Mercedes",
+		"team": "Ferrari",
 		"active": true
 	},
 	{
@@ -30,36 +40,6 @@
 		"active": true
 	},
 	{
-		"number": 4,
-		"code": "NOR",
-		"firstname": "Lando",
-		"lastname": "Norris",
-		"fullname": "Lando Norris",
-		"nationality": "British",
-		"team": "McLaren",
-		"active": true
-	},
-	{
-		"number": 55,
-		"code": "SAI",
-		"firstname": "Carlos",
-		"lastname": "Sainz",
-		"fullname": "Carlos Sainz",
-		"nationality": "Spanish",
-		"team": "Ferrari",
-		"active": true
-	},
-	{
-		"number": 11,
-		"code": "PER",
-		"firstname": "Sergio",
-		"lastname": "Perez",
-		"fullname": "Sergio Perez",
-		"nationality": "Mexican",
-		"team": "Red Bull Racing",
-		"active": true
-	},
-	{
 		"number": 63,
 		"code": "RUS",
 		"firstname": "George",
@@ -67,6 +47,26 @@
 		"fullname": "George Russell",
 		"nationality": "British",
 		"team": "Mercedes",
+		"active": true
+	},
+	{
+		"number": 12,
+		"code": "ANT",
+		"firstname": "Kimi",
+		"lastname": "Antonelli",
+		"fullname": "Kimi Antonelli",
+		"nationality": "Italian",
+		"team": "Mercedes",
+		"active": true
+	},
+	{
+		"number": 4,
+		"code": "NOR",
+		"firstname": "Lando",
+		"lastname": "Norris",
+		"fullname": "Lando Norris",
+		"nationality": "British",
+		"team": "McLaren",
 		"active": true
 	},
 	{
@@ -100,23 +100,23 @@
 		"active": true
 	},
 	{
-		"number": 10,
-		"code": "GAS",
-		"firstname": "Pierre",
-		"lastname": "Gasly",
-		"fullname": "Pierre Gasly",
-		"nationality": "French",
-		"team": "Alpine",
-		"active": true
-	},
-	{
 		"number": 31,
 		"code": "OCO",
 		"firstname": "Esteban",
 		"lastname": "Ocon",
 		"fullname": "Esteban Ocon",
 		"nationality": "French",
-		"team": "Alpine",
+		"team": "Haas F1 Team",
+		"active": true
+	},
+	{
+		"number": 50,
+		"code": "BEA",
+		"firstname": "Oliver",
+		"lastname": "Bearman",
+		"fullname": "Oliver Bearman",
+		"nationality": "British",
+		"team": "Haas F1 Team",
 		"active": true
 	},
 	{
@@ -130,43 +130,13 @@
 		"active": true
 	},
 	{
-		"number": 2,
-		"code": "SAR",
-		"firstname": "Logan",
-		"lastname": "Sargeant",
-		"fullname": "Logan Sargeant",
-		"nationality": "American",
+		"number": 55,
+		"code": "SAI",
+		"firstname": "Carlos",
+		"lastname": "Sainz",
+		"fullname": "Carlos Sainz",
+		"nationality": "Spanish",
 		"team": "Williams",
-		"active": true
-	},
-	{
-		"number": 77,
-		"code": "BOT",
-		"firstname": "Valtteri",
-		"lastname": "Bottas",
-		"fullname": "Valtteri Bottas",
-		"nationality": "Finnish",
-		"team": "Stake F1 Team",
-		"active": true
-	},
-	{
-		"number": 24,
-		"code": "ZHO",
-		"firstname": "Guanyu",
-		"lastname": "Zhou",
-		"fullname": "Guanyu Zhou",
-		"nationality": "Chinese",
-		"team": "Stake F1 Team",
-		"active": true
-	},
-	{
-		"number": 20,
-		"code": "MAG",
-		"firstname": "Kevin",
-		"lastname": "Magnussen",
-		"fullname": "Kevin Magnussen",
-		"nationality": "Danish",
-		"team": "Haas F1 Team",
 		"active": true
 	},
 	{
@@ -176,37 +146,67 @@
 		"lastname": "Hulkenberg",
 		"fullname": "Nico Hulkenberg",
 		"nationality": "German",
-		"team": "Haas F1 Team",
+		"team": "Kick Sauber",
 		"active": true
 	},
 	{
-		"number": 3,
-		"code": "RIC",
-		"firstname": "Daniel",
-		"lastname": "Ricciardo",
-		"fullname": "Daniel Ricciardo",
+		"number": 5,
+		"code": "BOR",
+		"firstname": "Gabriel",
+		"lastname": "Bortoleto",
+		"fullname": "Gabriel Bortoleto",
+		"nationality": "Brazilian",
+		"team": "Kick Sauber",
+		"active": true
+	},
+	{
+		"number": 30,
+		"code": "LAW",
+		"firstname": "Liam",
+		"lastname": "Lawson",
+		"fullname": "Liam Lawson",
+		"nationality": "New Zealand",
+		"team": "Racing Bulls",
+		"active": true
+	},
+	{
+		"number": 6,
+		"code": "HAD",
+		"firstname": "Isack",
+		"lastname": "Hadjar",
+		"fullname": "Isack Hadjar",
+		"nationality": "French",
+		"team": "Racing Bulls",
+		"active": true
+	},
+	{
+		"number": 10,
+		"code": "GAS",
+		"firstname": "Pierre",
+		"lastname": "Gasly",
+		"fullname": "Pierre Gasly",
+		"nationality": "French",
+		"team": "Alpine",
+		"active": true
+	},
+	{
+		"number": 43,
+		"code": "COL",
+		"firstname": "Franco",
+		"lastname": "Colapinto",
+		"fullname": "Franco Colapinto",
+		"nationality": "Argentine",
+		"team": "Alpine",
+		"active": true
+	},
+	{
+		"number": 7,
+		"code": "DOU",
+		"firstname": "Jack",
+		"lastname": "Doohan",
+		"fullname": "Jack Doohan",
 		"nationality": "Australian",
-		"team": "RB",
-		"active": true
-	},
-	{
-		"number": 22,
-		"code": "TSU",
-		"firstname": "Yuki",
-		"lastname": "Tsunoda",
-		"fullname": "Yuki Tsunoda",
-		"nationality": "Japanese",
-		"team": "RB",
-		"active": true
-	},
-	{
-		"number": 12,
-		"code": "ANT",
-		"firstname": "Andrea",
-		"lastname": "Antonelli",
-		"fullname": "Andrea Antonelli",
-		"nationality": "Italian",
-		"team": "Mercedes",
-		"active": true
+		"team": "Alpine",
+		"active": false
 	}
 ]
