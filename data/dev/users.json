@@ -1,8 +1,16 @@
 [
 	{
+		"id": "testUser",
+		"email": "test@test.com",
+		"name": "Test User",
+		"password": "password",
+		"image": "",
+		"totalPoints": 0
+	},
+	{
 		"id": "betaUser1",
-		"email": "fedesanchezvidarte@gmail.com",
-		"name": "Federico Sánchez",
+		"email": "betauser1@test.com",
+		"name": "Beta User 1",
 		"password": "password",
 		"image": "",
 		"totalPoints": 0

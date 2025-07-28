@@ -57,7 +57,8 @@ export default function RacePredictionPage() {
 
                 if (predictionData.status === "fulfilled") {
                     setPrediction(predictionData.value);
-                } else if (predictionData.reason?.message !== "Prediction not found") {
+                } else {
+                    // Only log as warning if it's not a 404 (prediction not found)
                     console.warn("Failed to fetch prediction:", predictionData.reason);
                 }
 
@@ -112,13 +113,13 @@ export default function RacePredictionPage() {
 
     return (
         <div className="container mx-auto px-6 py-8">
-            <h1 className="text-4xl font-bold text-foreground mb-8">
+            <h1 className="text-3xl font-bold mb-6 text-center text-foreground">
                 Race Prediction
             </h1>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
                 {/* Left Panel - Race Overview */}
-                <div className="lg:col-span-1">
+                <div>
                     <RaceOverview 
                         race={race} 
                         prediction={prediction}
@@ -127,7 +128,7 @@ export default function RacePredictionPage() {
                 </div>
 
                 {/* Right Panel - Prediction Form */}
-                <div className="lg:col-span-2">
+                <div>
                     <PredictionForm 
                         race={race}
                         drivers={drivers}

@@ -32,7 +32,7 @@ enum UserRole {
 }
 
 model Driver {
-  id          String  @id @default(cuid())
+  id          String  @id
   number      Int     @unique
   code        String  @unique
   firstname   String

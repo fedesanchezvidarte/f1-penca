@@ -1,542 +1,714 @@
 [
-  {
-    "userId": "betaUser1",
-    "raceId": "2025-australian-grand-prix",
-    "positions": ["NOR", "VER", "RUS", "PIA", "ALB"],
-    "polePositionPrediction": "VER",
-    "fastestLapPrediction": "NOR",
-    "sprintPositions": null,
-    "sprintPolePrediction": null
-  },
-  {
-    "userId": "betaUser2",
-    "raceId": "2025-australian-grand-prix",
-    "positions": ["VER", "NOR", "PIA", "RUS", "ALB"],
-    "polePositionPrediction": "NOR",
-    "fastestLapPrediction": "VER",
-    "sprintPositions": null,
-    "sprintPolePrediction": null
-  },
-  {
-    "userId": "betaUser3",
-    "raceId": "2025-australian-grand-prix",
-    "positions": ["RUS", "VER", "NOR", "ALB", "PIA"],
-    "polePositionPrediction": "NOR",
-    "fastestLapPrediction": "VER",
-    "sprintPositions": null,
-    "sprintPolePrediction": null
-  },
-  {
-    "userId": "betaUser4",
-    "raceId": "2025-australian-grand-prix",
-    "positions": ["VER", "RUS", "NOR", "PIA", "LEC"],
-    "polePositionPrediction": "VER",
-    "fastestLapPrediction": "NOR",
-    "sprintPositions": null,
-    "sprintPolePrediction": null
-  },
-  {
-    "userId": "betaUser5",
-    "raceId": "2025-australian-grand-prix",
-    "positions": ["NOR", "PIA", "VER", "RUS", "ALB"],
-    "polePositionPrediction": "NOR",
-    "fastestLapPrediction": "PIA",
-    "sprintPositions": null,
-    "sprintPolePrediction": null
-  },
-  {
-    "userId": "betaUser1",
-    "raceId": "2025-chinese-grand-prix",
-    "positions": ["PIA", "NOR", "VER", "RUS", "OCO"],
-    "polePositionPrediction": "NOR",
-    "fastestLapPrediction": "VER",
-    "sprintPositions": ["VER", "HAM", "PIA"],
-    "sprintPolePrediction": "VER"
-  },
-  {
-    "userId": "betaUser2",
-    "raceId": "2025-chinese-grand-prix",
-    "positions": ["VER", "PIA", "NOR", "RUS", "HAM"],
-    "polePositionPrediction": "VER",
-    "fastestLapPrediction": "NOR",
-    "sprintPositions": ["HAM", "VER", "PIA"],
-    "sprintPolePrediction": "HAM"
-  },
-  {
-    "userId": "betaUser3",
-    "raceId": "2025-chinese-grand-prix",
-    "positions": ["NOR", "PIA", "VER", "HAM", "RUS"],
-    "polePositionPrediction": "PIA",
-    "fastestLapPrediction": "NOR",
-    "sprintPositions": ["VER", "PIA", "HAM"],
-    "sprintPolePrediction": "VER"
-  },
-  {
-    "userId": "betaUser4",
-    "raceId": "2025-chinese-grand-prix",
-    "positions": ["PIA", "VER", "NOR", "OCO", "RUS"],
-    "polePositionPrediction": "PIA",
-    "fastestLapPrediction": "PIA",
-    "sprintPositions": ["HAM", "PIA", "VER"],
-    "sprintPolePrediction": "HAM"
-  },
-  {
-    "userId": "betaUser5",
-    "raceId": "2025-chinese-grand-prix",
-    "positions": ["VER", "NOR", "PIA", "RUS", "HAM"],
-    "polePositionPrediction": "VER",
-    "fastestLapPrediction": "NOR",
-    "sprintPositions": ["VER", "HAM", "PIA"],
-    "sprintPolePrediction": "VER"
-  },
-  {
-    "userId": "betaUser1",
-    "raceId": "2025-japanese-grand-prix",
-    "positions": ["VER", "NOR", "PIA", "LEC", "RUS"],
-    "polePositionPrediction": "VER",
-    "fastestLapPrediction": "VER",
-    "sprintPositions": null,
-    "sprintPolePrediction": null
-  },
-  {
-    "userId": "betaUser2",
-    "raceId": "2025-japanese-grand-prix",
-    "positions": ["NOR", "VER", "LEC", "PIA", "RUS"],
-    "polePositionPrediction": "NOR",
-    "fastestLapPrediction": "VER",
-    "sprintPositions": null,
-    "sprintPolePrediction": null
-  },
-  {
-    "userId": "betaUser3",
-    "raceId": "2025-japanese-grand-prix",
-    "positions": ["VER", "LEC", "NOR", "RUS", "PIA"],
-    "polePositionPrediction": "VER",
-    "fastestLapPrediction": "LEC",
-    "sprintPositions": null,
-    "sprintPolePrediction": null
-  },
-  {
-    "userId": "betaUser4",
-    "raceId": "2025-japanese-grand-prix",
-    "positions": ["LEC", "VER", "NOR", "PIA", "HAM"],
-    "polePositionPrediction": "LEC",
-    "fastestLapPrediction": "VER",
-    "sprintPositions": null,
-    "sprintPolePrediction": null
-  },
-  {
-    "userId": "betaUser5",
-    "raceId": "2025-japanese-grand-prix",
-    "positions": ["VER", "NOR", "PIA", "RUS", "LEC"],
-    "polePositionPrediction": "VER",
-    "fastestLapPrediction": "NOR",
-    "sprintPositions": null,
-    "sprintPolePrediction": null
-  },
-  {
-    "userId": "betaUser1",
-    "raceId": "2025-bahrain-grand-prix",
-    "positions": ["VER", "PIA", "NOR", "LEC", "RUS"],
-    "polePositionPrediction": "VER",
-    "fastestLapPrediction": "VER",
-    "sprintPositions": null,
-    "sprintPolePrediction": null
-  },
-  {
-    "userId": "betaUser2",
-    "raceId": "2025-bahrain-grand-prix",
-    "positions": ["PIA", "VER", "NOR", "LEC", "HAM"],
-    "polePositionPrediction": "VER",
-    "fastestLapPrediction": "PIA",
-    "sprintPositions": null,
-    "sprintPolePrediction": null
-  },
-  {
-    "userId": "betaUser3",
-    "raceId": "2025-bahrain-grand-prix",
-    "positions": ["NOR", "PIA", "VER", "HAM", "LEC"],
-    "polePositionPrediction": "NOR",
-    "fastestLapPrediction": "VER",
-    "sprintPositions": null,
-    "sprintPolePrediction": null
-  },
-  {
-    "userId": "betaUser4",
-    "raceId": "2025-bahrain-grand-prix",
-    "positions": ["PIA", "NOR", "VER", "RUS", "LEC"],
-    "polePositionPrediction": "PIA",
-    "fastestLapPrediction": "NOR",
-    "sprintPositions": null,
-    "sprintPolePrediction": null
-  },
-  {
-    "userId": "betaUser5",
-    "raceId": "2025-bahrain-grand-prix",
-    "positions": ["VER", "PIA", "LEC", "NOR", "RUS"],
-    "polePositionPrediction": "VER",
-    "fastestLapPrediction": "PIA",
-    "sprintPositions": null,
-    "sprintPolePrediction": null
-  },
-  {
-    "userId": "betaUser1",
-    "raceId": "2025-saudi-arabian-grand-prix",
-    "positions": ["VER", "PIA", "LEC", "NOR", "RUS"],
-    "polePositionPrediction": "VER",
-    "fastestLapPrediction": "VER",
-    "sprintPositions": null,
-    "sprintPolePrediction": null
-  },
-  {
-    "userId": "betaUser2",
-    "raceId": "2025-saudi-arabian-grand-prix",
-    "positions": ["PIA", "VER", "NOR", "LEC", "RUS"],
-    "polePositionPrediction": "VER",
-    "fastestLapPrediction": "NOR",
-    "sprintPositions": null,
-    "sprintPolePrediction": null
-  },
-  {
-    "userId": "betaUser3",
-    "raceId": "2025-saudi-arabian-grand-prix",
-    "positions": ["VER", "NOR", "PIA", "LEC", "HAM"],
-    "polePositionPrediction": "VER",
-    "fastestLapPrediction": "VER",
-    "sprintPositions": null,
-    "sprintPolePrediction": null
-  },
-  {
-    "userId": "betaUser4",
-    "raceId": "2025-saudi-arabian-grand-prix",
-    "positions": ["NOR", "VER", "PIA", "LEC", "RUS"],
-    "polePositionPrediction": "NOR",
-    "fastestLapPrediction": "VER",
-    "sprintPositions": null,
-    "sprintPolePrediction": null
-  },
-  {
-    "userId": "betaUser5",
-    "raceId": "2025-saudi-arabian-grand-prix",
-    "positions": ["VER", "PIA", "NOR", "RUS", "LEC"],
-    "polePositionPrediction": "VER",
-    "fastestLapPrediction": "NOR",
-    "sprintPositions": null,
-    "sprintPolePrediction": null
-  },
-  {
-    "userId": "betaUser1",
-    "raceId": "2025-miami-grand-prix",
-    "positions": ["VER", "NOR", "PIA", "RUS", "ALB"],
-    "polePositionPrediction": "VER",
-    "fastestLapPrediction": "VER",
-    "sprintPositions": ["VER", "NOR", "PIA"],
-    "sprintPolePrediction": "VER"
-  },
-  {
-    "userId": "betaUser2",
-    "raceId": "2025-miami-grand-prix",
-    "positions": ["NOR", "PIA", "VER", "RUS", "HAM"],
-    "polePositionPrediction": "NOR",
-    "fastestLapPrediction": "NOR",
-    "sprintPositions": ["NOR", "PIA", "VER"],
-    "sprintPolePrediction": "NOR"
-  },
-  {
-    "userId": "betaUser3",
-    "raceId": "2025-miami-grand-prix",
-    "positions": ["PIA", "VER", "NOR", "ALB", "RUS"],
-    "polePositionPrediction": "PIA",
-    "fastestLapPrediction": "VER",
-    "sprintPositions": ["VER", "PIA", "NOR"],
-    "sprintPolePrediction": "VER"
-  },
-  {
-    "userId": "betaUser4",
-    "raceId": "2025-miami-grand-prix",
-    "positions": ["VER", "PIA", "NOR", "RUS", "ALB"],
-    "polePositionPrediction": "VER",
-    "fastestLapPrediction": "PIA",
-    "sprintPositions": ["PIA", "NOR", "VER"],
-    "sprintPolePrediction": "PIA"
-  },
-  {
-    "userId": "betaUser5",
-    "raceId": "2025-miami-grand-prix",
-    "positions": ["NOR", "PIA", "VER", "HAM", "RUS"],
-    "polePositionPrediction": "NOR",
-    "fastestLapPrediction": "NOR",
-    "sprintPositions": ["NOR", "VER", "HAM"],
-    "sprintPolePrediction": "NOR"
-  },
-  {
-    "userId": "betaUser1",
-    "raceId": "2025-emilia-romagna-grand-prix",
-    "positions": ["VER", "NOR", "PIA", "HAM", "ALB"],
-    "polePositionPrediction": "VER",
-    "fastestLapPrediction": "VER",
-    "sprintPositions": null,
-    "sprintPolePrediction": null
-  },
-  {
-    "userId": "betaUser2",
-    "raceId": "2025-emilia-romagna-grand-prix",
-    "positions": ["NOR", "VER", "PIA", "LEC", "HAM"],
-    "polePositionPrediction": "NOR",
-    "fastestLapPrediction": "VER",
-    "sprintPositions": null,
-    "sprintPolePrediction": null
-  },
-  {
-    "userId": "betaUser3",
-    "raceId": "2025-emilia-romagna-grand-prix",
-    "positions": ["PIA", "VER", "NOR", "HAM", "LEC"],
-    "polePositionPrediction": "PIA",
-    "fastestLapPrediction": "VER",
-    "sprintPositions": null,
-    "sprintPolePrediction": null
-  },
-  {
-    "userId": "betaUser4",
-    "raceId": "2025-emilia-romagna-grand-prix",
-    "positions": ["VER", "PIA", "NOR", "ALB", "HAM"],
-    "polePositionPrediction": "VER",
-    "fastestLapPrediction": "PIA",
-    "sprintPositions": null,
-    "sprintPolePrediction": null
-  },
-  {
-    "userId": "betaUser5",
-    "raceId": "2025-emilia-romagna-grand-prix",
-    "positions": ["NOR", "VER", "HAM", "PIA", "LEC"],
-    "polePositionPrediction": "NOR",
-    "fastestLapPrediction": "NOR",
-    "sprintPositions": null,
-    "sprintPolePrediction": null
-  },
-  {
-    "userId": "betaUser1",
-    "raceId": "2025-monaco-grand-prix",
-    "positions": ["NOR", "LEC", "VER", "PIA", "HAM"],
-    "polePositionPrediction": "NOR",
-    "fastestLapPrediction": "VER",
-    "sprintPositions": null,
-    "sprintPolePrediction": null
-  },
-  {
-    "userId": "betaUser2",
-    "raceId": "2025-monaco-grand-prix",
-    "positions": ["LEC", "NOR", "VER", "PIA", "RUS"],
-    "polePositionPrediction": "LEC",
-    "fastestLapPrediction": "NOR",
-    "sprintPositions": null,
-    "sprintPolePrediction": null
-  },
-  {
-    "userId": "betaUser3",
-    "raceId": "2025-monaco-grand-prix",
-    "positions": ["VER", "NOR", "LEC", "HAM", "PIA"],
-    "polePositionPrediction": "VER",
-    "fastestLapPrediction": "VER",
-    "sprintPositions": null,
-    "sprintPolePrediction": null
-  },
-  {
-    "userId": "betaUser4",
-    "raceId": "2025-monaco-grand-prix",
-    "positions": ["NOR", "VER", "LEC", "PIA", "HAM"],
-    "polePositionPrediction": "NOR",
-    "fastestLapPrediction": "LEC",
-    "sprintPositions": null,
-    "sprintPolePrediction": null
-  },
-  {
-    "userId": "betaUser5",
-    "raceId": "2025-monaco-grand-prix",
-    "positions": ["LEC", "VER", "NOR", "PIA", "RUS"],
-    "polePositionPrediction": "LEC",
-    "fastestLapPrediction": "NOR",
-    "sprintPositions": null,
-    "sprintPolePrediction": null
-  },
-  {
-    "userId": "betaUser1",
-    "raceId": "2025-spanish-grand-prix",
-    "positions": ["VER", "PIA", "NOR", "LEC", "RUS"],
-    "polePositionPrediction": "VER",
-    "fastestLapPrediction": "VER",
-    "sprintPositions": null,
-    "sprintPolePrediction": null
-  },
-  {
-    "userId": "betaUser2",
-    "raceId": "2025-spanish-grand-prix",
-    "positions": ["PIA", "NOR", "VER", "LEC", "HAM"],
-    "polePositionPrediction": "PIA",
-    "fastestLapPrediction": "NOR",
-    "sprintPositions": null,
-    "sprintPolePrediction": null
-  },
-  {
-    "userId": "betaUser3",
-    "raceId": "2025-spanish-grand-prix",
-    "positions": ["NOR", "VER", "PIA", "RUS", "LEC"],
-    "polePositionPrediction": "NOR",
-    "fastestLapPrediction": "VER",
-    "sprintPositions": null,
-    "sprintPolePrediction": null
-  },
-  {
-    "userId": "betaUser4",
-    "raceId": "2025-spanish-grand-prix",
-    "positions": ["PIA", "VER", "NOR", "LEC", "RUS"],
-    "polePositionPrediction": "PIA",
-    "fastestLapPrediction": "PIA",
-    "sprintPositions": null,
-    "sprintPolePrediction": null
-  },
-  {
-    "userId": "betaUser5",
-    "raceId": "2025-spanish-grand-prix",
-    "positions": ["VER", "NOR", "PIA", "LEC", "HUL"],
-    "polePositionPrediction": "VER",
-    "fastestLapPrediction": "NOR",
-    "sprintPositions": null,
-    "sprintPolePrediction": null
-  },
-  {
-    "userId": "betaUser1",
-    "raceId": "2025-canadian-grand-prix",
-    "positions": ["VER", "RUS", "NOR", "PIA", "LEC"],
-    "polePositionPrediction": "VER",
-    "fastestLapPrediction": "VER",
-    "sprintPositions": null,
-    "sprintPolePrediction": null
-  },
-  {
-    "userId": "betaUser2",
-    "raceId": "2025-canadian-grand-prix",
-    "positions": ["RUS", "VER", "NOR", "LEC", "PIA"],
-    "polePositionPrediction": "RUS",
-    "fastestLapPrediction": "VER",
-    "sprintPositions": null,
-    "sprintPolePrediction": null
-  },
-  {
-    "userId": "betaUser3",
-    "raceId": "2025-canadian-grand-prix",
-    "positions": ["NOR", "VER", "RUS", "PIA", "HAM"],
-    "polePositionPrediction": "NOR",
-    "fastestLapPrediction": "VER",
-    "sprintPositions": null,
-    "sprintPolePrediction": null
-  },
-  {
-    "userId": "betaUser4",
-    "raceId": "2025-canadian-grand-prix",
-    "positions": ["VER", "NOR", "RUS", "LEC", "PIA"],
-    "polePositionPrediction": "VER",
-    "fastestLapPrediction": "NOR",
-    "sprintPositions": null,
-    "sprintPolePrediction": null
-  },
-  {
-    "userId": "betaUser5",
-    "raceId": "2025-canadian-grand-prix",
-    "positions": ["RUS", "NOR", "VER", "PIA", "LEC"],
-    "polePositionPrediction": "RUS",
-    "fastestLapPrediction": "RUS",
-    "sprintPositions": null,
-    "sprintPolePrediction": null
-  },
-  {
-    "userId": "betaUser1",
-    "raceId": "2025-austrian-grand-prix",
-    "positions": ["VER", "NOR", "PIA", "LEC", "HAM"],
-    "polePositionPrediction": "VER",
-    "fastestLapPrediction": "VER",
-    "sprintPositions": null,
-    "sprintPolePrediction": null
-  },
-  {
-    "userId": "betaUser2",
-    "raceId": "2025-austrian-grand-prix",
-    "positions": ["NOR", "VER", "PIA", "LEC", "RUS"],
-    "polePositionPrediction": "NOR",
-    "fastestLapPrediction": "NOR",
-    "sprintPositions": null,
-    "sprintPolePrediction": null
-  },
-  {
-    "userId": "betaUser3",
-    "raceId": "2025-austrian-grand-prix",
-    "positions": ["PIA", "NOR", "VER", "HAM", "LEC"],
-    "polePositionPrediction": "PIA",
-    "fastestLapPrediction": "VER",
-    "sprintPositions": null,
-    "sprintPolePrediction": null
-  },
-  {
-    "userId": "betaUser4",
-    "raceId": "2025-austrian-grand-prix",
-    "positions": ["VER", "PIA", "NOR", "LEC", "RUS"],
-    "polePositionPrediction": "VER",
-    "fastestLapPrediction": "PIA",
-    "sprintPositions": null,
-    "sprintPolePrediction": null
-  },
-  {
-    "userId": "betaUser5",
-    "raceId": "2025-austrian-grand-prix",
-    "positions": ["NOR", "VER", "PIA", "HAM", "LEC"],
-    "polePositionPrediction": "NOR",
-    "fastestLapPrediction": "NOR",
-    "sprintPositions": null,
-    "sprintPolePrediction": null
-  },
-  {
-    "userId": "betaUser1",
-    "raceId": "2025-british-grand-prix",
-    "positions": ["VER", "NOR", "PIA", "HAM", "LEC"],
-    "polePositionPrediction": "VER",
-    "fastestLapPrediction": "VER",
-    "sprintPositions": null,
-    "sprintPolePrediction": null
-  },
-  {
-    "userId": "betaUser2",
-    "raceId": "2025-british-grand-prix",
-    "positions": ["NOR", "VER", "PIA", "HAM", "RUS"],
-    "polePositionPrediction": "NOR",
-    "fastestLapPrediction": "NOR",
-    "sprintPositions": null,
-    "sprintPolePrediction": null
-  },
-  {
-    "userId": "betaUser3",
-    "raceId": "2025-british-grand-prix",
-    "positions": ["HAM", "NOR", "VER", "PIA", "LEC"],
-    "polePositionPrediction": "HAM",
-    "fastestLapPrediction": "VER",
-    "sprintPositions": null,
-    "sprintPolePrediction": null
-  },
-  {
-    "userId": "betaUser4",
-    "raceId": "2025-british-grand-prix",
-    "positions": ["VER", "HAM", "NOR", "PIA", "RUS"],
-    "polePositionPrediction": "VER",
-    "fastestLapPrediction": "HAM",
-    "sprintPositions": null,
-    "sprintPolePrediction": null
-  },
-  {
-    "userId": "betaUser5",
-    "raceId": "2025-british-grand-prix",
-    "positions": ["NOR", "PIA", "VER", "HAM", "HUL"],
-    "polePositionPrediction": "NOR",
-    "fastestLapPrediction": "NOR",
-    "sprintPositions": null,
-    "sprintPolePrediction": null
-  }
+	{
+		"userId": "testUser",
+		"raceId": "2025-australian-grand-prix",
+		"positions": ["VER", "NOR", "PIA", "RUS", "ALB"],
+		"polePositionPrediction": "NOR",
+		"fastestLapPrediction": "VER",
+		"sprintPositions": null,
+		"sprintPolePrediction": null
+	},
+	{
+		"userId": "testUser",
+		"raceId": "2025-chinese-grand-prix",
+		"positions": ["NOR", "VER", "RUS", "PIA", "HAM"],
+		"polePositionPrediction": "VER",
+		"fastestLapPrediction": "NOR",
+		"sprintPositions": ["VER", "NOR", "PIA"],
+		"sprintPolePrediction": "NOR"
+	},
+	{
+		"userId": "testUser",
+		"raceId": "2025-japanese-grand-prix",
+		"positions": ["RUS", "VER", "NOR", "LEC", "PIA"],
+		"polePositionPrediction": "VER",
+		"fastestLapPrediction": "RUS",
+		"sprintPositions": null,
+		"sprintPolePrediction": null
+	},
+	{
+		"userId": "testUser",
+		"raceId": "2025-bahrain-grand-prix",
+		"positions": ["VER", "LEC", "RUS", "NOR", "HAM"],
+		"polePositionPrediction": "LEC",
+		"fastestLapPrediction": "VER",
+		"sprintPositions": null,
+		"sprintPolePrediction": null
+	},
+	{
+		"userId": "testUser",
+		"raceId": "2025-saudi-arabian-grand-prix",
+		"positions": ["HAM", "VER", "LEC", "NOR", "RUS"],
+		"polePositionPrediction": "VER",
+		"fastestLapPrediction": "HAM",
+		"sprintPositions": null,
+		"sprintPolePrediction": null
+	},
+	{
+		"userId": "testUser",
+		"raceId": "2025-miami-grand-prix",
+		"positions": ["NOR", "PIA", "VER", "RUS", "ALB"],
+		"polePositionPrediction": "NOR",
+		"fastestLapPrediction": "PIA",
+		"sprintPositions": ["PIA", "NOR", "VER"],
+		"sprintPolePrediction": "PIA"
+	},
+	{
+		"userId": "testUser",
+		"raceId": "2025-emilia-romagna-grand-prix",
+		"positions": ["VER", "NOR", "HAM", "LEC", "GAS"],
+		"polePositionPrediction": "HAM",
+		"fastestLapPrediction": "VER",
+		"sprintPositions": null,
+		"sprintPolePrediction": null
+	},
+	{
+		"userId": "testUser",
+		"raceId": "2025-monaco-grand-prix",
+		"positions": ["LEC", "HAM", "VER", "NOR", "ALO"],
+		"polePositionPrediction": "LEC",
+		"fastestLapPrediction": "HAM",
+		"sprintPositions": null,
+		"sprintPolePrediction": null
+	},
+	{
+		"userId": "testUser",
+		"raceId": "2025-spanish-grand-prix",
+		"positions": ["VER", "NOR", "RUS", "PIA", "HAM"],
+		"polePositionPrediction": "NOR",
+		"fastestLapPrediction": "VER",
+		"sprintPositions": null,
+		"sprintPolePrediction": null
+	},
+	{
+		"userId": "testUser",
+		"raceId": "2025-canadian-grand-prix",
+		"positions": ["NOR", "VER", "RUS", "HAM", "LEC"],
+		"polePositionPrediction": "VER",
+		"fastestLapPrediction": "NOR",
+		"sprintPositions": null,
+		"sprintPolePrediction": null
+	},
+	{
+		"userId": "testUser",
+		"raceId": "2025-austrian-grand-prix",
+		"positions": ["VER", "NOR", "PIA", "RUS", "HUL"],
+		"polePositionPrediction": "VER",
+		"fastestLapPrediction": "VER",
+		"sprintPositions": null,
+		"sprintPolePrediction": null
+	},
+	{
+		"userId": "testUser",
+		"raceId": "2025-british-grand-prix",
+		"positions": ["HAM", "NOR", "VER", "RUS", "PIA"],
+		"polePositionPrediction": "HAM",
+		"fastestLapPrediction": "HAM",
+		"sprintPositions": null,
+		"sprintPolePrediction": null
+	},
+	{
+		"userId": "testUser",
+		"raceId": "2025-belgian-grand-prix",
+		"positions": ["VER", "NOR", "HAM", "RUS", "ALO"],
+		"polePositionPrediction": "NOR",
+		"fastestLapPrediction": "VER",
+		"sprintPositions": ["NOR", "VER", "HAM"],
+		"sprintPolePrediction": "VER"
+	},
+	{
+		"userId": "betaUser2",
+		"raceId": "2025-australian-grand-prix",
+		"positions": ["VER", "NOR", "PIA", "RUS", "ALB"],
+		"polePositionPrediction": "NOR",
+		"fastestLapPrediction": "VER",
+		"sprintPositions": null,
+		"sprintPolePrediction": null
+	},
+	{
+		"userId": "betaUser2",
+		"raceId": "2025-chinese-grand-prix",
+		"positions": ["HAM", "LEC", "VER", "NOR", "RUS"],
+		"polePositionPrediction": "LEC",
+		"fastestLapPrediction": "HAM",
+		"sprintPositions": ["LEC", "HAM", "VER"],
+		"sprintPolePrediction": "HAM"
+	},
+	{
+		"userId": "betaUser3",
+		"raceId": "2025-australian-grand-prix",
+		"positions": ["RUS", "VER", "NOR", "ALB", "PIA"],
+		"polePositionPrediction": "NOR",
+		"fastestLapPrediction": "VER",
+		"sprintPositions": null,
+		"sprintPolePrediction": null
+	},
+	{
+		"userId": "betaUser3",
+		"raceId": "2025-chinese-grand-prix",
+		"positions": ["NOR", "PIA", "VER", "RUS", "HAM"],
+		"polePositionPrediction": "VER",
+		"fastestLapPrediction": "NOR",
+		"sprintPositions": ["VER", "NOR", "RUS"],
+		"sprintPolePrediction": "VER"
+	},
+	{
+		"userId": "betaUser4",
+		"raceId": "2025-australian-grand-prix",
+		"positions": ["HAM", "LEC", "VER", "NOR", "GAS"],
+		"polePositionPrediction": "VER",
+		"fastestLapPrediction": "HAM",
+		"sprintPositions": null,
+		"sprintPolePrediction": null
+	},
+	{
+		"userId": "betaUser5",
+		"raceId": "2025-australian-grand-prix",
+		"positions": ["VER", "HAM", "LEC", "NOR", "ALO"],
+		"polePositionPrediction": "HAM",
+		"fastestLapPrediction": "VER",
+		"sprintPositions": null,
+		"sprintPolePrediction": null
+	},
+
+	{
+		"userId": "betaUser1",
+		"raceId": "2025-australian-grand-prix",
+		"positions": ["NOR", "VER", "RUS", "PIA", "ALB"],
+		"polePositionPrediction": "VER",
+		"fastestLapPrediction": "NOR",
+		"sprintPositions": null,
+		"sprintPolePrediction": null
+	},
+	{
+		"userId": "betaUser2",
+		"raceId": "2025-australian-grand-prix",
+		"positions": ["VER", "NOR", "PIA", "RUS", "ALB"],
+		"polePositionPrediction": "NOR",
+		"fastestLapPrediction": "VER",
+		"sprintPositions": null,
+		"sprintPolePrediction": null
+	},
+	{
+		"userId": "betaUser3",
+		"raceId": "2025-australian-grand-prix",
+		"positions": ["RUS", "VER", "NOR", "ALB", "PIA"],
+		"polePositionPrediction": "NOR",
+		"fastestLapPrediction": "VER",
+		"sprintPositions": null,
+		"sprintPolePrediction": null
+	},
+	{
+		"userId": "betaUser4",
+		"raceId": "2025-australian-grand-prix",
+		"positions": ["VER", "RUS", "NOR", "PIA", "LEC"],
+		"polePositionPrediction": "VER",
+		"fastestLapPrediction": "NOR",
+		"sprintPositions": null,
+		"sprintPolePrediction": null
+	},
+	{
+		"userId": "betaUser5",
+		"raceId": "2025-australian-grand-prix",
+		"positions": ["NOR", "PIA", "VER", "RUS", "ALB"],
+		"polePositionPrediction": "NOR",
+		"fastestLapPrediction": "PIA",
+		"sprintPositions": null,
+		"sprintPolePrediction": null
+	},
+	{
+		"userId": "betaUser1",
+		"raceId": "2025-chinese-grand-prix",
+		"positions": ["PIA", "NOR", "VER", "RUS", "OCO"],
+		"polePositionPrediction": "NOR",
+		"fastestLapPrediction": "VER",
+		"sprintPositions": ["VER", "HAM", "PIA"],
+		"sprintPolePrediction": "VER"
+	},
+	{
+		"userId": "betaUser2",
+		"raceId": "2025-chinese-grand-prix",
+		"positions": ["VER", "PIA", "NOR", "RUS", "HAM"],
+		"polePositionPrediction": "VER",
+		"fastestLapPrediction": "NOR",
+		"sprintPositions": ["HAM", "VER", "PIA"],
+		"sprintPolePrediction": "HAM"
+	},
+	{
+		"userId": "betaUser3",
+		"raceId": "2025-chinese-grand-prix",
+		"positions": ["NOR", "PIA", "VER", "HAM", "RUS"],
+		"polePositionPrediction": "PIA",
+		"fastestLapPrediction": "NOR",
+		"sprintPositions": ["VER", "PIA", "HAM"],
+		"sprintPolePrediction": "VER"
+	},
+	{
+		"userId": "betaUser4",
+		"raceId": "2025-chinese-grand-prix",
+		"positions": ["PIA", "VER", "NOR", "OCO", "RUS"],
+		"polePositionPrediction": "PIA",
+		"fastestLapPrediction": "PIA",
+		"sprintPositions": ["HAM", "PIA", "VER"],
+		"sprintPolePrediction": "HAM"
+	},
+	{
+		"userId": "betaUser5",
+		"raceId": "2025-chinese-grand-prix",
+		"positions": ["VER", "NOR", "PIA", "RUS", "HAM"],
+		"polePositionPrediction": "VER",
+		"fastestLapPrediction": "NOR",
+		"sprintPositions": ["VER", "HAM", "PIA"],
+		"sprintPolePrediction": "VER"
+	},
+	{
+		"userId": "betaUser1",
+		"raceId": "2025-japanese-grand-prix",
+		"positions": ["VER", "NOR", "PIA", "LEC", "RUS"],
+		"polePositionPrediction": "VER",
+		"fastestLapPrediction": "VER",
+		"sprintPositions": null,
+		"sprintPolePrediction": null
+	},
+	{
+		"userId": "betaUser2",
+		"raceId": "2025-japanese-grand-prix",
+		"positions": ["NOR", "VER", "LEC", "PIA", "RUS"],
+		"polePositionPrediction": "NOR",
+		"fastestLapPrediction": "VER",
+		"sprintPositions": null,
+		"sprintPolePrediction": null
+	},
+	{
+		"userId": "betaUser3",
+		"raceId": "2025-japanese-grand-prix",
+		"positions": ["VER", "LEC", "NOR", "RUS", "PIA"],
+		"polePositionPrediction": "VER",
+		"fastestLapPrediction": "LEC",
+		"sprintPositions": null,
+		"sprintPolePrediction": null
+	},
+	{
+		"userId": "betaUser4",
+		"raceId": "2025-japanese-grand-prix",
+		"positions": ["LEC", "VER", "NOR", "PIA", "HAM"],
+		"polePositionPrediction": "LEC",
+		"fastestLapPrediction": "VER",
+		"sprintPositions": null,
+		"sprintPolePrediction": null
+	},
+	{
+		"userId": "betaUser5",
+		"raceId": "2025-japanese-grand-prix",
+		"positions": ["VER", "NOR", "PIA", "RUS", "LEC"],
+		"polePositionPrediction": "VER",
+		"fastestLapPrediction": "NOR",
+		"sprintPositions": null,
+		"sprintPolePrediction": null
+	},
+	{
+		"userId": "betaUser1",
+		"raceId": "2025-bahrain-grand-prix",
+		"positions": ["VER", "PIA", "NOR", "LEC", "RUS"],
+		"polePositionPrediction": "VER",
+		"fastestLapPrediction": "VER",
+		"sprintPositions": null,
+		"sprintPolePrediction": null
+	},
+	{
+		"userId": "betaUser2",
+		"raceId": "2025-bahrain-grand-prix",
+		"positions": ["PIA", "VER", "NOR", "LEC", "HAM"],
+		"polePositionPrediction": "VER",
+		"fastestLapPrediction": "PIA",
+		"sprintPositions": null,
+		"sprintPolePrediction": null
+	},
+	{
+		"userId": "betaUser3",
+		"raceId": "2025-bahrain-grand-prix",
+		"positions": ["NOR", "PIA", "VER", "HAM", "LEC"],
+		"polePositionPrediction": "NOR",
+		"fastestLapPrediction": "VER",
+		"sprintPositions": null,
+		"sprintPolePrediction": null
+	},
+	{
+		"userId": "betaUser4",
+		"raceId": "2025-bahrain-grand-prix",
+		"positions": ["PIA", "NOR", "VER", "RUS", "LEC"],
+		"polePositionPrediction": "PIA",
+		"fastestLapPrediction": "NOR",
+		"sprintPositions": null,
+		"sprintPolePrediction": null
+	},
+	{
+		"userId": "betaUser5",
+		"raceId": "2025-bahrain-grand-prix",
+		"positions": ["VER", "PIA", "LEC", "NOR", "RUS"],
+		"polePositionPrediction": "VER",
+		"fastestLapPrediction": "PIA",
+		"sprintPositions": null,
+		"sprintPolePrediction": null
+	},
+	{
+		"userId": "betaUser1",
+		"raceId": "2025-saudi-arabian-grand-prix",
+		"positions": ["VER", "PIA", "LEC", "NOR", "RUS"],
+		"polePositionPrediction": "VER",
+		"fastestLapPrediction": "VER",
+		"sprintPositions": null,
+		"sprintPolePrediction": null
+	},
+	{
+		"userId": "betaUser2",
+		"raceId": "2025-saudi-arabian-grand-prix",
+		"positions": ["PIA", "VER", "NOR", "LEC", "RUS"],
+		"polePositionPrediction": "VER",
+		"fastestLapPrediction": "NOR",
+		"sprintPositions": null,
+		"sprintPolePrediction": null
+	},
+	{
+		"userId": "betaUser3",
+		"raceId": "2025-saudi-arabian-grand-prix",
+		"positions": ["VER", "NOR", "PIA", "LEC", "HAM"],
+		"polePositionPrediction": "VER",
+		"fastestLapPrediction": "VER",
+		"sprintPositions": null,
+		"sprintPolePrediction": null
+	},
+	{
+		"userId": "betaUser4",
+		"raceId": "2025-saudi-arabian-grand-prix",
+		"positions": ["NOR", "VER", "PIA", "LEC", "RUS"],
+		"polePositionPrediction": "NOR",
+		"fastestLapPrediction": "VER",
+		"sprintPositions": null,
+		"sprintPolePrediction": null
+	},
+	{
+		"userId": "betaUser5",
+		"raceId": "2025-saudi-arabian-grand-prix",
+		"positions": ["VER", "PIA", "NOR", "RUS", "LEC"],
+		"polePositionPrediction": "VER",
+		"fastestLapPrediction": "NOR",
+		"sprintPositions": null,
+		"sprintPolePrediction": null
+	},
+	{
+		"userId": "betaUser1",
+		"raceId": "2025-miami-grand-prix",
+		"positions": ["VER", "NOR", "PIA", "RUS", "ALB"],
+		"polePositionPrediction": "VER",
+		"fastestLapPrediction": "VER",
+		"sprintPositions": ["VER", "NOR", "PIA"],
+		"sprintPolePrediction": "VER"
+	},
+	{
+		"userId": "betaUser2",
+		"raceId": "2025-miami-grand-prix",
+		"positions": ["NOR", "PIA", "VER", "RUS", "HAM"],
+		"polePositionPrediction": "NOR",
+		"fastestLapPrediction": "NOR",
+		"sprintPositions": ["NOR", "PIA", "VER"],
+		"sprintPolePrediction": "NOR"
+	},
+	{
+		"userId": "betaUser3",
+		"raceId": "2025-miami-grand-prix",
+		"positions": ["PIA", "VER", "NOR", "ALB", "RUS"],
+		"polePositionPrediction": "PIA",
+		"fastestLapPrediction": "VER",
+		"sprintPositions": ["VER", "PIA", "NOR"],
+		"sprintPolePrediction": "VER"
+	},
+	{
+		"userId": "betaUser4",
+		"raceId": "2025-miami-grand-prix",
+		"positions": ["VER", "PIA", "NOR", "RUS", "ALB"],
+		"polePositionPrediction": "VER",
+		"fastestLapPrediction": "PIA",
+		"sprintPositions": ["PIA", "NOR", "VER"],
+		"sprintPolePrediction": "PIA"
+	},
+	{
+		"userId": "betaUser5",
+		"raceId": "2025-miami-grand-prix",
+		"positions": ["NOR", "PIA", "VER", "HAM", "RUS"],
+		"polePositionPrediction": "NOR",
+		"fastestLapPrediction": "NOR",
+		"sprintPositions": ["NOR", "VER", "HAM"],
+		"sprintPolePrediction": "NOR"
+	},
+	{
+		"userId": "betaUser1",
+		"raceId": "2025-emilia-romagna-grand-prix",
+		"positions": ["VER", "NOR", "PIA", "HAM", "ALB"],
+		"polePositionPrediction": "VER",
+		"fastestLapPrediction": "VER",
+		"sprintPositions": null,
+		"sprintPolePrediction": null
+	},
+	{
+		"userId": "betaUser2",
+		"raceId": "2025-emilia-romagna-grand-prix",
+		"positions": ["NOR", "VER", "PIA", "LEC", "HAM"],
+		"polePositionPrediction": "NOR",
+		"fastestLapPrediction": "VER",
+		"sprintPositions": null,
+		"sprintPolePrediction": null
+	},
+	{
+		"userId": "betaUser3",
+		"raceId": "2025-emilia-romagna-grand-prix",
+		"positions": ["PIA", "VER", "NOR", "HAM", "LEC"],
+		"polePositionPrediction": "PIA",
+		"fastestLapPrediction": "VER",
+		"sprintPositions": null,
+		"sprintPolePrediction": null
+	},
+	{
+		"userId": "betaUser4",
+		"raceId": "2025-emilia-romagna-grand-prix",
+		"positions": ["VER", "PIA", "NOR", "ALB", "HAM"],
+		"polePositionPrediction": "VER",
+		"fastestLapPrediction": "PIA",
+		"sprintPositions": null,
+		"sprintPolePrediction": null
+	},
+	{
+		"userId": "betaUser5",
+		"raceId": "2025-emilia-romagna-grand-prix",
+		"positions": ["NOR", "VER", "HAM", "PIA", "LEC"],
+		"polePositionPrediction": "NOR",
+		"fastestLapPrediction": "NOR",
+		"sprintPositions": null,
+		"sprintPolePrediction": null
+	},
+	{
+		"userId": "betaUser1",
+		"raceId": "2025-monaco-grand-prix",
+		"positions": ["NOR", "LEC", "VER", "PIA", "HAM"],
+		"polePositionPrediction": "NOR",
+		"fastestLapPrediction": "VER",
+		"sprintPositions": null,
+		"sprintPolePrediction": null
+	},
+	{
+		"userId": "betaUser2",
+		"raceId": "2025-monaco-grand-prix",
+		"positions": ["LEC", "NOR", "VER", "PIA", "RUS"],
+		"polePositionPrediction": "LEC",
+		"fastestLapPrediction": "NOR",
+		"sprintPositions": null,
+		"sprintPolePrediction": null
+	},
+	{
+		"userId": "betaUser3",
+		"raceId": "2025-monaco-grand-prix",
+		"positions": ["VER", "NOR", "LEC", "HAM", "PIA"],
+		"polePositionPrediction": "VER",
+		"fastestLapPrediction": "VER",
+		"sprintPositions": null,
+		"sprintPolePrediction": null
+	},
+	{
+		"userId": "betaUser4",
+		"raceId": "2025-monaco-grand-prix",
+		"positions": ["NOR", "VER", "LEC", "PIA", "HAM"],
+		"polePositionPrediction": "NOR",
+		"fastestLapPrediction": "LEC",
+		"sprintPositions": null,
+		"sprintPolePrediction": null
+	},
+	{
+		"userId": "betaUser5",
+		"raceId": "2025-monaco-grand-prix",
+		"positions": ["LEC", "VER", "NOR", "PIA", "RUS"],
+		"polePositionPrediction": "LEC",
+		"fastestLapPrediction": "NOR",
+		"sprintPositions": null,
+		"sprintPolePrediction": null
+	},
+	{
+		"userId": "betaUser1",
+		"raceId": "2025-spanish-grand-prix",
+		"positions": ["VER", "PIA", "NOR", "LEC", "RUS"],
+		"polePositionPrediction": "VER",
+		"fastestLapPrediction": "VER",
+		"sprintPositions": null,
+		"sprintPolePrediction": null
+	},
+	{
+		"userId": "betaUser2",
+		"raceId": "2025-spanish-grand-prix",
+		"positions": ["PIA", "NOR", "VER", "LEC", "HAM"],
+		"polePositionPrediction": "PIA",
+		"fastestLapPrediction": "NOR",
+		"sprintPositions": null,
+		"sprintPolePrediction": null
+	},
+	{
+		"userId": "betaUser3",
+		"raceId": "2025-spanish-grand-prix",
+		"positions": ["NOR", "VER", "PIA", "RUS", "LEC"],
+		"polePositionPrediction": "NOR",
+		"fastestLapPrediction": "VER",
+		"sprintPositions": null,
+		"sprintPolePrediction": null
+	},
+	{
+		"userId": "betaUser4",
+		"raceId": "2025-spanish-grand-prix",
+		"positions": ["PIA", "VER", "NOR", "LEC", "RUS"],
+		"polePositionPrediction": "PIA",
+		"fastestLapPrediction": "PIA",
+		"sprintPositions": null,
+		"sprintPolePrediction": null
+	},
+	{
+		"userId": "betaUser5",
+		"raceId": "2025-spanish-grand-prix",
+		"positions": ["VER", "NOR", "PIA", "LEC", "HUL"],
+		"polePositionPrediction": "VER",
+		"fastestLapPrediction": "NOR",
+		"sprintPositions": null,
+		"sprintPolePrediction": null
+	},
+	{
+		"userId": "betaUser1",
+		"raceId": "2025-canadian-grand-prix",
+		"positions": ["VER", "RUS", "NOR", "PIA", "LEC"],
+		"polePositionPrediction": "VER",
+		"fastestLapPrediction": "VER",
+		"sprintPositions": null,
+		"sprintPolePrediction": null
+	},
+	{
+		"userId": "betaUser2",
+		"raceId": "2025-canadian-grand-prix",
+		"positions": ["RUS", "VER", "NOR", "LEC", "PIA"],
+		"polePositionPrediction": "RUS",
+		"fastestLapPrediction": "VER",
+		"sprintPositions": null,
+		"sprintPolePrediction": null
+	},
+	{
+		"userId": "betaUser3",
+		"raceId": "2025-canadian-grand-prix",
+		"positions": ["NOR", "VER", "RUS", "PIA", "HAM"],
+		"polePositionPrediction": "NOR",
+		"fastestLapPrediction": "VER",
+		"sprintPositions": null,
+		"sprintPolePrediction": null
+	},
+	{
+		"userId": "betaUser4",
+		"raceId": "2025-canadian-grand-prix",
+		"positions": ["VER", "NOR", "RUS", "LEC", "PIA"],
+		"polePositionPrediction": "VER",
+		"fastestLapPrediction": "NOR",
+		"sprintPositions": null,
+		"sprintPolePrediction": null
+	},
+	{
+		"userId": "betaUser5",
+		"raceId": "2025-canadian-grand-prix",
+		"positions": ["RUS", "NOR", "VER", "PIA", "LEC"],
+		"polePositionPrediction": "RUS",
+		"fastestLapPrediction": "RUS",
+		"sprintPositions": null,
+		"sprintPolePrediction": null
+	},
+	{
+		"userId": "betaUser1",
+		"raceId": "2025-austrian-grand-prix",
+		"positions": ["VER", "NOR", "PIA", "LEC", "HAM"],
+		"polePositionPrediction": "VER",
+		"fastestLapPrediction": "VER",
+		"sprintPositions": null,
+		"sprintPolePrediction": null
+	},
+	{
+		"userId": "betaUser2",
+		"raceId": "2025-austrian-grand-prix",
+		"positions": ["NOR", "VER", "PIA", "LEC", "RUS"],
+		"polePositionPrediction": "NOR",
+		"fastestLapPrediction": "NOR",
+		"sprintPositions": null,
+		"sprintPolePrediction": null
+	},
+	{
+		"userId": "betaUser3",
+		"raceId": "2025-austrian-grand-prix",
+		"positions": ["PIA", "NOR", "VER", "HAM", "LEC"],
+		"polePositionPrediction": "PIA",
+		"fastestLapPrediction": "VER",
+		"sprintPositions": null,
+		"sprintPolePrediction": null
+	},
+	{
+		"userId": "betaUser4",
+		"raceId": "2025-austrian-grand-prix",
+		"positions": ["VER", "PIA", "NOR", "LEC", "RUS"],
+		"polePositionPrediction": "VER",
+		"fastestLapPrediction": "PIA",
+		"sprintPositions": null,
+		"sprintPolePrediction": null
+	},
+	{
+		"userId": "betaUser5",
+		"raceId": "2025-austrian-grand-prix",
+		"positions": ["NOR", "VER", "PIA", "HAM", "LEC"],
+		"polePositionPrediction": "NOR",
+		"fastestLapPrediction": "NOR",
+		"sprintPositions": null,
+		"sprintPolePrediction": null
+	},
+	{
+		"userId": "betaUser1",
+		"raceId": "2025-british-grand-prix",
+		"positions": ["VER", "NOR", "PIA", "HAM", "LEC"],
+		"polePositionPrediction": "VER",
+		"fastestLapPrediction": "VER",
+		"sprintPositions": null,
+		"sprintPolePrediction": null
+	},
+	{
+		"userId": "betaUser2",
+		"raceId": "2025-british-grand-prix",
+		"positions": ["NOR", "VER", "PIA", "HAM", "RUS"],
+		"polePositionPrediction": "NOR",
+		"fastestLapPrediction": "NOR",
+		"sprintPositions": null,
+		"sprintPolePrediction": null
+	},
+	{
+		"userId": "betaUser3",
+		"raceId": "2025-british-grand-prix",
+		"positions": ["HAM", "NOR", "VER", "PIA", "LEC"],
+		"polePositionPrediction": "HAM",
+		"fastestLapPrediction": "VER",
+		"sprintPositions": null,
+		"sprintPolePrediction": null
+	},
+	{
+		"userId": "betaUser4",
+		"raceId": "2025-british-grand-prix",
+		"positions": ["VER", "HAM", "NOR", "PIA", "RUS"],
+		"polePositionPrediction": "VER",
+		"fastestLapPrediction": "HAM",
+		"sprintPositions": null,
+		"sprintPolePrediction": null
+	},
+	{
+		"userId": "betaUser5",
+		"raceId": "2025-british-grand-prix",
+		"positions": ["NOR", "PIA", "VER", "HAM", "HUL"],
+		"polePositionPrediction": "NOR",
+		"fastestLapPrediction": "NOR",
+		"sprintPositions": null,
+		"sprintPolePrediction": null
+	}
 ]

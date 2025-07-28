@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Card, CardBody, CardHeader, Select, SelectItem, Button, Divider } from "@heroui/react";
+import { Card, CardBody, Select, SelectItem, Button, Divider } from "@heroui/react";
 import { Race } from "@/services/races";
 import { Driver } from "@/services/drivers";
 import { Prediction, PredictionForm, createPrediction, updatePrediction } from "@/services/predictions";
@@ -23,16 +23,6 @@ interface FormData {
     sprintPole?: string;
     sprintWinner?: string;
 }
-
-const SCORING_INFO = {
-    polePosition: { correct: 10, partial: null },
-    raceWinner: { correct: 15, partial: null },
-    secondPlace: { correct: 10, partial: 5 },
-    thirdPlace: { correct: 8, partial: 3 },
-    topFive: { correct: 5, partial: 1 },
-    sprintPole: { correct: 5, partial: null },
-    sprintWinner: { correct: 8, partial: null },
-};
 
 export default function PredictionFormComponent({ race, drivers, prediction, onPredictionUpdate }: PredictionFormProps) {
     const [formData, setFormData] = useState<FormData>({
@@ -83,12 +73,10 @@ export default function PredictionFormComponent({ race, drivers, prediction, onP
         return raceFields;
     };
 
-    const getAvailableDrivers = (currentField: keyof FormData) => {
-        const selectedDrivers = Object.entries(formData)
-            .filter(([key, value]) => key !== currentField && value !== '')
-            .map(([, value]) => value);
-            
-        return drivers.filter(driver => !selectedDrivers.includes(driver.id));
+    const getAvailableDrivers = () => {
+        // Always return all drivers - users should be able to select the same driver
+        // for multiple positions (e.g., pole position winner also winning the race)
+        return drivers;
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -139,11 +127,6 @@ export default function PredictionFormComponent({ race, drivers, prediction, onP
     return (
         <form onSubmit={handleSubmit}>
             <Card className="w-full card-racing-translucent">
-                <CardHeader>
-                    <h3 className="text-xl font-bold text-foreground">
-                        {prediction ? 'Edit Your Prediction' : 'Make Your Prediction'}
-                    </h3>
-                </CardHeader>
                 <CardBody className="space-y-6">
                     {error && (
                         <div className="text-danger text-sm p-3 bg-danger/10 rounded-lg">
@@ -153,166 +136,162 @@ export default function PredictionFormComponent({ race, drivers, prediction, onP
 
                     {/* Main Race Predictions */}
                     <div>
-                        <h4 className="text-lg font-semibold text-foreground mb-4">Main Race</h4>
+                        <h4 className="text-lg font-semibold text-foreground mt-2 mb-4 ml-3">Main Race</h4>
                         
                         {/* Pole Position */}
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                            <div className="md:col-span-2">
-                                <Select
-                                    label="Pole Position"
-                                    placeholder="Select driver for pole position"
-                                    selectedKeys={formData.polePosition ? [formData.polePosition] : []}
-                                    onSelectionChange={(keys) => {
-                                        const selectedKey = Array.from(keys)[0] as string;
-                                        handleSelectChange('polePosition', selectedKey || '');
-                                    }}
-                                    isRequired
-                                    isDisabled={isDisabled}
-                                >
-                                    {drivers.map((driver) => (
-                                        <SelectItem key={driver.id}>
-                                            #{driver.number} {driver.fullname}
-                                        </SelectItem>
-                                    ))}
-                                </Select>
-                            </div>
-                            <div className="text-sm text-default-600 flex flex-col justify-center">
-                                <p><strong>{SCORING_INFO.polePosition.correct} pts</strong> if correct</p>
-                            </div>
+                        <div className="mb-4">
+                            <Select
+                                id="pole-position"
+                                name="polePosition"
+                                label="Pole Position"
+                                placeholder="Select driver for pole position"
+                                selectedKeys={formData.polePosition ? [formData.polePosition] : []}
+                                onSelectionChange={(keys) => {
+                                    const selectedKey = Array.from(keys)[0] as string;
+                                    handleSelectChange('polePosition', selectedKey || '');
+                                }}
+                                isRequired
+                                isDisabled={isDisabled}
+                            >
+                                {drivers.map((driver) => (
+                                    <SelectItem 
+                                        key={driver.id}
+                                        textValue={`#${driver.number} ${driver.fullname}`}
+                                    >
+                                        #{driver.number} {driver.fullname}
+                                    </SelectItem>
+                                ))}
+                            </Select>
                         </div>
 
                         {/* Race Winner */}
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                            <div className="md:col-span-2">
-                                <Select
-                                    label="Race Winner"
-                                    placeholder="Select race winner"
-                                    selectedKeys={formData.raceWinner ? [formData.raceWinner] : []}
-                                    onSelectionChange={(keys) => {
-                                        const selectedKey = Array.from(keys)[0] as string;
-                                        handleSelectChange('raceWinner', selectedKey || '');
-                                    }}
-                                    isRequired
-                                    isDisabled={isDisabled}
-                                >
-                                    {getAvailableDrivers('raceWinner').map((driver) => (
-                                        <SelectItem key={driver.id}>
-                                            #{driver.number} {driver.fullname}
-                                        </SelectItem>
-                                    ))}
-                                </Select>
-                            </div>
-                            <div className="text-sm text-default-600 flex flex-col justify-center">
-                                <p><strong>{SCORING_INFO.raceWinner.correct} pts</strong> if correct</p>
-                            </div>
+                        <div className="mb-4">
+                            <Select
+                                id="race-winner"
+                                name="raceWinner"
+                                label="Race Winner"
+                                placeholder="Select race winner"
+                                selectedKeys={formData.raceWinner ? [formData.raceWinner] : []}
+                                onSelectionChange={(keys) => {
+                                    const selectedKey = Array.from(keys)[0] as string;
+                                    handleSelectChange('raceWinner', selectedKey || '');
+                                }}
+                                isRequired
+                                isDisabled={isDisabled}
+                            >
+                                {getAvailableDrivers().map((driver) => (
+                                    <SelectItem 
+                                        key={driver.id}
+                                        textValue={`#${driver.number} ${driver.fullname}`}
+                                    >
+                                        #{driver.number} {driver.fullname}
+                                    </SelectItem>
+                                ))}
+                            </Select>
                         </div>
 
                         {/* 2nd Place */}
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                            <div className="md:col-span-2">
-                                <Select
-                                    label="2nd Place"
-                                    placeholder="Select 2nd place finisher"
-                                    selectedKeys={formData.secondPlace ? [formData.secondPlace] : []}
-                                    onSelectionChange={(keys) => {
-                                        const selectedKey = Array.from(keys)[0] as string;
-                                        handleSelectChange('secondPlace', selectedKey || '');
-                                    }}
-                                    isRequired
-                                    isDisabled={isDisabled}
-                                >
-                                    {getAvailableDrivers('secondPlace').map((driver) => (
-                                        <SelectItem key={driver.id}>
-                                            #{driver.number} {driver.fullname}
-                                        </SelectItem>
-                                    ))}
-                                </Select>
-                            </div>
-                            <div className="text-sm text-default-600 flex flex-col justify-center">
-                                <p><strong>{SCORING_INFO.secondPlace.correct} pts</strong> if correct</p>
-                                <p><strong>{SCORING_INFO.secondPlace.partial} pts</strong> if on podium</p>
-                            </div>
+                        <div className="mb-4">
+                            <Select
+                                id="second-place"
+                                name="secondPlace"
+                                label="2nd Place"
+                                placeholder="Select 2nd place finisher"
+                                selectedKeys={formData.secondPlace ? [formData.secondPlace] : []}
+                                onSelectionChange={(keys) => {
+                                    const selectedKey = Array.from(keys)[0] as string;
+                                    handleSelectChange('secondPlace', selectedKey || '');
+                                }}
+                                isRequired
+                                isDisabled={isDisabled}
+                            >
+                                {getAvailableDrivers().map((driver) => (
+                                    <SelectItem 
+                                        key={driver.id}
+                                        textValue={`#${driver.number} ${driver.fullname}`}
+                                    >
+                                        #{driver.number} {driver.fullname}
+                                    </SelectItem>
+                                ))}
+                            </Select>
                         </div>
 
                         {/* 3rd Place */}
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                            <div className="md:col-span-2">
-                                <Select
-                                    label="3rd Place"
-                                    placeholder="Select 3rd place finisher"
-                                    selectedKeys={formData.thirdPlace ? [formData.thirdPlace] : []}
-                                    onSelectionChange={(keys) => {
-                                        const selectedKey = Array.from(keys)[0] as string;
-                                        handleSelectChange('thirdPlace', selectedKey || '');
-                                    }}
-                                    isRequired
-                                    isDisabled={isDisabled}
-                                >
-                                    {getAvailableDrivers('thirdPlace').map((driver) => (
-                                        <SelectItem key={driver.id}>
-                                            #{driver.number} {driver.fullname}
-                                        </SelectItem>
-                                    ))}
-                                </Select>
-                            </div>
-                            <div className="text-sm text-default-600 flex flex-col justify-center">
-                                <p><strong>{SCORING_INFO.thirdPlace.correct} pts</strong> if correct</p>
-                                <p><strong>{SCORING_INFO.thirdPlace.partial} pts</strong> if on podium</p>
-                            </div>
+                        <div className="mb-4">
+                            <Select
+                                id="third-place"
+                                name="thirdPlace"
+                                label="3rd Place"
+                                placeholder="Select 3rd place finisher"
+                                selectedKeys={formData.thirdPlace ? [formData.thirdPlace] : []}
+                                onSelectionChange={(keys) => {
+                                    const selectedKey = Array.from(keys)[0] as string;
+                                    handleSelectChange('thirdPlace', selectedKey || '');
+                                }}
+                                isRequired
+                                isDisabled={isDisabled}
+                            >
+                                {getAvailableDrivers().map((driver) => (
+                                    <SelectItem 
+                                        key={driver.id}
+                                        textValue={`#${driver.number} ${driver.fullname}`}
+                                    >
+                                        #{driver.number} {driver.fullname}
+                                    </SelectItem>
+                                ))}
+                            </Select>
                         </div>
 
                         {/* 4th Place */}
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                            <div className="md:col-span-2">
-                                <Select
-                                    label="4th Place"
-                                    placeholder="Select 4th place finisher"
-                                    selectedKeys={formData.fourthPlace ? [formData.fourthPlace] : []}
-                                    onSelectionChange={(keys) => {
-                                        const selectedKey = Array.from(keys)[0] as string;
-                                        handleSelectChange('fourthPlace', selectedKey || '');
-                                    }}
-                                    isRequired
-                                    isDisabled={isDisabled}
-                                >
-                                    {getAvailableDrivers('fourthPlace').map((driver) => (
-                                        <SelectItem key={driver.id}>
-                                            #{driver.number} {driver.fullname}
-                                        </SelectItem>
-                                    ))}
-                                </Select>
-                            </div>
-                            <div className="text-sm text-default-600 flex flex-col justify-center">
-                                <p><strong>{SCORING_INFO.topFive.correct} pts</strong> if correct position</p>
-                                <p><strong>{SCORING_INFO.topFive.partial} pts</strong> if in top 5</p>
-                            </div>
+                        <div className="mb-4">
+                            <Select
+                                id="fourth-place"
+                                name="fourthPlace"
+                                label="4th Place"
+                                placeholder="Select 4th place finisher"
+                                selectedKeys={formData.fourthPlace ? [formData.fourthPlace] : []}
+                                onSelectionChange={(keys) => {
+                                    const selectedKey = Array.from(keys)[0] as string;
+                                    handleSelectChange('fourthPlace', selectedKey || '');
+                                }}
+                                isRequired
+                                isDisabled={isDisabled}
+                            >
+                                {getAvailableDrivers().map((driver) => (
+                                    <SelectItem 
+                                        key={driver.id}
+                                        textValue={`#${driver.number} ${driver.fullname}`}
+                                    >
+                                        #{driver.number} {driver.fullname}
+                                    </SelectItem>
+                                ))}
+                            </Select>
                         </div>
 
                         {/* 5th Place */}
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                            <div className="md:col-span-2">
-                                <Select
-                                    label="5th Place"
-                                    placeholder="Select 5th place finisher"
-                                    selectedKeys={formData.fifthPlace ? [formData.fifthPlace] : []}
-                                    onSelectionChange={(keys) => {
-                                        const selectedKey = Array.from(keys)[0] as string;
-                                        handleSelectChange('fifthPlace', selectedKey || '');
-                                    }}
-                                    isRequired
-                                    isDisabled={isDisabled}
-                                >
-                                    {getAvailableDrivers('fifthPlace').map((driver) => (
-                                        <SelectItem key={driver.id}>
-                                            #{driver.number} {driver.fullname}
-                                        </SelectItem>
-                                    ))}
-                                </Select>
-                            </div>
-                            <div className="text-sm text-default-600 flex flex-col justify-center">
-                                <p><strong>{SCORING_INFO.topFive.correct} pts</strong> if correct position</p>
-                                <p><strong>{SCORING_INFO.topFive.partial} pts</strong> if in top 5</p>
-                            </div>
+                        <div className="mb-4">
+                            <Select
+                                id="fifth-place"
+                                name="fifthPlace"
+                                label="5th Place"
+                                placeholder="Select 5th place finisher"
+                                selectedKeys={formData.fifthPlace ? [formData.fifthPlace] : []}
+                                onSelectionChange={(keys) => {
+                                    const selectedKey = Array.from(keys)[0] as string;
+                                    handleSelectChange('fifthPlace', selectedKey || '');
+                                }}
+                                isRequired
+                                isDisabled={isDisabled}
+                            >
+                                {getAvailableDrivers().map((driver) => (
+                                    <SelectItem 
+                                        key={driver.id}
+                                        textValue={`#${driver.number} ${driver.fullname}`}
+                                    >
+                                        #{driver.number} {driver.fullname}
+                                    </SelectItem>
+                                ))}
+                            </Select>
                         </div>
                     </div>
 
@@ -321,58 +300,58 @@ export default function PredictionFormComponent({ race, drivers, prediction, onP
                         <>
                             <Divider />
                             <div>
-                                <h4 className="text-lg font-semibold text-foreground mb-4">Sprint Race</h4>
+                                <h4 className="text-lg font-semibold text-foreground mb-4 ml-3">Sprint Race</h4>
                                 
                                 {/* Sprint Pole */}
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                                    <div className="md:col-span-2">
-                                        <Select
-                                            label="Sprint Pole Position"
-                                            placeholder="Select driver for sprint pole"
-                                            selectedKeys={formData.sprintPole ? [formData.sprintPole] : []}
-                                            onSelectionChange={(keys) => {
-                                                const selectedKey = Array.from(keys)[0] as string;
-                                                handleSelectChange('sprintPole', selectedKey || '');
-                                            }}
-                                            isRequired
-                                            isDisabled={isDisabled}
-                                        >
-                                            {drivers.map((driver) => (
-                                                <SelectItem key={driver.id}>
-                                                    #{driver.number} {driver.fullname}
-                                                </SelectItem>
-                                            ))}
-                                        </Select>
-                                    </div>
-                                    <div className="text-sm text-default-600 flex flex-col justify-center">
-                                        <p><strong>{SCORING_INFO.sprintPole.correct} pts</strong> if correct</p>
-                                    </div>
+                                <div className="mb-4">
+                                    <Select
+                                        id="sprint-pole"
+                                        name="sprintPole"
+                                        label="Sprint Pole Position"
+                                        placeholder="Select driver for sprint pole"
+                                        selectedKeys={formData.sprintPole ? [formData.sprintPole] : []}
+                                        onSelectionChange={(keys) => {
+                                            const selectedKey = Array.from(keys)[0] as string;
+                                            handleSelectChange('sprintPole', selectedKey || '');
+                                        }}
+                                        isRequired
+                                        isDisabled={isDisabled}
+                                    >
+                                        {drivers.map((driver) => (
+                                            <SelectItem 
+                                                key={driver.id}
+                                                textValue={`#${driver.number} ${driver.fullname}`}
+                                            >
+                                                #{driver.number} {driver.fullname}
+                                            </SelectItem>
+                                        ))}
+                                    </Select>
                                 </div>
 
                                 {/* Sprint Winner */}
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                                    <div className="md:col-span-2">
-                                        <Select
-                                            label="Sprint Winner"
-                                            placeholder="Select sprint winner"
-                                            selectedKeys={formData.sprintWinner ? [formData.sprintWinner] : []}
-                                            onSelectionChange={(keys) => {
-                                                const selectedKey = Array.from(keys)[0] as string;
-                                                handleSelectChange('sprintWinner', selectedKey || '');
-                                            }}
-                                            isRequired
-                                            isDisabled={isDisabled}
-                                        >
-                                            {drivers.map((driver) => (
-                                                <SelectItem key={driver.id}>
-                                                    #{driver.number} {driver.fullname}
-                                                </SelectItem>
-                                            ))}
-                                        </Select>
-                                    </div>
-                                    <div className="text-sm text-default-600 flex flex-col justify-center">
-                                        <p><strong>{SCORING_INFO.sprintWinner.correct} pts</strong> if correct</p>
-                                    </div>
+                                <div className="mb-4">
+                                    <Select
+                                        id="sprint-winner"
+                                        name="sprintWinner"
+                                        label="Sprint Winner"
+                                        placeholder="Select sprint winner"
+                                        selectedKeys={formData.sprintWinner ? [formData.sprintWinner] : []}
+                                        onSelectionChange={(keys) => {
+                                            const selectedKey = Array.from(keys)[0] as string;
+                                            handleSelectChange('sprintWinner', selectedKey || '');
+                                        }}
+                                        isRequired
+                                        isDisabled={isDisabled}
+                                    >
+                                        {drivers.map((driver) => (
+                                            <SelectItem 
+                                                key={driver.id}
+                                                textValue={`#${driver.number} ${driver.fullname}`}
+                                            >
+                                                #{driver.number} {driver.fullname}
+                                            </SelectItem>
+                                        ))}
+                                    </Select>
                                 </div>
                             </div>
                         </>
