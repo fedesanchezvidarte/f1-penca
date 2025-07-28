@@ -93,31 +93,31 @@ export default function RaceOverview({ race, prediction, onNavigateBack }: RaceO
     
     return (
         <div className="space-y-4">
-            {/* Back Navigation */}
-            {onNavigateBack && (
-                <Button
-                    variant="ghost"
-                    size="sm"
-                    onPress={onNavigateBack}
-                    startContent={
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                        </svg>
-                    }
-                >
-                    Back to Races
-                </Button>
-            )}
-
             {/* Race Overview Card */}
             <Card className="w-full card-racing-translucent">
                 <CardBody className="p-6">
                     {/* Race Information */}
                     <div className="mb-6">
                         <div className="mb-4">
-                            <p className="text-sm text-default-500 font-medium mb-2">
-                                ROUND {race.round}
-                            </p>
+                            <div className="flex justify-between items-start mb-2">
+                                <p className="text-sm text-default-500 font-medium">
+                                    ROUND {race.round}
+                                </p>
+                                {/* Back Navigation */}
+                                {onNavigateBack && (
+                                    <Button
+                                        variant="ghost"
+                                        size="sm"
+                                        onPress={onNavigateBack}
+                                        startContent={
+                                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                                            </svg>
+                                        }
+                                    >
+                                    </Button>
+                                )}
+                            </div>
                             <h2 className="text-xl font-bold text-foreground mb-2">
                                 {race.name}
                             </h2>
@@ -175,17 +175,18 @@ export default function RaceOverview({ race, prediction, onNavigateBack }: RaceO
             {/* Points Card */}
             <Card className="w-full card-racing-translucent">
                 <CardBody className="p-4">
-                    <div className="flex flex-col items-center justify-center space-y-3">
+                    <div className="flex flex-col items-center justify-center space-y-2">
                         <InputOtp
                             length={pointsString.length}
                             size="lg"
                             radius="lg"
-                            color="primary"
+                            color="default"
+                            variant="underlined"
                             value={pointsString}
                             isReadOnly
                             className="pointer-events-none"
                         />
-                        <p className="text-lg font-semibold text-foreground">Your Points</p>
+                        <p className="text-md font-semibold text-foreground">Your Points</p>
                     </div>
                 </CardBody>
             </Card>
