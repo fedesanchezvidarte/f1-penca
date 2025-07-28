@@ -5,7 +5,7 @@ import { prisma } from '@/lib/prisma';
 // GET /api/predictions/[id] - Get user prediction for a race
 export async function GET(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
         const session = await auth();
@@ -71,7 +71,7 @@ export async function GET(
 // PUT /api/predictions/[id] - Update user prediction for a race
 export async function PUT(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
         const session = await auth();

@@ -9,7 +9,7 @@ import { prisma } from '@/lib/prisma';
  */
 export async function GET(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
         const session = await auth();
@@ -58,7 +58,7 @@ export async function GET(
  */
 export async function PUT(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
         const session = await auth();
@@ -71,7 +71,7 @@ export async function PUT(
             );
         }
 
-        const raceId = params.id;
+        const { id: raceId } = await params;
 
         // Get updated data
         const {
@@ -143,7 +143,7 @@ export async function PUT(
  */
 export async function DELETE(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
         const session = await auth();
@@ -156,7 +156,7 @@ export async function DELETE(
             );
         }
 
-        const raceId = params.id;
+        const { id: raceId } = await params;
 
         // Check if race exists
         const race = await prisma.race.findUnique({

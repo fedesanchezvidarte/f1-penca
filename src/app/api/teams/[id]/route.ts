@@ -9,8 +9,11 @@ import { prisma } from '@/lib/prisma';
  */
 export async function GET(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
+    const { id } = await params;
+    const teamName = decodeURIComponent(id);
+    
     try {
         const session = await auth();
 
@@ -18,9 +21,6 @@ export async function GET(
         if (!session?.user) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
-
-        const { id } = await params;
-        const teamName = decodeURIComponent(id);
 
         // Get query parameters
         const searchParams = request.nextUrl.searchParams;
@@ -55,7 +55,7 @@ export async function GET(
 
         return NextResponse.json(team);
     } catch (error) {
-        console.error(`Error getting team ${params.id}:`, error);
+        console.error(`Error getting team ${teamName}:`, error);
         return NextResponse.json(
             { error: `Error getting team details` },
             { status: 500 }

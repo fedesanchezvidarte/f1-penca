@@ -9,20 +9,19 @@ import { prisma } from '@/lib/prisma';
  */
 export async function GET(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
+        const { id } = await params;
         const session = await auth();
         // Verify authentication
         if (!session?.user) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
 
-        const { id: driverId } = await params;
-
         // Get the driver
         const driver = await prisma.driver.findUnique({
-            where: { id: driverId },
+            where: { id },
         });
         // Check if driver exists
         if (!driver) {
@@ -48,9 +47,10 @@ export async function GET(
  */
 export async function PUT(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
+        const { id } = await params;
         const session = await auth();
         // Verify authentication and admin role
         if (!session?.user || session.user.role !== 'ADMIN') {
@@ -59,8 +59,6 @@ export async function PUT(
                 { status: 403 }
             );
         }
-
-        const driverId = params.id;
 
         // Get updated data
         const {
@@ -74,7 +72,7 @@ export async function PUT(
             active, } = await request.json();
         // Check if driver exists
         const existingDriver = await prisma.driver.findUnique({
-            where: { id: driverId },
+            where: { id },
         });
 
         if (!existingDriver) {
@@ -90,7 +88,7 @@ export async function PUT(
                 where: { number },
             });
 
-            if (driverWithNumber && driverWithNumber.id !== driverId) {
+            if (driverWithNumber && driverWithNumber.id !== id) {
                 return NextResponse.json(
                     { error: `A driver with number ${number} already exists` },
                     { status: 400 }
@@ -103,7 +101,7 @@ export async function PUT(
                 where: { code },
             });
 
-            if (driverWithCode && driverWithCode.id !== driverId) {
+            if (driverWithCode && driverWithCode.id !== id) {
                 return NextResponse.json(
                     { error: `A driver with code ${code} already exists` },
                     { status: 400 }
@@ -146,7 +144,7 @@ export async function PUT(
 
         // Update driver
         const updatedDriver = await prisma.driver.update({
-            where: { id: driverId },
+            where: { id },
             data: updateData,
         });
 

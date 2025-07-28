@@ -125,6 +125,7 @@ export async function POST(request: NextRequest) {
         // Create new driver
         const driver = await prisma.driver.create({
             data: {
+                id: code, // Use code as ID for easier form handling
                 number,
                 code,
                 firstname,

@@ -8,7 +8,7 @@ import { prisma } from '@/lib/prisma';
  */
 export async function GET(
     request: NextRequest,
-    { params }: { params: { year: string } }
+    { params }: { params: Promise<{ year: string }> }
 ) {
     try {
         const { year: yearParam } = await params;
