@@ -19,7 +19,8 @@ export async function GET(
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
 
-        const teamName = decodeURIComponent(params.id);
+        const { id } = await params;
+        const teamName = decodeURIComponent(id);
 
         // Get query parameters
         const searchParams = request.nextUrl.searchParams;

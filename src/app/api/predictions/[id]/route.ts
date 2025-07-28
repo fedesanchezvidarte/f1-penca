@@ -13,7 +13,7 @@ export async function GET(
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
 
-        const { id: raceId } = params;
+        const { id: raceId } = await params;
 
         const prediction = await prisma.prediction.findFirst({
             where: {
@@ -79,7 +79,7 @@ export async function PUT(
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
 
-        const { id: raceId } = params;
+        const { id: raceId } = await params;
         const body = await request.json();
 
         // Check if race is still open for predictions

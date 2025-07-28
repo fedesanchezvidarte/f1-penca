@@ -19,7 +19,7 @@ export async function GET(
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
 
-        const raceId = params.id;
+        const { id: raceId } = await params;
 
         // Get the race with results and predictions for the current user
         const race = await prisma.race.findUnique({

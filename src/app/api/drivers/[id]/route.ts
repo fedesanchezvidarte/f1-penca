@@ -18,7 +18,7 @@ export async function GET(
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
 
-        const driverId = params.id;
+        const { id: driverId } = await params;
 
         // Get the driver
         const driver = await prisma.driver.findUnique({

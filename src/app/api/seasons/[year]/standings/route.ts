@@ -11,7 +11,8 @@ export async function GET(
     { params }: { params: { year: string } }
 ) {
     try {
-        const year = parseInt(params.year, 10);
+        const { year: yearParam } = await params;
+        const year = parseInt(yearParam, 10);
 
         if (isNaN(year)) {
             return NextResponse.json(

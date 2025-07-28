@@ -19,7 +19,7 @@ export async function GET(
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
 
-        const raceId = params.id;
+        const { id: raceId } = await params;
 
         // Get the race results
         const raceResult = await prisma.raceResult.findFirst({
@@ -66,13 +66,13 @@ export async function POST(
             );
         }
 
-        const raceId = params.id;
-        const { positions } = await request.json();
+        const { id: raceId } = await params;
+        const { raceResult: raceResultData } = await request.json();
 
         // Validate data
-        if (!positions || !Array.isArray(positions)) {
+        if (!raceResultData || !Array.isArray(raceResultData)) {
             return NextResponse.json(
-                { error: 'Invalid data. positions (array) is required' },
+                { error: 'Invalid data. raceResult (array) is required' },
                 { status: 400 }
             );
         }
@@ -95,23 +95,23 @@ export async function POST(
         });
 
         // Create or update race result
-        let raceResult;
+        let resultRecord;
         
         if (existingResult) {
             // Update existing result
-            raceResult = await prisma.raceResult.update({
+            resultRecord = await prisma.raceResult.update({
                 where: { id: existingResult.id },
                 data: {
-                    positions,
+                    raceResult: raceResultData,
                     updatedAt: new Date(),
                 },
             });
         } else {
             // Create new result
-            raceResult = await prisma.raceResult.create({
+            resultRecord = await prisma.raceResult.create({
                 data: {
                     raceId,
-                    positions,
+                    raceResult: raceResultData,
                 },
             });
         }
@@ -126,9 +126,9 @@ export async function POST(
         });
 
         // Calculate and update points for all predictions related to this race
-        await calculatePredictionPoints(raceId, positions);
+        await calculatePredictionPoints(raceId, raceResultData);
 
-        return NextResponse.json(raceResult);
+        return NextResponse.json(resultRecord);
     } catch (error) {
         console.error('Error creating/updating race results:', error);
         return NextResponse.json(

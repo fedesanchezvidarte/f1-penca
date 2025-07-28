@@ -19,7 +19,7 @@ export async function GET(
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
 
-        const userId = params.id;
+        const { id: userId } = await params;
         const isAdmin = session.user.role === 'ADMIN';
         const isSelfLookup = session.user.id === userId;
 
@@ -110,7 +110,7 @@ export async function PUT(
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
 
-        const userId = params.id;
+        const { id: userId } = await params;
         const isAdmin = session.user.role === 'ADMIN';
         const isSelfUpdate = session.user.id === userId;
 
