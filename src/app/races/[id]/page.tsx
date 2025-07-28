@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { Spinner } from "@heroui/react";
 import { Race, getRaceById } from "@/services/races";
 import { Driver, getActiveDrivers } from "@/services/drivers";
@@ -14,6 +14,7 @@ import { useAuthModal } from "@/components/auth/auth-modal-context";
 export default function RacePredictionPage() {
     const { data: session, status } = useSession();
     const { openModal } = useAuthModal();
+    const router = useRouter();
     const params = useParams();
     const raceId = params.id as string;
 
@@ -77,6 +78,10 @@ export default function RacePredictionPage() {
         setPrediction(updatedPrediction);
     };
 
+    const handleNavigateBack = () => {
+        router.push('/races');
+    };
+
     if (status === "loading" || loading) {
         return (
             <div className="flex justify-center items-center min-h-screen">
@@ -124,6 +129,7 @@ export default function RacePredictionPage() {
                         race={race} 
                         prediction={prediction}
                         onPredictionUpdate={handlePredictionUpdate}
+                        onNavigateBack={handleNavigateBack}
                     />
                 </div>
 

@@ -99,15 +99,16 @@ export async function PUT(
             );
         }
 
+        // Filter out undefined values and convert to null or empty string
         const positions = [
-            body.raceWinner,
-            body.secondPlace,
-            body.thirdPlace,
-            body.fourthPlace,
-            body.fifthPlace,
+            body.raceWinner || '',
+            body.secondPlace || '',
+            body.thirdPlace || '',
+            body.fourthPlace || '',
+            body.fifthPlace || '',
         ];
 
-        const sprintPositions = body.sprintWinner ? [body.sprintWinner] : null;
+        const sprintPositions = body.sprintWinner ? [body.sprintWinner] : undefined;
 
         const updatedPrediction = await prisma.prediction.updateMany({
             where: {
@@ -115,10 +116,10 @@ export async function PUT(
                 userId: session.user.id,
             },
             data: {
-                polePositionPrediction: body.polePosition,
+                polePositionPrediction: body.polePosition || null,
                 positions: positions,
                 fastestLapPrediction: null, // Not implemented yet
-                sprintPositions: sprintPositions || undefined,
+                sprintPositions: sprintPositions,
                 sprintPolePrediction: body.sprintPole || null,
                 updatedAt: new Date(),
             },
@@ -131,7 +132,47 @@ export async function PUT(
             );
         }
 
-        return NextResponse.json({ success: true });
+        // Fetch the updated prediction to return complete data
+        const prediction = await prisma.prediction.findFirst({
+            where: {
+                raceId,
+                userId: session.user.id,
+            },
+            select: {
+                id: true,
+                raceId: true,
+                userId: true,
+                polePositionPrediction: true,
+                positions: true,
+                fastestLapPrediction: true,
+                sprintPositions: true,
+                sprintPolePrediction: true,
+                points: true,
+                createdAt: true,
+                updatedAt: true,
+            },
+        });
+
+        if (!prediction) {
+            return NextResponse.json(
+                { error: 'Prediction not found after update' },
+                { status: 404 }
+            );
+        }
+
+        return NextResponse.json({
+            id: prediction.id,
+            raceId: prediction.raceId,
+            userId: prediction.userId,
+            polePositionPrediction: prediction.polePositionPrediction,
+            positions: prediction.positions,
+            fastestLapPrediction: prediction.fastestLapPrediction,
+            sprintPositions: prediction.sprintPositions,
+            sprintPolePrediction: prediction.sprintPolePrediction,
+            points: prediction.points,
+            createdAt: prediction.createdAt,
+            updatedAt: prediction.updatedAt,
+        });
     } catch (error) {
         console.error('Error updating prediction:', error);
         return NextResponse.json(

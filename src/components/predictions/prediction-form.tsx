@@ -36,13 +36,24 @@ export default function PredictionFormComponent({ race, drivers, prediction, onP
         sprintWinner: '',
     });
     
+    const [originalFormData, setOriginalFormData] = useState<FormData>({
+        polePosition: '',
+        raceWinner: '',
+        secondPlace: '',
+        thirdPlace: '',
+        fourthPlace: '',
+        fifthPlace: '',
+        sprintPole: '',
+        sprintWinner: '',
+    });
+    
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
     // Load existing prediction data
     useEffect(() => {
         if (prediction) {
-            setFormData({
+            const newFormData = {
                 polePosition: prediction.polePosition || '',
                 raceWinner: prediction.raceWinner || '',
                 secondPlace: prediction.secondPlace || '',
@@ -51,7 +62,23 @@ export default function PredictionFormComponent({ race, drivers, prediction, onP
                 fifthPlace: prediction.fifthPlace || '',
                 sprintPole: prediction.sprintPole || '',
                 sprintWinner: prediction.sprintWinner || '',
-            });
+            };
+            setFormData(newFormData);
+            setOriginalFormData(newFormData);
+        } else {
+            // Reset to empty state if no prediction
+            const emptyFormData = {
+                polePosition: '',
+                raceWinner: '',
+                secondPlace: '',
+                thirdPlace: '',
+                fourthPlace: '',
+                fifthPlace: '',
+                sprintPole: '',
+                sprintWinner: '',
+            };
+            setFormData(emptyFormData);
+            setOriginalFormData(emptyFormData);
         }
     }, [prediction]);
 
@@ -77,6 +104,54 @@ export default function PredictionFormComponent({ race, drivers, prediction, onP
         // Always return all drivers - users should be able to select the same driver
         // for multiple positions (e.g., pole position winner also winning the race)
         return drivers;
+    };
+
+    const hasFormChanged = () => {
+        return JSON.stringify(formData) !== JSON.stringify(originalFormData);
+    };
+
+    const getButtonText = () => {
+        if (race.status === 'COMPLETED') {
+            return 'Prediction Closed';
+        }
+        
+        if (race.status === 'LIVE') {
+            return 'Prediction Closed';
+        }
+
+        if (prediction) {
+            return hasFormChanged() ? 'Save Changes' : 'Prediction Complete';
+        }
+
+        return 'Create Prediction';
+    };
+
+    const getButtonColor = (): "primary" | "success" | "secondary" | "default" => {
+        if (race.status === 'COMPLETED' || race.status === 'LIVE') {
+            return 'default';
+        }
+
+        if (prediction) {
+            return hasFormChanged() ? 'primary' : 'secondary';
+        }
+
+        return 'success';
+    };
+
+    const isButtonDisabled = () => {
+        if (race.status === 'COMPLETED' || race.status === 'LIVE') {
+            return true;
+        }
+
+        if (!isFormValid()) {
+            return true;
+        }
+
+        if (prediction && !hasFormChanged()) {
+            return true;
+        }
+
+        return false;
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -114,6 +189,9 @@ export default function PredictionFormComponent({ race, drivers, prediction, onP
 
             // Update parent component
             onPredictionUpdate(result);
+            
+            // Update original form data to reflect the new saved state
+            setOriginalFormData({ ...formData });
             
         } catch (err) {
             setError(err instanceof Error ? err.message : 'Failed to save prediction');
@@ -359,16 +437,16 @@ export default function PredictionFormComponent({ race, drivers, prediction, onP
 
                     {/* Submit Button */}
                     {!isDisabled && (
-                        <div className="flex justify-end pt-4">
+                        <div className="flex justify-center pt-4">
                             <Button
                                 type="submit"
-                                color="primary"
+                                color={getButtonColor()}
                                 size="lg"
                                 isLoading={loading}
-                                isDisabled={!isFormValid()}
-                                className="font-semibold px-8"
+                                isDisabled={isButtonDisabled()}
+                                className="font-semibold w-full max-w-md"
                             >
-                                {prediction ? 'Save Changes' : 'Create Prediction'}
+                                {getButtonText()}
                             </Button>
                         </div>
                     )}
