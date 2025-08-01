@@ -18,7 +18,7 @@ import { useSession } from "next-auth/react";
 import { useEffect } from "react";
 import NextImage from "next/image";
 
-export const MailIcon = (props: React.SVGProps<SVGSVGElement>) => {
+export const UserIcon = (props: React.SVGProps<SVGSVGElement>) => {
   return (
     <svg
       aria-hidden="true"
@@ -31,7 +31,7 @@ export const MailIcon = (props: React.SVGProps<SVGSVGElement>) => {
       {...props}
     >
       <path
-        d="M17 3.5H7C4 3.5 2 5 2 8.5V15.5C2 19 4 20.5 7 20.5H17C20 20.5 22 19 22 15.5V8.5C22 5 20 3.5 17 3.5ZM17.47 9.59L14.34 12.09C13.68 12.62 12.84 12.88 12 12.88C11.16 12.88 10.31 12.62 9.66 12.09L6.53 9.59C6.21 9.33 6.16 8.85 6.41 8.53C6.67 8.21 7.14 8.15 7.46 8.41L10.59 10.91C11.35 11.52 12.64 11.52 13.4 10.91L16.53 8.41C16.85 8.15 17.33 8.2 17.58 8.53C17.84 8.85 17.79 9.33 17.47 9.59Z"
+        d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 5C13.66 5 15 6.34 15 8C15 9.66 13.66 11 12 11C10.34 11 9 9.66 9 8C9 6.34 10.34 5 12 5ZM12 19.2C9.5 19.2 7.29 17.92 6 15.98C6.03 13.99 10 12.9 12 12.9C13.99 12.9 17.97 13.99 18 15.98C16.71 17.92 14.5 19.2 12 19.2Z"
         fill="currentColor"
       />
     </svg>
@@ -65,7 +65,7 @@ export const LockIcon = (props: React.SVGProps<SVGSVGElement>) => {
 export function SignInFormModal() {
   const { data: session } = useSession();
   const { isOpen, onClose } = useAuthModal();
-  const [email, setEmail] = useState("");
+  const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
@@ -84,16 +84,16 @@ export function SignInFormModal() {
 
     try {
       const result = await signIn("credentials", {
-        email,
+        identifier,
         password,
         redirect: false,
       });
 
       if (result?.error) {
-        setError("Invalid email or password");
+        setError("Invalid email/username or password");
       } else {
         // Success - modal will close automatically via useEffect
-        setEmail("");
+        setIdentifier("");
         setPassword("");
       }
     } catch (error) {
@@ -139,13 +139,13 @@ export function SignInFormModal() {
             <ModalBody>
               <Input
                 endContent={
-                  <MailIcon className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
+                  <UserIcon className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
                 }
-                label="Email"
-                placeholder="Enter your email"
+                label="Email or Username"
+                placeholder="Enter your email or username"
                 variant="bordered"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                value={identifier}
+                onChange={(e) => setIdentifier(e.target.value)}
                 required
                 className="mb-4"
               />
@@ -166,7 +166,7 @@ export function SignInFormModal() {
               )}
               <div className="text-center mt-4">
                 <p className="text-muted text-xs">
-                  Beta users: Use your email and password &apos;password&apos;
+                  Beta users: Use your email/username and password &apos;password&apos;
                 </p>
               </div>
             </ModalBody>

@@ -8,18 +8,23 @@ export const authConfig: NextAuthConfig = {
     CredentialsProvider({
       name: "credentials",
       credentials: {
-        email: { label: "Email", type: "email" },
+        identifier: { label: "Email or Username", type: "text" },
         password: { label: "Password", type: "password" }
       },
       async authorize(credentials) {
-        if (!credentials?.email || !credentials?.password) {
+        if (!credentials?.identifier || !credentials?.password) {
           return null;
         }
 
-        // Find user in database
-        const user = await prisma.user.findUnique({
+        const identifier = credentials.identifier as string;
+
+        // Find user in database by email or name
+        const user = await prisma.user.findFirst({
           where: {
-            email: credentials.email as string,
+            OR: [
+              { email: identifier },
+              { name: identifier }
+            ]
           },
         });
 

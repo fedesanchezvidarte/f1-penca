@@ -51,8 +51,10 @@ export async function GET(
             thirdPlace: positions[2] || '',
             fourthPlace: positions[3] || '',
             fifthPlace: positions[4] || '',
-            sprintPole: prediction.sprintPolePrediction || undefined,
-            sprintWinner: sprintPositions ? sprintPositions[0] : undefined,
+            sprintPole: prediction.sprintPolePrediction || '',
+            sprintWinner: sprintPositions?.[0] || '',
+            sprintSecond: sprintPositions?.[1] || '',
+            sprintThird: sprintPositions?.[2] || '',
             totalPoints: prediction.points,
             createdAt: prediction.createdAt,
             updatedAt: prediction.updatedAt,
@@ -99,16 +101,9 @@ export async function PUT(
             );
         }
 
-        // Filter out undefined values and convert to null or empty string
-        const positions = [
-            body.raceWinner || '',
-            body.secondPlace || '',
-            body.thirdPlace || '',
-            body.fourthPlace || '',
-            body.fifthPlace || '',
-        ];
-
-        const sprintPositions = body.sprintWinner ? [body.sprintWinner] : undefined;
+        // Get positions from the request body (frontend sends this format)
+        const positions = body.positions || [];
+        const sprintPositions = body.sprintPositions || undefined;
 
         const updatedPrediction = await prisma.prediction.updateMany({
             where: {
@@ -116,11 +111,11 @@ export async function PUT(
                 userId: session.user.id,
             },
             data: {
-                polePositionPrediction: body.polePosition || null,
+                polePositionPrediction: body.polePositionPrediction || null,
                 positions: positions,
                 fastestLapPrediction: null, // Not implemented yet
                 sprintPositions: sprintPositions,
-                sprintPolePrediction: body.sprintPole || null,
+                sprintPolePrediction: body.sprintPolePrediction || null,
                 updatedAt: new Date(),
             },
         });
