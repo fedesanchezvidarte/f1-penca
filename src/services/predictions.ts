@@ -107,15 +107,15 @@ export async function createPrediction(raceId: string, prediction: PredictionFor
             polePositionPrediction: prediction.polePosition,
         };
 
-        // Add sprint data if present
+        // Add sprint data if present and complete
         if (prediction.sprintPole) {
             requestBody.sprintPolePrediction = prediction.sprintPole;
         }
-        if (prediction.sprintWinner) {
+        if (prediction.sprintWinner && prediction.sprintSecond && prediction.sprintThird) {
             requestBody.sprintPositions = [
-                prediction.sprintWinner || '',
-                prediction.sprintSecond || '',
-                prediction.sprintThird || '',
+                prediction.sprintWinner,
+                prediction.sprintSecond,
+                prediction.sprintThird,
             ];
         }
 
@@ -181,14 +181,16 @@ export async function updatePrediction(raceId: string, prediction: PredictionFor
             positions: positions,
         };
 
-        // Include sprint predictions if available
-        if (prediction.sprintPole || prediction.sprintWinner) {
+        // Include sprint predictions if all sprint fields are available
+        if (prediction.sprintPole || (prediction.sprintWinner && prediction.sprintSecond && prediction.sprintThird)) {
             requestBody.sprintPolePrediction = prediction.sprintPole;
-            requestBody.sprintPositions = prediction.sprintWinner ? [
-                prediction.sprintWinner || '',
-                prediction.sprintSecond || '',
-                prediction.sprintThird || '',
-            ] : [];
+            if (prediction.sprintWinner && prediction.sprintSecond && prediction.sprintThird) {
+                requestBody.sprintPositions = [
+                    prediction.sprintWinner,
+                    prediction.sprintSecond,
+                    prediction.sprintThird,
+                ];
+            }
         }
 
         const response = await fetch(`${API_BASE_URL}/api/predictions/${raceId}`, {
