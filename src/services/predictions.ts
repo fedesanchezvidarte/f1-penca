@@ -12,6 +12,8 @@ export interface Prediction {
     fifthPlace: string;
     sprintPole?: string;
     sprintWinner?: string;
+    sprintSecond?: string;
+    sprintThird?: string;
     totalPoints?: number;
     createdAt?: Date;
     updatedAt?: Date;
@@ -26,6 +28,8 @@ export interface PredictionForm {
     fifthPlace: string;
     sprintPole?: string;
     sprintWinner?: string;
+    sprintSecond?: string;
+    sprintThird?: string;
 }
 
 interface CreatePredictionRequest {
@@ -70,6 +74,8 @@ export async function getUserPrediction(raceId: string) {
             fifthPlace: data.fifthPlace,
             sprintPole: data.sprintPole,
             sprintWinner: data.sprintWinner,
+            sprintSecond: data.sprintSecond,
+            sprintThird: data.sprintThird,
             totalPoints: data.totalPoints,
             createdAt: data.createdAt,
             updatedAt: data.updatedAt,
@@ -101,12 +107,16 @@ export async function createPrediction(raceId: string, prediction: PredictionFor
             polePositionPrediction: prediction.polePosition,
         };
 
-        // Add sprint data if present
+        // Add sprint data if present and complete
         if (prediction.sprintPole) {
             requestBody.sprintPolePrediction = prediction.sprintPole;
         }
-        if (prediction.sprintWinner) {
-            requestBody.sprintPositions = [prediction.sprintWinner];
+        if (prediction.sprintWinner && prediction.sprintSecond && prediction.sprintThird) {
+            requestBody.sprintPositions = [
+                prediction.sprintWinner,
+                prediction.sprintSecond,
+                prediction.sprintThird,
+            ];
         }
 
         const response = await fetch(`${API_BASE_URL}/api/predictions`, {
@@ -138,6 +148,8 @@ export async function createPrediction(raceId: string, prediction: PredictionFor
             fifthPlace: positions[4],
             sprintPole: requestBody.sprintPolePrediction,
             sprintWinner: requestBody.sprintPositions?.[0],
+            sprintSecond: requestBody.sprintPositions?.[1],
+            sprintThird: requestBody.sprintPositions?.[2],
             totalPoints: result.points,
             createdAt: result.createdAt,
             updatedAt: result.updatedAt,
@@ -169,10 +181,16 @@ export async function updatePrediction(raceId: string, prediction: PredictionFor
             positions: positions,
         };
 
-        // Include sprint predictions if available
-        if (prediction.sprintPole || prediction.sprintWinner) {
+        // Include sprint predictions if all sprint fields are available
+        if (prediction.sprintPole || (prediction.sprintWinner && prediction.sprintSecond && prediction.sprintThird)) {
             requestBody.sprintPolePrediction = prediction.sprintPole;
-            requestBody.sprintPositions = prediction.sprintWinner ? [prediction.sprintWinner] : [];
+            if (prediction.sprintWinner && prediction.sprintSecond && prediction.sprintThird) {
+                requestBody.sprintPositions = [
+                    prediction.sprintWinner,
+                    prediction.sprintSecond,
+                    prediction.sprintThird,
+                ];
+            }
         }
 
         const response = await fetch(`${API_BASE_URL}/api/predictions/${raceId}`, {
@@ -204,6 +222,8 @@ export async function updatePrediction(raceId: string, prediction: PredictionFor
             fifthPlace: positions[4],
             sprintPole: requestBody.sprintPolePrediction,
             sprintWinner: requestBody.sprintPositions?.[0],
+            sprintSecond: requestBody.sprintPositions?.[1],
+            sprintThird: requestBody.sprintPositions?.[2],
             totalPoints: result.points,
             createdAt: result.createdAt,
             updatedAt: result.updatedAt,

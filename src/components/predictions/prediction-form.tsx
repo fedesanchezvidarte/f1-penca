@@ -22,6 +22,8 @@ interface FormData {
     fifthPlace: string;
     sprintPole?: string;
     sprintWinner?: string;
+    sprintSecond?: string;
+    sprintThird?: string;
 }
 
 export default function PredictionFormComponent({ race, drivers, prediction, onPredictionUpdate }: PredictionFormProps) {
@@ -34,6 +36,8 @@ export default function PredictionFormComponent({ race, drivers, prediction, onP
         fifthPlace: '',
         sprintPole: '',
         sprintWinner: '',
+        sprintSecond: '',
+        sprintThird: '',
     });
     
     const [originalFormData, setOriginalFormData] = useState<FormData>({
@@ -45,6 +49,8 @@ export default function PredictionFormComponent({ race, drivers, prediction, onP
         fifthPlace: '',
         sprintPole: '',
         sprintWinner: '',
+        sprintSecond: '',
+        sprintThird: '',
     });
     
     const [loading, setLoading] = useState(false);
@@ -62,6 +68,8 @@ export default function PredictionFormComponent({ race, drivers, prediction, onP
                 fifthPlace: prediction.fifthPlace || '',
                 sprintPole: prediction.sprintPole || '',
                 sprintWinner: prediction.sprintWinner || '',
+                sprintSecond: prediction.sprintSecond || '',
+                sprintThird: prediction.sprintThird || '',
             };
             setFormData(newFormData);
             setOriginalFormData(newFormData);
@@ -76,6 +84,8 @@ export default function PredictionFormComponent({ race, drivers, prediction, onP
                 fifthPlace: '',
                 sprintPole: '',
                 sprintWinner: '',
+                sprintSecond: '',
+                sprintThird: '',
             };
             setFormData(emptyFormData);
             setOriginalFormData(emptyFormData);
@@ -94,7 +104,11 @@ export default function PredictionFormComponent({ race, drivers, prediction, onP
         const raceFields = requiredFields.every(field => formData[field as keyof FormData] !== '');
         
         if (race.hasSprint) {
-            return raceFields && formData.sprintPole !== '' && formData.sprintWinner !== '';
+            return raceFields && 
+                   formData.sprintPole !== '' && 
+                   formData.sprintWinner !== '' &&
+                   formData.sprintSecond !== '' &&
+                   formData.sprintThird !== '';
         }
         
         return raceFields;
@@ -178,6 +192,8 @@ export default function PredictionFormComponent({ race, drivers, prediction, onP
             if (race.hasSprint) {
                 predictionData.sprintPole = formData.sprintPole;
                 predictionData.sprintWinner = formData.sprintWinner;
+                predictionData.sprintSecond = formData.sprintSecond;
+                predictionData.sprintThird = formData.sprintThird;
             }
 
             let result;
@@ -422,6 +438,58 @@ export default function PredictionFormComponent({ race, drivers, prediction, onP
                                         isDisabled={isDisabled}
                                     >
                                         {drivers.map((driver) => (
+                                            <SelectItem 
+                                                key={driver.id}
+                                                textValue={`#${driver.number} ${driver.fullname}`}
+                                            >
+                                                #{driver.number} {driver.fullname}
+                                            </SelectItem>
+                                        ))}
+                                    </Select>
+                                </div>
+
+                                {/* Sprint 2nd Place */}
+                                <div className="mb-4">
+                                    <Select
+                                        id="sprint-second"
+                                        name="sprintSecond"
+                                        label="Sprint 2nd Place"
+                                        placeholder="Select sprint 2nd place finisher"
+                                        selectedKeys={formData.sprintSecond ? [formData.sprintSecond] : []}
+                                        onSelectionChange={(keys) => {
+                                            const selectedKey = Array.from(keys)[0] as string;
+                                            handleSelectChange('sprintSecond', selectedKey || '');
+                                        }}
+                                        isRequired
+                                        isDisabled={isDisabled}
+                                    >
+                                        {getAvailableDrivers().map((driver) => (
+                                            <SelectItem 
+                                                key={driver.id}
+                                                textValue={`#${driver.number} ${driver.fullname}`}
+                                            >
+                                                #{driver.number} {driver.fullname}
+                                            </SelectItem>
+                                        ))}
+                                    </Select>
+                                </div>
+
+                                {/* Sprint 3rd Place */}
+                                <div className="mb-4">
+                                    <Select
+                                        id="sprint-third"
+                                        name="sprintThird"
+                                        label="Sprint 3rd Place"
+                                        placeholder="Select sprint 3rd place finisher"
+                                        selectedKeys={formData.sprintThird ? [formData.sprintThird] : []}
+                                        onSelectionChange={(keys) => {
+                                            const selectedKey = Array.from(keys)[0] as string;
+                                            handleSelectChange('sprintThird', selectedKey || '');
+                                        }}
+                                        isRequired
+                                        isDisabled={isDisabled}
+                                    >
+                                        {getAvailableDrivers().map((driver) => (
                                             <SelectItem 
                                                 key={driver.id}
                                                 textValue={`#${driver.number} ${driver.fullname}`}
