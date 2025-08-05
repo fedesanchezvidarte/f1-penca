@@ -85,7 +85,8 @@ export async function POST(request: NextRequest) {
         }
 
         const userId = session.user.id;
-        const { raceId, positions } = await request.json();
+        const body = await request.json();
+        const { raceId, positions, polePositionPrediction, sprintPolePrediction, sprintPositions } = body;
 
         // Validate data
         if (!raceId || !positions || !Array.isArray(positions)) {
@@ -113,6 +114,7 @@ export async function POST(request: NextRequest) {
                 { status: 400 }
             );
         }
+        
         // Check if a prediction already exists for this user and race
         const existingPrediction = await prisma.prediction.findFirst({
             where: {
@@ -129,6 +131,9 @@ export async function POST(request: NextRequest) {
                 where: { id: existingPrediction.id },
                 data: {
                     positions,
+                    polePositionPrediction: polePositionPrediction || null,
+                    sprintPolePrediction: sprintPolePrediction || null,
+                    sprintPositions: sprintPositions || null,
                     updatedAt: new Date(),
                 },
             });
@@ -139,6 +144,9 @@ export async function POST(request: NextRequest) {
                     userId,
                     raceId,
                     positions,
+                    polePositionPrediction: polePositionPrediction || null,
+                    sprintPolePrediction: sprintPolePrediction || null,
+                    sprintPositions: sprintPositions || null,
                 },
             });
         }

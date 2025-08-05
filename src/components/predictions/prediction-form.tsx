@@ -178,7 +178,7 @@ export default function PredictionFormComponent({ race, drivers, prediction, onP
             // Show validation error toast
             addToast({
                 title: "Validation Error",
-                description: "Unexpected error. Invalid form data.",
+                description: "Please fill in all required prediction fields before submitting.",
                 color: "warning",
                 variant: "flat",
                 radius: "lg",
