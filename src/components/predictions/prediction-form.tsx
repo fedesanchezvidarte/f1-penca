@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { Card, CardBody, Select, SelectItem, Button, Divider } from "@heroui/react";
+import { addToast } from "@heroui/toast";
 import { Race } from "@/services/races";
 import { Driver } from "@/services/drivers";
 import { Prediction, PredictionForm, createPrediction, updatePrediction } from "@/services/predictions";
@@ -173,6 +174,17 @@ export default function PredictionFormComponent({ race, drivers, prediction, onP
         
         if (!isFormValid()) {
             setError('Please fill all required fields');
+            
+            // Show validation error toast
+            addToast({
+                title: "Validation Error",
+                description: "Unexpected error. Invalid form data.",
+                color: "warning",
+                variant: "flat",
+                radius: "lg",
+                timeout: 3000,
+                shouldShowTimeoutProgress: true,
+            });
             return;
         }
 
@@ -209,8 +221,33 @@ export default function PredictionFormComponent({ race, drivers, prediction, onP
             // Update original form data to reflect the new saved state
             setOriginalFormData({ ...formData });
             
+            // Show success toast
+            addToast({
+                title: prediction ? "Prediction Updated!" : "Prediction Created!",
+                description: prediction 
+                    ? "Your prediction has been updated successfully." 
+                    : "Your prediction has been saved successfully.",
+                color: "success",
+                variant: "flat",
+                radius: "lg",
+                timeout: 3000,
+                shouldShowTimeoutProgress: true,
+            });
+            
         } catch (err) {
-            setError(err instanceof Error ? err.message : 'Failed to save prediction');
+            const errorMessage = err instanceof Error ? err.message : 'Failed to save prediction';
+            setError(errorMessage);
+            
+            // Show error toast
+            addToast({
+                title: "Prediction Failed",
+                description: errorMessage,
+                color: "danger",
+                variant: "flat",
+                radius: "lg",
+                timeout: 3000,
+                shouldShowTimeoutProgress: true,
+            });
         } finally {
             setLoading(false);
         }
