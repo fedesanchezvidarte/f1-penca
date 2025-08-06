@@ -1,0 +1,23 @@
+id,userId,raceId,positions,polePositionPrediction,fastestLapPrediction,sprintPositions,sprintPolePrediction,createdAt,updatedAt,points
+cmdndm6td000cbg6c9e3hnza5,testUser,2025-australian-grand-prix,"[""VER"",""NOR"",""PIA"",""RUS"",""ALB""]",NOR,VER,,,2025-07-28 17:22:52.801,2025-07-28 17:24:47.852,22
+cmdndm6td000dbg6czvfuoo6a,testUser,2025-chinese-grand-prix,"[""NOR"",""VER"",""RUS"",""PIA"",""HAM""]",VER,NOR,"[""VER"",""NOR"",""PIA""]",NOR,2025-07-28 17:22:52.801,2025-07-28 17:24:48.594,13
+cmdndm6td000ebg6c2t7ff0kp,testUser,2025-japanese-grand-prix,"[""RUS"",""VER"",""NOR"",""LEC"",""PIA""]",VER,RUS,,,2025-07-28 17:22:52.801,2025-07-28 17:24:49.294,25
+cmdndm6td000fbg6c5dypmt1q,testUser,2025-bahrain-grand-prix,"[""VER"",""LEC"",""RUS"",""NOR"",""HAM""]",LEC,VER,,,2025-07-28 17:22:52.801,2025-07-28 17:24:50.308,10
+cmdndm6td000gbg6cnrprgxgr,testUser,2025-saudi-arabian-grand-prix,"[""HAM"",""VER"",""LEC"",""NOR"",""RUS""]",VER,HAM,,,2025-07-28 17:22:52.801,2025-07-28 17:24:51.194,38
+cmdndm6td000hbg6cttgzh2j2,testUser,2025-miami-grand-prix,"[""NOR"",""PIA"",""VER"",""RUS"",""ALB""]",NOR,PIA,"[""PIA"",""NOR"",""VER""]",PIA,2025-07-28 17:22:52.801,2025-07-28 17:24:51.994,16
+cmdndm6td000ibg6cr2w8n2dp,testUser,2025-emilia-romagna-grand-prix,"[""VER"",""NOR"",""HAM"",""LEC"",""GAS""]",HAM,VER,,,2025-07-28 17:22:52.801,2025-07-28 17:24:52.594,27
+cmdndm6td000jbg6cbx80j003,testUser,2025-monaco-grand-prix,"[""LEC"",""HAM"",""VER"",""NOR"",""ALO""]",LEC,HAM,,,2025-07-28 17:22:52.801,2025-07-28 17:24:53.294,4
+cmdndm6td000kbg6cf2rke9v4,testUser,2025-spanish-grand-prix,"[""VER"",""NOR"",""RUS"",""PIA"",""HAM""]",NOR,VER,,,2025-07-28 17:22:52.801,2025-07-28 17:24:53.905,12
+cmdndm6td000lbg6crwld7bcp,testUser,2025-canadian-grand-prix,"[""NOR"",""VER"",""RUS"",""HAM"",""LEC""]",VER,NOR,,,2025-07-28 17:22:52.801,2025-07-28 17:24:54.418,18
+cmdndm6td000mbg6ctxzn3g6v,testUser,2025-austrian-grand-prix,"[""VER"",""NOR"",""PIA"",""RUS"",""HUL""]",VER,VER,,,2025-07-28 17:22:52.801,2025-07-28 17:24:55.192,9
+cmdndm6td000nbg6c3mgl4ucm,testUser,2025-british-grand-prix,"[""HAM"",""NOR"",""VER"",""RUS"",""PIA""]",HAM,HAM,,,2025-07-28 17:22:52.801,2025-07-28 17:24:55.994,8
+cmdndm6td000obg6chc7pi6t8,testUser,2025-belgian-grand-prix,"[""VER"",""NOR"",""HAM"",""RUS"",""ALO""]",NOR,VER,"[""NOR"",""VER"",""HAM""]",VER,2025-07-28 17:22:52.801,2025-07-28 17:22:52.801,0
+cmdnk3tw50001l2049a2d7qle,testUser,2025-italian-grand-prix,"[""NOR"",""NOR"",""ALO"",""BOR"",""GAS""]",VER,,,,2025-07-28 20:24:33.557,2025-08-05 07:02:53.701,0
+cmdoblq3i0001l704gdyesl63,testUser,2025-azerbaijan-grand-prix,"["""","""","""","""",""""]",,,,,2025-07-29 09:14:18.079,2025-07-29 09:15:02.648,0
+cmdr32b8f0001bgcgoj08mwma,testUser,2025-sao-paulo-grand-prix,"[""HAD"",""HAD"",""HAD"",""HAD"",""HAD""]",VER,,"[""ALO"",""ALO"",""ALO""]",ALO,2025-07-31 07:38:33.948,2025-08-05 07:25:56.659,0
+cmdr3aqx90003bgcgiuzj6h79,testUser,2025-hungarian-grand-prix,"[""NOR"",""NOR"",""ALO"",""ANT"",""ALO""]",VER,,,,2025-07-31 07:45:07.533,2025-08-05 07:02:25.166,0
+cmdy6b5rg0001bgswiiksxljf,testUser,2025-dutch-grand-prix,"[""VER"",""NOR"",""ALO"",""HAD"",""HAD""]",GAS,,,,2025-08-05 06:43:48.839,2025-08-05 06:44:11.103,0
+cmdy6c4hb0003bgswasit078r,testUser,2025-mexico-city-grand-prix,"[""BOR"",""GAS"",""ANT"",""ALO"",""GAS""]",VER,,,,2025-08-05 06:44:33.84,2025-08-05 06:47:35.98,0
+cmdy6gna70005bgswik8ry16b,testUser,2025-abu-dhabi-grand-prix,"[""VER"",""VER"",""VER"",""VER"",""VER""]",,,,,2025-08-05 06:48:04.832,2025-08-05 06:48:04.832,0
+cmdy79nt00009bgswg2rq427l,testUser,2025-united-states-grand-prix,"[""NOR"",""NOR"",""GAS"",""GAS"",""HAD""]",NOR,,"[""ALO"",""GAS"",""HAD""]",GAS,2025-08-05 07:10:38.533,2025-08-05 07:10:50.889,0
+cmdy7uecl0001jj044sxg1www,testUser,2025-las-vegas-grand-prix,"[""GAS"",""BOR"",""NOR"",""ALO"",""BEA""]",ALO,,,,2025-08-05 07:26:46.054,2025-08-05 07:31:59.545,0

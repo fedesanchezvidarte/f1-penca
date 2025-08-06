@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { Card, CardBody, Button, Chip, InputOtp, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter } from "@heroui/react";
 import { Race } from "@/services/races";
 import { Prediction } from "@/services/predictions";
+import CountdownTimer from "@/components/ui/countdown-timer";
 
 interface RaceOverviewProps {
     race: Race;
@@ -182,7 +183,6 @@ export default function RaceOverview({ race, prediction, onNavigateBack }: RaceO
                             <InputOtp
                                 length={pointsString.length}
                                 size="lg"
-                                radius="lg"
                                 color="default"
                                 variant="underlined"
                                 value={pointsString}
@@ -226,6 +226,14 @@ export default function RaceOverview({ race, prediction, onNavigateBack }: RaceO
                     </div>
                 </CardBody>
             </Card>
+
+            {/* Countdown Timer Card - Only show for upcoming races with deadline */}
+            {race.status === 'UPCOMING' && race.deadline && (
+                <CountdownTimer 
+                    deadline={race.deadline} 
+                    hasSprint={race.hasSprint}
+                />
+            )}
 
             {/* Point System Modal */}
             <Modal 
