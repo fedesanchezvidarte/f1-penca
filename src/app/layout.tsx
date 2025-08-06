@@ -10,6 +10,9 @@ import { HeroUIProviderWrapper } from "@/components/layout/hero-ui-provider";
 export const metadata: Metadata = {
   title: "F1 Penca - Prediction App",
   description: "F1 race prediction app for friends",
+  icons: {
+    icon: "/brand/f1-penca-logo.svg",
+  },
 };
 
 export default function RootLayout({
