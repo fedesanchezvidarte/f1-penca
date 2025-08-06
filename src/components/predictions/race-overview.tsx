@@ -227,8 +227,8 @@ export default function RaceOverview({ race, prediction, onNavigateBack }: RaceO
                 </CardBody>
             </Card>
 
-            {/* Countdown Timer Card - Only show for upcoming races with deadline */}
-            {race.status === 'UPCOMING' && race.deadline && (
+            {/* Countdown Timer Card */}
+            {race.deadline && (
                 <CountdownTimer 
                     deadline={race.deadline} 
                     hasSprint={race.hasSprint}
