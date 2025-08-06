@@ -6,6 +6,7 @@ import { Card, CardBody, Chip } from "@heroui/react";
 interface CountdownTimerProps {
     deadline: string;
     hasSprint?: boolean;
+    compact?: boolean;
 }
 
 interface TimeLeft {
@@ -40,7 +41,7 @@ function calculateTimeLeft(deadline: string): TimeLeft {
     };
 }
 
-export default function CountdownTimer({ deadline, hasSprint = false }: CountdownTimerProps) {
+export default function CountdownTimer({ deadline, hasSprint = false, compact = false }: CountdownTimerProps) {
     const [timeLeft, setTimeLeft] = useState<TimeLeft>(calculateTimeLeft(deadline));
 
     useEffect(() => {
@@ -52,7 +53,9 @@ export default function CountdownTimer({ deadline, hasSprint = false }: Countdow
     }, [deadline]);
 
     if (timeLeft.isExpired) {
-        return (
+        return compact ? (
+            <span className="text-xs text-default font-medium">Predictions Closed</span>
+        ) : (
             <Card className="w-full card-racing-translucent">
                 <CardBody className="p-4">
                     <div className="flex flex-col items-center space-y-3">
@@ -71,38 +74,71 @@ export default function CountdownTimer({ deadline, hasSprint = false }: Countdow
         );
     }
 
+    if (compact) {
+        return (
+            <div className="flex items-center space-x-2">
+                <div className="grid grid-cols-4 gap-1">
+                    <div className="countdown-box">
+                        <span className="countdown-number">
+                            {timeLeft.days.toString().padStart(2, '0')}
+                        </span>
+                    </div>
+                    
+                    <div className="countdown-box">
+                        <span className="countdown-number">
+                            {timeLeft.hours.toString().padStart(2, '0')}
+                        </span>
+                    </div>
+                    
+                    <div className="countdown-box">
+                        <span className="countdown-number">
+                            {timeLeft.minutes.toString().padStart(2, '0')}
+                        </span>
+                    </div>
+                    
+                    <div className="countdown-box">
+                        <span className="countdown-number">
+                            {timeLeft.seconds.toString().padStart(2, '0')}
+                        </span>
+                    </div>
+                </div>
+                <span className="text-xs text-default-500 font-medium">until predictions close</span>
+            </div>
+        );
+    }
+
     return (
         <Card className="w-full card-racing-translucent">
             <CardBody className="p-4">
-                <div className="flex justify-between items-center">
+                <div className="flex-between">
                     {/* Left side - Countdown display */}
-                    <div className="flex flex-col items-center justify-center space-y-2 ml-4">
+                    <div className="flex-center-col space-y-2 ml-4">
                         <div className="grid grid-cols-4 gap-2">
-                            <div className="border border-divider rounded-lg p-2 min-w-[45px] flex items-center justify-center">
-                                <span className="text-md font-bold text-foreground">
+                            <div className="countdown-box-large">
+                                <span className="countdown-number-large">
                                     {timeLeft.days.toString().padStart(2, '0')}
                                 </span>
                             </div>
                             
-                            <div className="border border-divider rounded-lg p-2 min-w-[45px] flex items-center justify-center">
-                                <span className="text-md font-bold text-foreground">
+                            <div className="countdown-box-large">
+                                <span className="countdown-number-large">
                                     {timeLeft.hours.toString().padStart(2, '0')}
                                 </span>
                             </div>
                             
-                            <div className="border border-divider rounded-lg p-2 min-w-[45px] flex items-center justify-center">
-                                <span className="text-md font-bold text-foreground">
+                            <div className="countdown-box-large">
+                                <span className="countdown-number-large">
                                     {timeLeft.minutes.toString().padStart(2, '0')}
                                 </span>
                             </div>
                             
-                            <div className="border border-divider rounded-lg p-2 min-w-[45px] flex items-center justify-center">
-                                <span className="text-md font-bold text-foreground">
+                            <div className="countdown-box-large">
+                                <span className="countdown-number-large">
                                     {timeLeft.seconds.toString().padStart(2, '0')}
                                 </span>
                             </div>
                         </div>
-                        <p className="text-md font-semibold text-foreground">Predictions Close</p>
+                        <p className="text-base font-semibold text-foreground">Predictions Close</p>
                     </div>
                     
                     {/* Divider */}
@@ -111,14 +147,14 @@ export default function CountdownTimer({ deadline, hasSprint = false }: Countdow
                     {/* Right side - Info */}
                     <div className="flex flex-col space-y-2 mr-4 items-center">
                         <div className="flex items-center space-x-1">
-                            <svg className="w-4 h-4 text-warning" fill="currentColor" viewBox="0 0 20 20">
+                            <svg className="clock-icon" fill="currentColor" viewBox="0 0 20 20">
                                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
                             </svg>
                             <Chip 
                                 color={hasSprint ? "danger" : "secondary"}
                                 size="sm" 
                                 variant="flat"
-                                className="font-medium"
+                                className="status-badge"
                             >
                                 {hasSprint ? "Sprint" : "Main"}
                             </Chip>

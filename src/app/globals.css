@@ -53,6 +53,96 @@
     @apply bg-content1/70 border border-default-200 backdrop-blur-md shadow-xl !important;
   }
 
+  /* Countdown timer styles */
+  .countdown-box {
+    @apply border border-divider rounded p-1 min-w-[30px] flex items-center justify-center;
+  }
+  
+  .countdown-box-large {
+    @apply border border-divider rounded-lg p-2 min-w-[45px] flex items-center justify-center;
+  }
+  
+  .countdown-number {
+    @apply text-xs font-mono text-foreground;
+  }
+  
+  .countdown-number-large {
+    @apply text-base font-bold text-foreground;
+  }
+
+  /* Status and badge utilities */
+  .status-badge {
+    @apply font-medium;
+  }
+  
+  .round-label {
+    @apply text-sm text-default-500 font-medium;
+  }
+  
+  .race-title {
+    @apply text-xl font-bold text-foreground mb-2;
+  }
+  
+  .race-date {
+    @apply text-default-600 font-medium;
+  }
+
+  /* Layout utilities */
+  .flex-center {
+    @apply flex items-center justify-center;
+  }
+  
+  .flex-between {
+    @apply flex justify-between items-center;
+  }
+  
+  .flex-center-col {
+    @apply flex flex-col items-center justify-center;
+  }
+
+  /* Icon and button utilities */
+  .icon-sm {
+    @apply w-4 h-4;
+  }
+  
+  .icon-md {
+    @apply w-5 h-5;
+  }
+  
+  .nav-button {
+    @apply variant-ghost size-sm;
+  }
+  
+  .action-button-full {
+    @apply w-full font-semibold cursor-default;
+  }
+
+  /* Points card specific styles */
+  .points-container {
+    @apply flex-between h-24;
+  }
+  
+  .points-display {
+    @apply flex-center-col flex-1;
+  }
+  
+  .points-label {
+    @apply text-base font-semibold text-foreground mt-2;
+  }
+  
+  .points-divider {
+    @apply w-px h-16 bg-divider mx-4;
+  }
+  
+  .points-buttons {
+    @apply flex flex-col space-y-2 flex-1 items-center;
+  }
+
+  /* Clock icon styling */
+  .clock-icon {
+    @apply icon-sm text-warning;
+  }
+
   /* Custom scrollbar for races page */
   .races-scroll {
     scrollbar-width: thin;

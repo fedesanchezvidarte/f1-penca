@@ -17,16 +17,25 @@ function formatDate(dateString: string): string {
     });
 }
 
-function getStatusColor(status: string): "success" | "warning" | "default" {
+function getStatusColor(status: string): "success" | "primary" | "default" {
     switch (status) {
         case 'COMPLETED':
             return 'success';
         case 'LIVE':
-            return 'warning';
+            return 'primary';
         case 'UPCOMING':
             return 'default';
         default:
             return 'default';
+    }
+}
+
+function getStatusVariant(status: string): "flat" | "shadow" {
+    switch (status) {
+        case 'LIVE':
+            return 'shadow';
+        default:
+            return 'flat';
     }
 }
 
@@ -67,7 +76,7 @@ export default function RaceCard({ race }: RaceCardProps) {
                 <div className="flex flex-col justify-between h-full flex-1">
                     {/* Top left - Round and Race name */}
                     <div>
-                        <p className="text-xs text-default-500 font-medium mb-1">
+                        <p className="text-xs text-muted font-medium mb-1">
                             ROUND {race.round}
                         </p>
                         <h3 className="text-sm font-semibold text-foreground leading-tight line-clamp-2">
@@ -77,16 +86,16 @@ export default function RaceCard({ race }: RaceCardProps) {
                     
                     {/* Bottom left - Date */}
                     <div>
-                        <p className="text-xs text-default-600 font-medium">
+                        <p className="text-xs race-date">
                             {formatDate(race.date)}
                         </p>
                     </div>
                 </div>
 
                 {/* Right side content */}
-                <div className="flex flex-col items-center justify-between h-full ml-4">
+                <div className="flex-center-col justify-between h-full ml-4">
                     {/* Points container */}
-                    <div className="flex flex-col items-center justify-center bg-gradient-to-br from-content2 to-content3 rounded-lg px-3 py-2 min-w-[60px] border border-default-700/50 shadow-lg">
+                    <div className="flex-center-col bg-gradient-to-br from-content2 to-content3 rounded-lg px-3 py-2 min-w-[60px] border border-default-700/50 shadow-lg">
                         <p className="text-xs text-white uppercase tracking-wider font-semibold">
                             POINTS
                         </p>
@@ -99,8 +108,8 @@ export default function RaceCard({ race }: RaceCardProps) {
                     <Chip 
                         color={getStatusColor(race.status)}
                         size="sm" 
-                        variant="flat"
-                        className="mt-2 font-medium"
+                        variant={getStatusVariant(race.status)}
+                        className="mt-2 status-badge"
                     >
                         {getStatusText(race.status)}
                     </Chip>
