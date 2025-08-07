@@ -142,7 +142,7 @@ export function SignInFormModal() {
                   <UserIcon className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
                 }
                 label="Email or Username"
-                placeholder="Enter your email or username"
+                placeholder="Enter your username"
                 variant="bordered"
                 value={identifier}
                 onChange={(e) => setIdentifier(e.target.value)}
