@@ -142,12 +142,15 @@ export function SignInFormModal() {
                   <UserIcon className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
                 }
                 label="Email or Username"
-                placeholder="Enter your email or username"
+                placeholder="Enter your username"
                 variant="bordered"
                 value={identifier}
                 onChange={(e) => setIdentifier(e.target.value)}
                 required
                 className="mb-4"
+                classNames={{
+                  input: "text-base", // Ensures 16px font size to prevent mobile zoom
+                }}
               />
               <Input
                 endContent={
@@ -160,6 +163,9 @@ export function SignInFormModal() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
+                classNames={{
+                  input: "text-base", // Ensures 16px font size to prevent mobile zoom
+                }}
               />
               {error && (
                 <p className="text-danger text-sm mt-2">{error}</p>
