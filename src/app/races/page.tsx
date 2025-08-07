@@ -40,9 +40,9 @@ export default function RacesPage() {
 
     if (loading) {
         return (
-            <div className="container mx-auto px-4 py-8 text-foreground">
-                <h1 className="text-3xl font-bold mb-6 text-center text-foreground">Races</h1>
-                <div className="flex justify-center items-center py-12">
+            <div className="container mx-auto px-4 py-8 text-foreground" id="races-page-loading">
+                <h1 className="text-3xl font-bold mb-6 text-center text-foreground" id="races-page-title">Races</h1>
+                <div className="flex justify-center items-center py-12" id="loading-spinner-container">
                     <Spinner size="lg" color="primary" />
                 </div>
             </div>
@@ -51,19 +51,19 @@ export default function RacesPage() {
 
     if (error) {
         return (
-            <div className="container mx-auto px-4 py-8 text-foreground">
-                <h1 className="text-3xl font-bold mb-6 text-center text-foreground">Races</h1>
-                <div className="flex justify-center items-center py-12">
-                    <p className="text-danger text-lg">{error}</p>
+            <div className="container mx-auto px-4 py-8 text-foreground" id="races-page-error">
+                <h1 className="text-3xl font-bold mb-6 text-center text-foreground" id="races-page-title">Races</h1>
+                <div className="flex justify-center items-center py-12" id="error-message-container">
+                    <p className="text-danger text-lg" id="error-message">{error}</p>
                 </div>
             </div>
         );
     }
 
     return (
-        <div className="container mx-auto px-4 py-8 text-foreground">
-            <h1 className="text-3xl font-bold mb-6 text-center text-foreground">Races</h1>
-            <div className="max-h-[calc(100vh-200px)] overflow-y-auto races-scroll">
+        <div className="container mx-auto px-4 py-8 text-foreground" id="races-page">
+            <h1 className="text-3xl font-bold mb-6 text-center text-foreground" id="races-page-title">Races</h1>
+            <div className="max-h-[calc(100vh-200px)] overflow-y-auto races-scroll" id="races-scroll-container">
                 <RacesGrid races={races} />
             </div>
         </div>

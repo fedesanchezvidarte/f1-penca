@@ -106,7 +106,7 @@
   }
   
   .action-button-full {
-    @apply w-full font-semibold cursor-default;
+    @apply w-full cursor-default;
   }
 
   /* Points card specific styles */
