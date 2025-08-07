@@ -1,0 +1,21 @@
+id,name,email,password,image,totalPoints,role,createdAt,updatedAt
+testUser,Test,test@test.com,password,,202,ADMIN,2025-07-28 17:22:51.698,2025-07-28 17:25:42.299
+testUser01,Ponce,,password,,170,USER,2025-07-31 10:16:43,2025-07-31 10:16:45
+testUser02,Eliot,,password,,150,USER,2025-07-31 10:17:58,2025-07-31 10:17:59
+testUser03,German,,password,,148,USER,2025-07-31 10:18:57,2025-07-31 10:18:58
+testUser04,Cande,,password,,143,USER,2025-07-31 10:19:27,2025-07-31 10:19:27
+testUser05,Ale,,password,,128,USER,2025-07-31 08:20:30.417,2025-07-31 10:20:10
+testUser06,Guillote,,password,,122,USER,2025-07-31 08:20:59.144,2025-07-31 10:20:31
+testUser07,Agotto,,password,,122,USER,2025-07-31 08:21:29.85,2025-07-31 10:21:04
+testUser08,Gaston,,password,,121,USER,2025-07-31 10:22:04,2025-07-31 10:22:05
+testUser09,Renzo,,password,,116,USER,2025-07-31 10:22:28,2025-07-31 10:22:28
+testUser10,Cachi,,password,,114,USER,2025-07-31 10:23:12,2025-07-31 10:23:12
+testUser11,Ian,,password,,114,USER,2025-07-31 10:25:36,2025-07-31 10:25:37
+testUser12,Nawe,,password,,109,USER,2025-07-31 10:26:04,2025-07-31 10:26:05
+testUser13,Kicostar,,password,,102,USER,2025-07-31 08:27:04.534,2025-07-31 10:26:37
+testUser14,Moreno,,password,,100,USER,2025-07-31 08:27:34.487,2025-07-31 10:27:07
+testUser15,Gonchi,,password,,94,USER,2025-07-31 08:28:01.617,2025-07-31 10:27:34
+testUser16,Rocco,,password,,81,USER,2025-07-31 08:28:25.72,2025-07-31 10:27:59
+testUser17,Villar,,password,,77,USER,2025-07-31 10:28:20,2025-07-31 10:28:20
+testUser18,Pau,,password,,75,USER,2025-07-31 08:29:14.931,2025-07-31 10:28:49
+testUser19,Nahuel GOL,,password,,71,USER,2025-07-31 08:42:19.333,2025-07-31 10:41:42

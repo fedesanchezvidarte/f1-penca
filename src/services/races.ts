@@ -6,6 +6,7 @@ export interface Race {
     round: number;
     circuit: string;
     date: string;
+    deadline?: string; // Prediction deadline (1 hour before qualifying/sprint qualifying)
     season: number;
     status: 'UPCOMING' | 'LIVE' | 'COMPLETED';
     resultsImported: boolean;

@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { Card, CardBody, Button, Chip, InputOtp, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter } from "@heroui/react";
 import { Race } from "@/services/races";
 import { Prediction } from "@/services/predictions";
+import CountdownTimer from "@/components/ui/countdown-timer";
 
 interface RaceOverviewProps {
     race: Race;
@@ -21,16 +22,25 @@ function formatDate(dateString: string): string {
     });
 }
 
-function getStatusColor(status: string): "success" | "warning" | "default" {
+function getStatusColor(status: string): "success" | "warning" | "default" | "primary" {
     switch (status) {
         case 'COMPLETED':
             return 'success';
         case 'LIVE':
-            return 'warning';
+            return 'primary';
         case 'UPCOMING':
             return 'default';
         default:
             return 'default';
+    }
+}
+
+function getStatusVariant(status: string): "flat" | "shadow" {
+    switch (status) {
+        case 'LIVE':
+            return 'shadow';
+        default:
+            return 'flat';
     }
 }
 
@@ -100,8 +110,8 @@ export default function RaceOverview({ race, prediction, onNavigateBack }: RaceO
                     {/* Race Information */}
                     <div className="mb-6">
                         <div className="mb-4">
-                            <div className="flex justify-between items-start mb-2">
-                                <p className="text-sm text-default-500 font-medium">
+                            <div className="flex-between items-start mb-2">
+                                <p className="round-label">
                                     ROUND {race.round}
                                 </p>
                                 {/* Back Navigation - Return to Races */}
@@ -111,7 +121,7 @@ export default function RaceOverview({ race, prediction, onNavigateBack }: RaceO
                                         size="sm"
                                         onPress={onNavigateBack}
                                         startContent={
-                                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <svg className="icon-sm" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                                             </svg>
                                         }
@@ -119,10 +129,10 @@ export default function RaceOverview({ race, prediction, onNavigateBack }: RaceO
                                     </Button>
                                 )}
                             </div>
-                            <h2 className="text-xl font-bold text-foreground mb-2">
+                            <h2 className="race-title">
                                 {race.name}
                             </h2>
-                            <p className="text-default-600 font-medium">
+                            <p className="race-date">
                                 {formatDate(race.date)}
                             </p>
                         </div>
@@ -132,8 +142,8 @@ export default function RaceOverview({ race, prediction, onNavigateBack }: RaceO
                             <Chip 
                                 color={getStatusColor(race.status)}
                                 size="sm" 
-                                variant="flat"
-                                className="font-medium"
+                                variant={getStatusVariant(race.status)}
+                                className="status-badge"
                             >
                                 {getStatusText(race.status)}
                             </Chip>
@@ -145,7 +155,7 @@ export default function RaceOverview({ race, prediction, onNavigateBack }: RaceO
                                 color={race.hasSprint ? "danger" : "secondary"}
                                 size="sm" 
                                 variant="flat"
-                                className="font-medium"
+                                className="status-badge"
                             >
                                 {race.hasSprint ? "Sprint Weekend" : "Regular Weekend"}
                             </Chip>
@@ -158,16 +168,21 @@ export default function RaceOverview({ race, prediction, onNavigateBack }: RaceO
                             color={getButtonColor(race.status, prediction)}
                             variant={getButtonVariant(race.status)}
                             size="lg"
-                            className="w-full font-semibold cursor-default"
+                            className="action-button-full"
                             isDisabled={isDisabled}
                         >
                             {getButtonText(race.status, prediction)}
                         </Button>
 
-                        {prediction && race.status === 'UPCOMING' && (
-                            <p className="text-xs text-default-500 mt-5 text-center">
-                                You can edit your prediction until the session starts
-                            </p>
+                        {prediction && race.status === 'UPCOMING' && race.deadline && (
+                            <div className="flex-center space-x-3 mt-5">
+                                <svg className="clock-icon" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
+                                </svg>
+                                <CountdownTimer 
+                                    deadline={race.deadline} 
+                                />
+                            </div>
                         )}
                     </div>
                 </CardBody>
@@ -176,33 +191,32 @@ export default function RaceOverview({ race, prediction, onNavigateBack }: RaceO
             {/* Points Card */}
             <Card className="w-full card-racing-translucent">
                 <CardBody className="p-4">
-                    <div className="flex justify-between items-center">
+                    <div className="points-container">
                         {/* Left side - Points display */}
-                        <div className="flex flex-col items-center justify-center space-y-2 ml-4">
+                        <div className="points-display">
                             <InputOtp
                                 length={pointsString.length}
                                 size="lg"
-                                radius="lg"
                                 color="default"
                                 variant="underlined"
                                 value={pointsString}
                                 isReadOnly
                                 className="pointer-events-none"
                             />
-                            <p className="text-md font-semibold text-foreground">Your Points</p>
+                            <p className="points-label">Your Points</p>
                         </div>
                         
                         {/* Divider */}
-                        <div className="w-px h-20 bg-divider"></div>
+                        <div className="points-divider"></div>
                         
                         {/* Right side - Navigation buttons */}
-                        <div className="flex flex-col space-y-2 mr-4">
+                        <div className="points-buttons">
                             <Button
                                 variant="ghost"
                                 size="sm"
                                 onPress={() => window.location.href = '/leaderboard'}
                                 startContent={
-                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <svg className="icon-sm" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                                     </svg>
                                 }
@@ -215,7 +229,7 @@ export default function RaceOverview({ race, prediction, onNavigateBack }: RaceO
                                 color="secondary"
                                 onPress={() => setShowPointSystemModal(true)}
                                 startContent={
-                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <svg className="icon-sm" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                     </svg>
                                 }

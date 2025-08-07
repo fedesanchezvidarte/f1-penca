@@ -50,6 +50,7 @@ model Race {
   round           Int
   circuit         String
   date            DateTime
+  deadline        DateTime?    // Prediction deadline (1 hour before qualifying/sprint qualifying)
   season          Int
   status          RaceStatus   @default(UPCOMING)
   hasSprint       Boolean      @default(false)

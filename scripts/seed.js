@@ -1,8 +1,9 @@
 import { PrismaClient } from '../src/generated/prisma/index.js';
-import { readFileSync } from 'fs';
+import { createReadStream } from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import { config } from 'dotenv';
+import csv from 'csv-parser';
 
 // Load environment variables from .env.local
 config({ path: '.env.local' });
@@ -12,20 +13,33 @@ const __dirname = dirname(__filename);
 
 const prisma = new PrismaClient();
 
+// Helper function to read CSV files
+const readCSV = (filePath) => {
+  return new Promise((resolve, reject) => {
+    const results = [];
+    createReadStream(filePath)
+      .pipe(csv())
+      .on('data', (data) => results.push(data))
+      .on('end', () => resolve(results))
+      .on('error', reject);
+  });
+};
+
 async function main() {
   console.log('Start seeding ...');
 
-  const driversPath = join(__dirname, '..', 'data', 'dev', 'drivers.json');
-  const racesPath = join(__dirname, '..', 'data', 'dev', 'races.json');
-  const usersPath = join(__dirname, '..', 'data', 'dev', 'users.json');
-  const predictionsPath = join(__dirname, '..', 'data', 'dev', 'predictions.json');
-  const resultsPath = join(__dirname, '..', 'data', 'dev', 'results.json');
+  const driversPath = join(__dirname, '..', 'data', 'dev', 'Driver_rows.csv');
+  const racesPath = join(__dirname, '..', 'data', 'dev', 'Race_rows.csv');
+  const usersPath = join(__dirname, '..', 'data', 'dev', 'User_rows.csv');
+  const predictionsPath = join(__dirname, '..', 'data', 'dev', 'Prediction_rows.csv');
+  const resultsPath = join(__dirname, '..', 'data', 'dev', 'RaceResult_rows.csv');
 
-  const driversData = JSON.parse(readFileSync(driversPath, 'utf-8'));
-  const racesData = JSON.parse(readFileSync(racesPath, 'utf-8'));
-  const usersData = JSON.parse(readFileSync(usersPath, 'utf-8'));
-  const predictionsData = JSON.parse(readFileSync(predictionsPath, 'utf-8'));
-  const resultsData = JSON.parse(readFileSync(resultsPath, 'utf-8'));
+  // Read CSV data
+  const driversData = await readCSV(driversPath);
+  const racesData = await readCSV(racesPath);
+  const usersData = await readCSV(usersPath);
+  const predictionsData = await readCSV(predictionsPath);
+  const resultsData = await readCSV(resultsPath);
 
   // Clean up existing data
   console.log('Cleaning existing data...');
@@ -38,24 +52,49 @@ async function main() {
   // Seed drivers
   console.log('Seeding drivers...');
   await prisma.driver.createMany({
-    data: driversData,
+    data: driversData.map(driver => ({
+      id: driver.id,
+      number: parseInt(driver.number),
+      code: driver.code,
+      firstname: driver.firstname,
+      lastname: driver.lastname,
+      fullname: driver.fullname,
+      nationality: driver.nationality,
+      team: driver.team,
+      active: driver.active === 'true',
+    })),
   });
 
   // Seed races
   console.log('Seeding races...');
   await prisma.race.createMany({
     data: racesData.map(race => ({
-      ...race,
+      id: race.id,
+      name: race.name,
+      round: parseInt(race.round),
+      circuit: race.circuit,
       date: new Date(race.date),
+      deadline: race.deadline ? new Date(race.deadline) : null,
+      season: parseInt(race.season),
+      status: race.status,
+      hasSprint: race.hasSprint === 'true',
+      resultsImported: race.resultsImported === 'true',
     })),
   });
 
   // Seed users (beta users)
   console.log('Seeding beta users...');
   await prisma.user.createMany({
-    data: usersData.map((user, index) => ({
-      ...user,
-      role: index === 0 ? 'ADMIN' : 'USER', // Make first user admin
+    data: usersData.map(user => ({
+      id: user.id,
+      name: user.name || null,
+      email: user.email || null,
+      password: user.password || null,
+      image: user.image || null,
+      totalPoints: parseInt(user.totalPoints) || 0,
+      role: user.role,
+      createdAt: new Date(user.createdAt),
+      updatedAt: new Date(user.updatedAt),
     })),
   });
 
@@ -63,12 +102,12 @@ async function main() {
   console.log('Seeding race results...');
   const raceResultsToCreate = resultsData.map(result => ({
     raceId: result.raceId,
-    polePosition: result.polePosition,
-    raceResult: result.raceResult,
-    fastestLap: result.fastestLap,
-    sprintRace: result.sprintRace,
+    polePosition: result.polePosition || null,
+    raceResult: JSON.parse(result.raceResult),
+    fastestLap: result.fastestLap || null,
+    sprintRace: result.sprintRace === 'true',
     sprintPolePosition: result.sprintPolePosition || null,
-    sprintResult: result.sprintResult || null,
+    sprintResult: result.sprintResult ? JSON.parse(result.sprintResult) : null,
   }));
 
   await prisma.raceResult.createMany({
@@ -79,14 +118,17 @@ async function main() {
   console.log('Seeding predictions...');
   await prisma.prediction.createMany({
     data: predictionsData.map(prediction => ({
+      id: prediction.id,
       userId: prediction.userId,
       raceId: prediction.raceId,
-      positions: prediction.positions,
-      polePositionPrediction: prediction.polePositionPrediction,
-      fastestLapPrediction: prediction.fastestLapPrediction,
-      sprintPositions: prediction.sprintPositions,
-      sprintPolePrediction: prediction.sprintPolePrediction,
-      points: 0, // Initialize with 0, will be calculated later
+      positions: JSON.parse(prediction.positions),
+      polePositionPrediction: prediction.polePositionPrediction || null,
+      fastestLapPrediction: prediction.fastestLapPrediction || null,
+      sprintPositions: prediction.sprintPositions ? JSON.parse(prediction.sprintPositions) : null,
+      sprintPolePrediction: prediction.sprintPolePrediction || null,
+      createdAt: new Date(prediction.createdAt),
+      updatedAt: new Date(prediction.updatedAt),
+      points: parseInt(prediction.points) || 0,
     })),
   });
 

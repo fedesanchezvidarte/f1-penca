@@ -1,0 +1,21 @@
+id,number,code,firstname,lastname,fullname,nationality,team,active
+VER,1,VER,Max,Verstappen,Max Verstappen,Dutch,Red Bull Racing,true
+TSU,22,TSU,Yuki,Tsunoda,Yuki Tsunoda,Japanese,Red Bull Racing,true
+HAM,44,HAM,Lewis,Hamilton,Lewis Hamilton,British,Ferrari,true
+LEC,16,LEC,Charles,Leclerc,Charles Leclerc,Monegasque,Ferrari,true
+RUS,63,RUS,George,Russell,George Russell,British,Mercedes,true
+ANT,12,ANT,Kimi,Antonelli,Kimi Antonelli,Italian,Mercedes,true
+NOR,4,NOR,Lando,Norris,Lando Norris,British,McLaren,true
+PIA,81,PIA,Oscar,Piastri,Oscar Piastri,Australian,McLaren,true
+ALO,14,ALO,Fernando,Alonso,Fernando Alonso,Spanish,Aston Martin,true
+STR,18,STR,Lance,Stroll,Lance Stroll,Canadian,Aston Martin,true
+OCO,31,OCO,Esteban,Ocon,Esteban Ocon,French,Haas F1 Team,true
+BEA,50,BEA,Oliver,Bearman,Oliver Bearman,British,Haas F1 Team,true
+ALB,23,ALB,Alexander,Albon,Alexander Albon,Thai,Williams,true
+SAI,55,SAI,Carlos,Sainz,Carlos Sainz,Spanish,Williams,true
+HUL,27,HUL,Nico,Hulkenberg,Nico Hulkenberg,German,Kick Sauber,true
+BOR,5,BOR,Gabriel,Bortoleto,Gabriel Bortoleto,Brazilian,Kick Sauber,true
+LAW,30,LAW,Liam,Lawson,Liam Lawson,New Zealand,Racing Bulls,true
+HAD,6,HAD,Isack,Hadjar,Isack Hadjar,French,Racing Bulls,true
+GAS,10,GAS,Pierre,Gasly,Pierre Gasly,French,Alpine,true
+COL,43,COL,Franco,Colapinto,Franco Colapinto,Argentine,Alpine,true
