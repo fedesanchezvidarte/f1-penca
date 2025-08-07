@@ -181,8 +181,6 @@ export default function RaceOverview({ race, prediction, onNavigateBack }: RaceO
                                 </svg>
                                 <CountdownTimer 
                                     deadline={race.deadline} 
-                                    hasSprint={race.hasSprint}
-                                    compact={true}
                                 />
                             </div>
                         )}

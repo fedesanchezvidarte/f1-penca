@@ -57,17 +57,9 @@
   .countdown-box {
     @apply border border-divider rounded p-1 min-w-[30px] flex items-center justify-center;
   }
-  
-  .countdown-box-large {
-    @apply border border-divider rounded-lg p-2 min-w-[45px] flex items-center justify-center;
-  }
-  
+
   .countdown-number {
     @apply text-xs font-mono text-foreground;
-  }
-  
-  .countdown-number-large {
-    @apply text-base font-bold text-foreground;
   }
 
   /* Status and badge utilities */
