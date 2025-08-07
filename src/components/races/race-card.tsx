@@ -44,7 +44,7 @@ function getStatusText(status: string) {
         case 'COMPLETED':
             return 'Completed';
         case 'LIVE':
-            return 'LIVE';
+            return '⚪ LIVE';
         case 'UPCOMING':
             return 'Upcoming';
         default:
@@ -63,45 +63,52 @@ export default function RaceCard({ race }: RaceCardProps) {
         router.push(`/races/${race.id}`);
     };
 
+    // Format points for countdown-style display
+    const points = race.userPoints || 0;
+
     return (
         <div 
-            className="cursor-pointer"
+            className="cursor-pointer p-1"
             onClick={handleCardClick}
+            id={`race-card-${race.id}`}
         >
             <Card 
-                className="w-full h-32 hover:scale-105 transition-transform duration-200 card-racing-translucent hover:border-primary/50 hover:shadow-lg"
+                className="w-full h-34 hover:scale-[1.02] transition-transform duration-200 card-racing-translucent hover:border-primary/50 hover:shadow-lg"
+                id={`race-card-content-${race.id}`}
             >
             <CardBody className="p-4 flex flex-row justify-between items-start h-full">
                 {/* Left side content */}
-                <div className="flex flex-col justify-between h-full flex-1">
+                <div className="flex flex-col justify-between h-full flex-1 mr-6" id={`race-info-${race.id}`}>
                     {/* Top left - Round and Race name */}
-                    <div>
-                        <p className="text-xs text-muted font-medium mb-1">
+                    <div id={`race-header-${race.id}`}>
+                        <p className="text-xs text-muted font-medium mb-1" id={`race-round-${race.id}`}>
                             ROUND {race.round}
                         </p>
-                        <h3 className="text-sm font-semibold text-foreground leading-tight line-clamp-2">
+                        <h3 className="text-sm font-semibold text-foreground leading-tight line-clamp-2" id={`race-name-${race.id}`}>
                             {race.name}
                         </h3>
                     </div>
                     
                     {/* Bottom left - Date */}
-                    <div>
-                        <p className="text-xs race-date">
+                    <div id={`race-date-container-${race.id}`}>
+                        <p className="text-xs race-date" id={`race-date-${race.id}`}>
                             {formatDate(race.date)}
                         </p>
                     </div>
                 </div>
 
                 {/* Right side content */}
-                <div className="flex-center-col justify-between h-full ml-4">
-                    {/* Points container */}
-                    <div className="flex-center-col bg-gradient-to-br from-content2 to-content3 rounded-lg px-3 py-2 min-w-[60px] border border-default-700/50 shadow-lg">
-                        <p className="text-xs text-white uppercase tracking-wider font-semibold">
+                <div className="flex-center-col justify-between h-full" id={`race-status-points-${race.id}`}>
+                    {/* Points container - Single box countdown style */}
+                    <div className="flex-center-col" id={`points-section-${race.id}`}>
+                        <p className="text-xs text-default-500 font-medium mb-1 uppercase tracking-wider" id={`points-label-${race.id}`}>
                             POINTS
                         </p>
-                        <p className="text-3xl font-bold text-primary leading-none">
-                            {race.userPoints || 0}
-                        </p>
+                        <div className="border border-divider rounded p-2 w-[60px] flex items-center justify-center" id={`points-display-${race.id}`}>
+                            <span className="text-2xl font-mono font-bold text-foreground">
+                                {points}
+                            </span>
+                        </div>
                     </div>
                     
                     {/* Status badge */}
@@ -110,6 +117,7 @@ export default function RaceCard({ race }: RaceCardProps) {
                         size="sm" 
                         variant={getStatusVariant(race.status)}
                         className="mt-2 status-badge"
+                        id={`race-status-badge-${race.id}`}
                     >
                         {getStatusText(race.status)}
                     </Chip>
