@@ -148,6 +148,9 @@ export function SignInFormModal() {
                 onChange={(e) => setIdentifier(e.target.value)}
                 required
                 className="mb-4"
+                classNames={{
+                  input: "text-base", // Ensures 16px font size to prevent mobile zoom
+                }}
               />
               <Input
                 endContent={
@@ -160,6 +163,9 @@ export function SignInFormModal() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
+                classNames={{
+                  input: "text-base", // Ensures 16px font size to prevent mobile zoom
+                }}
               />
               {error && (
                 <p className="text-danger text-sm mt-2">{error}</p>

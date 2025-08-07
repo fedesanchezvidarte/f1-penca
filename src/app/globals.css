@@ -192,6 +192,25 @@
       @apply rounded-t-2xl;
     }
   }
+
+  /* Prevent mobile zoom on inputs while maintaining accessibility */
+  .prevent-mobile-zoom input {
+    font-size: max(16px, 1rem);
+  }
+  
+  /* Ensure all form inputs have proper font size for mobile */
+  @media (max-width: 768px) {
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="tel"],
+    input[type="url"],
+    input[type="search"],
+    textarea,
+    select {
+      font-size: max(16px, 1rem) !important;
+    }
+  }
 }
 
 /* High-priority utility classes */

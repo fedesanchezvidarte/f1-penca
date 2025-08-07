@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { AuthProvider } from "@/components/auth/auth-provider";
 import { AuthModalProvider } from "@/components/auth/auth-modal-context";
@@ -13,6 +13,13 @@ export const metadata: Metadata = {
   icons: {
     icon: "/brand/f1-penca-logo.svg",
   },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false, // Prevents user scaling but allows programmatic scaling
 };
 
 export default function RootLayout({
