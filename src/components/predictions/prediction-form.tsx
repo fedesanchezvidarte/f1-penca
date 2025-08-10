@@ -16,6 +16,7 @@ interface PredictionFormProps {
 
 interface FormData {
     polePosition: string;
+    fastestLap: string;
     raceWinner: string;
     secondPlace: string;
     thirdPlace: string;
@@ -30,6 +31,7 @@ interface FormData {
 export default function PredictionFormComponent({ race, drivers, prediction, onPredictionUpdate }: PredictionFormProps) {
     const [formData, setFormData] = useState<FormData>({
         polePosition: '',
+        fastestLap: '',
         raceWinner: '',
         secondPlace: '',
         thirdPlace: '',
@@ -43,6 +45,7 @@ export default function PredictionFormComponent({ race, drivers, prediction, onP
     
     const [originalFormData, setOriginalFormData] = useState<FormData>({
         polePosition: '',
+        fastestLap: '',
         raceWinner: '',
         secondPlace: '',
         thirdPlace: '',
@@ -62,6 +65,7 @@ export default function PredictionFormComponent({ race, drivers, prediction, onP
         if (prediction) {
             const newFormData = {
                 polePosition: prediction.polePosition || '',
+                fastestLap: prediction.fastestLap || '',
                 raceWinner: prediction.raceWinner || '',
                 secondPlace: prediction.secondPlace || '',
                 thirdPlace: prediction.thirdPlace || '',
@@ -78,6 +82,7 @@ export default function PredictionFormComponent({ race, drivers, prediction, onP
             // Reset to empty state if no prediction
             const emptyFormData = {
                 polePosition: '',
+                fastestLap: '',
                 raceWinner: '',
                 secondPlace: '',
                 thirdPlace: '',
@@ -101,7 +106,7 @@ export default function PredictionFormComponent({ race, drivers, prediction, onP
     };
 
     const isFormValid = () => {
-        const requiredFields = ['polePosition', 'raceWinner', 'secondPlace', 'thirdPlace', 'fourthPlace', 'fifthPlace'];
+    const requiredFields = ['polePosition', 'fastestLap', 'raceWinner', 'secondPlace', 'thirdPlace', 'fourthPlace', 'fifthPlace'];
         const raceFields = requiredFields.every(field => formData[field as keyof FormData] !== '');
         
         if (race.hasSprint) {
@@ -194,6 +199,7 @@ export default function PredictionFormComponent({ race, drivers, prediction, onP
         try {
             const predictionData: PredictionForm = {
                 polePosition: formData.polePosition,
+                fastestLap: formData.fastestLap,
                 raceWinner: formData.raceWinner,
                 secondPlace: formData.secondPlace,
                 thirdPlace: formData.thirdPlace,
@@ -280,6 +286,32 @@ export default function PredictionFormComponent({ race, drivers, prediction, onP
                                 onSelectionChange={(keys) => {
                                     const selectedKey = Array.from(keys)[0] as string;
                                     handleSelectChange('polePosition', selectedKey || '');
+                                }}
+                                isRequired
+                                isDisabled={isDisabled}
+                            >
+                                {drivers.map((driver) => (
+                                    <SelectItem 
+                                        key={driver.id}
+                                        textValue={`#${driver.number} ${driver.fullname}`}
+                                    >
+                                        #{driver.number} {driver.fullname}
+                                    </SelectItem>
+                                ))}
+                            </Select>
+                        </div>
+
+                        {/* Fastest Lap */}
+                        <div className="mb-4">
+                            <Select
+                                id="fastest-lap"
+                                name="fastestLap"
+                                label="Fastest Lap"
+                                placeholder="Select driver for fastest lap"
+                                selectedKeys={formData.fastestLap ? [formData.fastestLap] : []}
+                                onSelectionChange={(keys) => {
+                                    const selectedKey = Array.from(keys)[0] as string;
+                                    handleSelectChange('fastestLap', selectedKey || '');
                                 }}
                                 isRequired
                                 isDisabled={isDisabled}

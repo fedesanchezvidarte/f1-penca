@@ -85,11 +85,11 @@ export async function POST(request: NextRequest) {
         }
 
         const userId = session.user.id;
-        const body = await request.json();
-        const { raceId, positions, polePositionPrediction, sprintPolePrediction, sprintPositions } = body;
+    const body = await request.json();
+    const { raceId, positions, polePositionPrediction, fastestLapPrediction, sprintPolePrediction, sprintPositions } = body;
 
         // Validate data
-        if (!raceId || !positions || !Array.isArray(positions)) {
+    if (!raceId || !positions || !Array.isArray(positions)) {
             return NextResponse.json(
                 { error: 'Invalid data. raceId and positions (array) are required' },
                 { status: 400 }
@@ -127,11 +127,12 @@ export async function POST(request: NextRequest) {
 
         if (existingPrediction) {
             // Update existing prediction
-            prediction = await prisma.prediction.update({
+        prediction = await prisma.prediction.update({
                 where: { id: existingPrediction.id },
                 data: {
                     positions,
                     polePositionPrediction: polePositionPrediction || null,
+            fastestLapPrediction: fastestLapPrediction || null,
                     sprintPolePrediction: sprintPolePrediction || null,
                     sprintPositions: sprintPositions || null,
                     updatedAt: new Date(),
@@ -145,6 +146,7 @@ export async function POST(request: NextRequest) {
                     raceId,
                     positions,
                     polePositionPrediction: polePositionPrediction || null,
+            fastestLapPrediction: fastestLapPrediction || null,
                     sprintPolePrediction: sprintPolePrediction || null,
                     sprintPositions: sprintPositions || null,
                 },

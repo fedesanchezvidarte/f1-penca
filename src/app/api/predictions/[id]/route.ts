@@ -46,6 +46,7 @@ export async function GET(
             id: prediction.id,
             raceId: prediction.raceId,
             polePosition: prediction.polePositionPrediction || '',
+            fastestLap: prediction.fastestLapPrediction || '',
             raceWinner: positions[0] || '',
             secondPlace: positions[1] || '',
             thirdPlace: positions[2] || '',
@@ -113,7 +114,7 @@ export async function PUT(
             data: {
                 polePositionPrediction: body.polePositionPrediction || null,
                 positions: positions,
-                fastestLapPrediction: null, // Not implemented yet
+                fastestLapPrediction: body.fastestLapPrediction || null,
                 sprintPositions: sprintPositions,
                 sprintPolePrediction: body.sprintPolePrediction || null,
                 updatedAt: new Date(),
