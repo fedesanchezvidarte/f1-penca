@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Card, CardBody, Select, SelectItem, Button, Divider } from "@heroui/react";
+import { Card, CardBody, Select, SelectItem, Button, Divider, Input } from "@heroui/react";
 import { addToast } from "@heroui/toast";
 import { Race } from "@/services/races";
 import { Driver } from "@/services/drivers";
@@ -394,6 +394,58 @@ export default function PredictionFormComponent({ race, drivers, prediction, onP
         return {};
     }
 
+    const isCompleted = race.status === 'COMPLETED' && !!results;
+
+    // ------- Points calculation per field -------
+    function getPoints(field: keyof FormData): number {
+        if (!isCompleted || !results) return 0;
+        const v = formData[field];
+        if (!v) return 0;
+
+        const onPodium = (driverId: string) => inTopN(driverId, results.raceResult, 3);
+        const inTop5 = (driverId: string) => inTopN(driverId, results.raceResult, 5);
+        const sprintOnPodium = (driverId: string) => inTopN(driverId, results.sprintResult, 3);
+
+        switch (field) {
+            // Regular weekend
+            case 'polePosition':
+                return results.polePosition && v === results.polePosition ? 10 : 0;
+            case 'fastestLap':
+                return results.fastestLap && v === results.fastestLap ? 1 : 0;
+            case 'raceWinner':
+                return isExactAtIndex(v, results.raceResult, 0) ? 15 : 0;
+            case 'secondPlace':
+                if (isExactAtIndex(v, results.raceResult, 1)) return 10;
+                return onPodium(v) ? 5 : 0;
+            case 'thirdPlace':
+                if (isExactAtIndex(v, results.raceResult, 2)) return 8;
+                return onPodium(v) ? 3 : 0;
+            case 'fourthPlace':
+                if (isExactAtIndex(v, results.raceResult, 3)) return 5; // exact in top5
+                return inTop5(v) ? 1 : 0; // partial in top5
+            case 'fifthPlace':
+                if (isExactAtIndex(v, results.raceResult, 4)) return 5; // exact in top5
+                return inTop5(v) ? 1 : 0; // partial in top5
+            // Sprint weekend
+            case 'sprintPole':
+                if (!race.hasSprint) return 0;
+                return results.sprintPolePosition && v === results.sprintPolePosition ? 5 : 0;
+            case 'sprintWinner':
+                if (!race.hasSprint) return 0;
+                return isExactAtIndex(v, results.sprintResult, 0) ? 8 : 0;
+            case 'sprintSecond':
+                if (!race.hasSprint) return 0;
+                if (isExactAtIndex(v, results.sprintResult, 1)) return 5;
+                return sprintOnPodium(v) ? 3 : 0;
+            case 'sprintThird':
+                if (!race.hasSprint) return 0;
+                if (isExactAtIndex(v, results.sprintResult, 2)) return 3;
+                return sprintOnPodium(v) ? 1 : 0;
+            default:
+                return 0;
+        }
+    }
+
     return (
         <form onSubmit={handleSubmit}>
             <Card className="w-full card-racing-translucent">
@@ -409,13 +461,14 @@ export default function PredictionFormComponent({ race, drivers, prediction, onP
                         <h4 className="text-lg font-semibold text-foreground mt-2 mb-4 ml-3">Main Race</h4>
                         
                         {/* Pole Position */}
-                        <div className="mb-4">
+                        <div className="mb-4 flex items-end gap-3">
                             <Select
                                 id="pole-position"
                                 name="polePosition"
                                 label="Pole Position"
                                 placeholder="Select driver for pole position"
                                 {...getSelectVisuals('polePosition')}
+                                className="flex-1"
                                 selectedKeys={formData.polePosition ? [formData.polePosition] : []}
                                 onSelectionChange={(keys) => {
                                     const selectedKey = Array.from(keys)[0] as string;
@@ -433,16 +486,28 @@ export default function PredictionFormComponent({ race, drivers, prediction, onP
                                     </SelectItem>
                                 ))}
                             </Select>
+                            {isCompleted && (
+                                <Input
+                                    aria-label="Pole points"
+                                    label="Pts"
+                                    value={String(getPoints('polePosition'))}
+                                    isReadOnly
+                                    isDisabled
+                                    variant="faded"
+                                    className="w-14"
+                                />
+                            )}
                         </div>
 
                         {/* Fastest Lap */}
-                        <div className="mb-4">
+                        <div className="mb-4 flex items-end gap-3">
                             <Select
                                 id="fastest-lap"
                                 name="fastestLap"
                                 label="Fastest Lap"
                                 placeholder="Select driver for fastest lap"
                                 {...getSelectVisuals('fastestLap')}
+                                className="flex-1"
                                 selectedKeys={formData.fastestLap ? [formData.fastestLap] : []}
                                 onSelectionChange={(keys) => {
                                     const selectedKey = Array.from(keys)[0] as string;
@@ -460,16 +525,28 @@ export default function PredictionFormComponent({ race, drivers, prediction, onP
                                     </SelectItem>
                                 ))}
                             </Select>
+                            {isCompleted && (
+                                <Input
+                                    aria-label="Fastest lap points"
+                                    label="Pts"
+                                    value={String(getPoints('fastestLap'))}
+                                    isReadOnly
+                                    isDisabled
+                                    variant="faded"
+                                    className="w-14"
+                                />
+                            )}
                         </div>
 
                         {/* Race Winner */}
-                        <div className="mb-4">
+                        <div className="mb-4 flex items-end gap-3">
                             <Select
                                 id="race-winner"
                                 name="raceWinner"
                                 label="Race Winner"
                                 placeholder="Select race winner"
                                 {...getSelectVisuals('raceWinner')}
+                                className="flex-1"
                                 selectedKeys={formData.raceWinner ? [formData.raceWinner] : []}
                                 onSelectionChange={(keys) => {
                                     const selectedKey = Array.from(keys)[0] as string;
@@ -487,16 +564,28 @@ export default function PredictionFormComponent({ race, drivers, prediction, onP
                                     </SelectItem>
                                 ))}
                             </Select>
+                            {isCompleted && (
+                                <Input
+                                    aria-label="Race winner points"
+                                    label="Pts"
+                                    value={String(getPoints('raceWinner'))}
+                                    isReadOnly
+                                    isDisabled
+                                    variant="faded"
+                                    className="w-14"
+                                />
+                            )}
                         </div>
 
                         {/* 2nd Place */}
-                        <div className="mb-4">
+                        <div className="mb-4 flex items-end gap-3">
                             <Select
                                 id="second-place"
                                 name="secondPlace"
                                 label="2nd Place"
                                 placeholder="Select 2nd place finisher"
                                 {...getSelectVisuals('secondPlace')}
+                                className="flex-1"
                                 selectedKeys={formData.secondPlace ? [formData.secondPlace] : []}
                                 onSelectionChange={(keys) => {
                                     const selectedKey = Array.from(keys)[0] as string;
@@ -514,16 +603,28 @@ export default function PredictionFormComponent({ race, drivers, prediction, onP
                                     </SelectItem>
                                 ))}
                             </Select>
+                            {isCompleted && (
+                                <Input
+                                    aria-label="Second place points"
+                                    label="Pts"
+                                    value={String(getPoints('secondPlace'))}
+                                    isReadOnly
+                                    isDisabled
+                                    variant="faded"
+                                    className="w-14"
+                                />
+                            )}
                         </div>
 
                         {/* 3rd Place */}
-                        <div className="mb-4">
+                        <div className="mb-4 flex items-end gap-3">
                             <Select
                                 id="third-place"
                                 name="thirdPlace"
                                 label="3rd Place"
                                 placeholder="Select 3rd place finisher"
                                 {...getSelectVisuals('thirdPlace')}
+                                className="flex-1"
                                 selectedKeys={formData.thirdPlace ? [formData.thirdPlace] : []}
                                 onSelectionChange={(keys) => {
                                     const selectedKey = Array.from(keys)[0] as string;
@@ -541,16 +642,28 @@ export default function PredictionFormComponent({ race, drivers, prediction, onP
                                     </SelectItem>
                                 ))}
                             </Select>
+                            {isCompleted && (
+                                <Input
+                                    aria-label="Third place points"
+                                    label="Pts"
+                                    value={String(getPoints('thirdPlace'))}
+                                    isReadOnly
+                                    isDisabled
+                                    variant="faded"
+                                    className="w-14"
+                                />
+                            )}
                         </div>
 
                         {/* 4th Place */}
-                        <div className="mb-4">
+                        <div className="mb-4 flex items-end gap-3">
                             <Select
                                 id="fourth-place"
                                 name="fourthPlace"
                                 label="4th Place"
                                 placeholder="Select 4th place finisher"
                                 {...getSelectVisuals('fourthPlace')}
+                                className="flex-1"
                                 selectedKeys={formData.fourthPlace ? [formData.fourthPlace] : []}
                                 onSelectionChange={(keys) => {
                                     const selectedKey = Array.from(keys)[0] as string;
@@ -568,16 +681,28 @@ export default function PredictionFormComponent({ race, drivers, prediction, onP
                                     </SelectItem>
                                 ))}
                             </Select>
+                            {isCompleted && (
+                                <Input
+                                    aria-label="Fourth place points"
+                                    label="Pts"
+                                    value={String(getPoints('fourthPlace'))}
+                                    isReadOnly
+                                    isDisabled
+                                    variant="faded"
+                                    className="w-14"
+                                />
+                            )}
                         </div>
 
                         {/* 5th Place */}
-                        <div className="mb-4">
+                        <div className="mb-4 flex items-end gap-3">
                             <Select
                                 id="fifth-place"
                                 name="fifthPlace"
                                 label="5th Place"
                                 placeholder="Select 5th place finisher"
                                 {...getSelectVisuals('fifthPlace')}
+                                className="flex-1"
                                 selectedKeys={formData.fifthPlace ? [formData.fifthPlace] : []}
                                 onSelectionChange={(keys) => {
                                     const selectedKey = Array.from(keys)[0] as string;
@@ -595,6 +720,17 @@ export default function PredictionFormComponent({ race, drivers, prediction, onP
                                     </SelectItem>
                                 ))}
                             </Select>
+                            {isCompleted && (
+                                <Input
+                                    aria-label="Fifth place points"
+                                    label="Pts"
+                                    value={String(getPoints('fifthPlace'))}
+                                    isReadOnly
+                                    isDisabled
+                                    variant="faded"
+                                    className="w-14"
+                                />
+                            )}
                         </div>
                     </div>
 
@@ -606,13 +742,14 @@ export default function PredictionFormComponent({ race, drivers, prediction, onP
                                 <h4 className="text-lg font-semibold text-foreground mb-4 ml-3">Sprint Race</h4>
                                 
                                 {/* Sprint Pole */}
-                                <div className="mb-4">
+                                <div className="mb-4 flex items-end gap-3">
                                     <Select
                                         id="sprint-pole"
                                         name="sprintPole"
                                         label="Sprint Pole Position"
                                         placeholder="Select driver for sprint pole"
                                         {...getSelectVisuals('sprintPole')}
+                                        className="flex-1"
                                         selectedKeys={formData.sprintPole ? [formData.sprintPole] : []}
                                         onSelectionChange={(keys) => {
                                             const selectedKey = Array.from(keys)[0] as string;
@@ -630,16 +767,28 @@ export default function PredictionFormComponent({ race, drivers, prediction, onP
                                             </SelectItem>
                                         ))}
                                     </Select>
+                                    {isCompleted && (
+                                        <Input
+                                            aria-label="Sprint pole points"
+                                            label="Pts"
+                                            value={String(getPoints('sprintPole'))}
+                                            isReadOnly
+                                            isDisabled
+                                            variant="faded"
+                                            className="w-14"
+                                        />
+                                    )}
                                 </div>
 
                                 {/* Sprint Winner */}
-                                <div className="mb-4">
+                                <div className="mb-4 flex items-end gap-3">
                                     <Select
                                         id="sprint-winner"
                                         name="sprintWinner"
                                         label="Sprint Winner"
                                         placeholder="Select sprint winner"
                                         {...getSelectVisuals('sprintWinner')}
+                                        className="flex-1"
                                         selectedKeys={formData.sprintWinner ? [formData.sprintWinner] : []}
                                         onSelectionChange={(keys) => {
                                             const selectedKey = Array.from(keys)[0] as string;
@@ -657,16 +806,28 @@ export default function PredictionFormComponent({ race, drivers, prediction, onP
                                             </SelectItem>
                                         ))}
                                     </Select>
+                                    {isCompleted && (
+                                        <Input
+                                            aria-label="Sprint winner points"
+                                            label="Pts"
+                                            value={String(getPoints('sprintWinner'))}
+                                            isReadOnly
+                                            isDisabled
+                                            variant="faded"
+                                            className="w-14"
+                                        />
+                                    )}
                                 </div>
 
                                 {/* Sprint 2nd Place */}
-                                <div className="mb-4">
+                                <div className="mb-4 flex items-end gap-3">
                                     <Select
                                         id="sprint-second"
                                         name="sprintSecond"
                                         label="Sprint 2nd Place"
                                         placeholder="Select sprint 2nd place finisher"
                                         {...getSelectVisuals('sprintSecond')}
+                                        className="flex-1"
                                         selectedKeys={formData.sprintSecond ? [formData.sprintSecond] : []}
                                         onSelectionChange={(keys) => {
                                             const selectedKey = Array.from(keys)[0] as string;
@@ -684,16 +845,28 @@ export default function PredictionFormComponent({ race, drivers, prediction, onP
                                             </SelectItem>
                                         ))}
                                     </Select>
+                                    {isCompleted && (
+                                        <Input
+                                            aria-label="Sprint 2nd points"
+                                            label="Pts"
+                                            value={String(getPoints('sprintSecond'))}
+                                            isReadOnly
+                                            isDisabled
+                                            variant="faded"
+                                            className="w-14"
+                                        />
+                                    )}
                                 </div>
 
                                 {/* Sprint 3rd Place */}
-                                <div className="mb-4">
+                                <div className="mb-4 flex items-end gap-3">
                                     <Select
                                         id="sprint-third"
                                         name="sprintThird"
                                         label="Sprint 3rd Place"
                                         placeholder="Select sprint 3rd place finisher"
                                         {...getSelectVisuals('sprintThird')}
+                                        className="flex-1"
                                         selectedKeys={formData.sprintThird ? [formData.sprintThird] : []}
                                         onSelectionChange={(keys) => {
                                             const selectedKey = Array.from(keys)[0] as string;
@@ -711,6 +884,17 @@ export default function PredictionFormComponent({ race, drivers, prediction, onP
                                             </SelectItem>
                                         ))}
                                     </Select>
+                                    {isCompleted && (
+                                        <Input
+                                            aria-label="Sprint 3rd points"
+                                            label="Pts"
+                                            value={String(getPoints('sprintThird'))}
+                                            isReadOnly
+                                            isDisabled
+                                            variant="faded"
+                                            className="w-14"
+                                        />
+                                    )}
                                 </div>
                             </div>
                         </>
