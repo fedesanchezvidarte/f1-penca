@@ -29,6 +29,18 @@ interface FormData {
 }
 
 export default function PredictionFormComponent({ race, drivers, prediction, onPredictionUpdate }: PredictionFormProps) {
+    // ------- Results + highlighting state -------
+    type DriverPosition = { position: number; driverId: string };
+    interface RaceResults {
+        polePosition?: string | null;
+        fastestLap?: string | null;
+        raceResult?: DriverPosition[] | null;
+        sprintPolePosition?: string | null;
+        sprintResult?: DriverPosition[] | null;
+    }
+
+    const [results, setResults] = useState<RaceResults | null>(null);
+
     const [formData, setFormData] = useState<FormData>({
         polePosition: '',
         fastestLap: '',
@@ -59,6 +71,45 @@ export default function PredictionFormComponent({ race, drivers, prediction, onP
     
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
+
+    // Fetch race results when available to enable accuracy highlighting
+    useEffect(() => {
+        let cancelled = false;
+        async function fetchResults() {
+            if (!(race.status === 'COMPLETED' || race.resultsImported)) {
+                setResults(null);
+                return;
+            }
+            try {
+                const res = await fetch(`/api/races/${race.id}/results`, {
+                    cache: 'no-store',
+                    credentials: 'include',
+                });
+                if (!res.ok) {
+                    // If 404, results not found; just do nothing
+                    setResults(null);
+                    return;
+                }
+                const data = await res.json();
+                if (cancelled) return;
+                const mapped: RaceResults = {
+                    polePosition: data.polePosition ?? null,
+                    fastestLap: data.fastestLap ?? null,
+                    raceResult: Array.isArray(data.raceResult) ? data.raceResult : null,
+                    sprintPolePosition: data.sprintPolePosition ?? null,
+                    sprintResult: Array.isArray(data.sprintResult) ? data.sprintResult : null,
+                };
+                setResults(mapped);
+            } catch {
+                // Non-blocking: ignore
+                setResults(null);
+            } finally {
+                // no-op
+            }
+        }
+        fetchResults();
+        return () => { cancelled = true; };
+    }, [race.id, race.status, race.resultsImported]);
 
     // Load existing prediction data
     useEffect(() => {
@@ -261,6 +312,88 @@ export default function PredictionFormComponent({ race, drivers, prediction, onP
 
     const isDisabled = race.status === 'COMPLETED' || race.status === 'LIVE';
 
+    // ------- Accuracy evaluation helpers -------
+    type Accuracy = 'exact' | 'partial' | 'none' | 'unknown';
+
+    const inTopN = (driverId: string, list: DriverPosition[] | null | undefined, n: number) => {
+        if (!driverId || !list || list.length === 0) return false;
+        return list.slice(0, n).some((d) => d.driverId === driverId);
+    };
+
+    const isExactAtIndex = (driverId: string, list: DriverPosition[] | null | undefined, index: number) => {
+        if (!driverId || !list || list.length <= index) return false;
+        return list[index]?.driverId === driverId;
+    };
+
+    function getAccuracy(field: keyof FormData): Accuracy {
+        // Only highlight when we have final results
+        if (!(race.status === 'COMPLETED') || !results) return 'unknown';
+
+        const v = formData[field] || '';
+        if (!v) return 'none';
+
+        switch (field) {
+            case 'polePosition':
+                if (results.polePosition && v === results.polePosition) return 'exact';
+                return 'none';
+            case 'fastestLap':
+                if (results.fastestLap && v === results.fastestLap) return 'exact';
+                return 'none';
+            case 'raceWinner':
+                return isExactAtIndex(v, results.raceResult, 0) ? 'exact' : 'none';
+            case 'secondPlace': {
+                if (isExactAtIndex(v, results.raceResult, 1)) return 'exact';
+                // Partial if on podium but wrong position
+                return inTopN(v, results.raceResult, 3) ? 'partial' : 'none';
+            }
+            case 'thirdPlace': {
+                if (isExactAtIndex(v, results.raceResult, 2)) return 'exact';
+                // Partial if on podium but wrong position
+                return inTopN(v, results.raceResult, 3) ? 'partial' : 'none';
+            }
+            case 'fourthPlace': {
+                if (isExactAtIndex(v, results.raceResult, 3)) return 'exact';
+                // Partial if inside top 5 but wrong position
+                return inTopN(v, results.raceResult, 5) ? 'partial' : 'none';
+            }
+            case 'fifthPlace': {
+                if (isExactAtIndex(v, results.raceResult, 4)) return 'exact';
+                // Partial if inside top 5 but wrong position
+                return inTopN(v, results.raceResult, 5) ? 'partial' : 'none';
+            }
+            case 'sprintPole': {
+                if (!race.hasSprint) return 'unknown';
+                if (results.sprintPolePosition && v === results.sprintPolePosition) return 'exact';
+                return 'none';
+            }
+            case 'sprintWinner': {
+                if (!race.hasSprint) return 'unknown';
+                return isExactAtIndex(v, results.sprintResult, 0) ? 'exact' : 'none';
+            }
+            case 'sprintSecond': {
+                if (!race.hasSprint) return 'unknown';
+                if (isExactAtIndex(v, results.sprintResult, 1)) return 'exact';
+                // Partial if on sprint podium but wrong position
+                return inTopN(v, results.sprintResult, 3) ? 'partial' : 'none';
+            }
+            case 'sprintThird': {
+                if (!race.hasSprint) return 'unknown';
+                if (isExactAtIndex(v, results.sprintResult, 2)) return 'exact';
+                // Partial if on sprint podium but wrong position
+                return inTopN(v, results.sprintResult, 3) ? 'partial' : 'none';
+            }
+            default:
+                return 'none';
+        }
+    }
+
+    function getSelectVisuals(field: keyof FormData): { color?: "default" | "primary" | "secondary" | "success" | "warning" | "danger"; variant?: "flat" | "bordered" | "faded" | "underlined" } {
+        const acc = getAccuracy(field);
+        if (acc === 'exact') return { color: 'success', variant: 'faded' };
+        if (acc === 'partial') return { color: 'warning', variant: 'faded' };
+        return {};
+    }
+
     return (
         <form onSubmit={handleSubmit}>
             <Card className="w-full card-racing-translucent">
@@ -282,6 +415,7 @@ export default function PredictionFormComponent({ race, drivers, prediction, onP
                                 name="polePosition"
                                 label="Pole Position"
                                 placeholder="Select driver for pole position"
+                                {...getSelectVisuals('polePosition')}
                                 selectedKeys={formData.polePosition ? [formData.polePosition] : []}
                                 onSelectionChange={(keys) => {
                                     const selectedKey = Array.from(keys)[0] as string;
@@ -308,6 +442,7 @@ export default function PredictionFormComponent({ race, drivers, prediction, onP
                                 name="fastestLap"
                                 label="Fastest Lap"
                                 placeholder="Select driver for fastest lap"
+                                {...getSelectVisuals('fastestLap')}
                                 selectedKeys={formData.fastestLap ? [formData.fastestLap] : []}
                                 onSelectionChange={(keys) => {
                                     const selectedKey = Array.from(keys)[0] as string;
@@ -334,6 +469,7 @@ export default function PredictionFormComponent({ race, drivers, prediction, onP
                                 name="raceWinner"
                                 label="Race Winner"
                                 placeholder="Select race winner"
+                                {...getSelectVisuals('raceWinner')}
                                 selectedKeys={formData.raceWinner ? [formData.raceWinner] : []}
                                 onSelectionChange={(keys) => {
                                     const selectedKey = Array.from(keys)[0] as string;
@@ -360,6 +496,7 @@ export default function PredictionFormComponent({ race, drivers, prediction, onP
                                 name="secondPlace"
                                 label="2nd Place"
                                 placeholder="Select 2nd place finisher"
+                                {...getSelectVisuals('secondPlace')}
                                 selectedKeys={formData.secondPlace ? [formData.secondPlace] : []}
                                 onSelectionChange={(keys) => {
                                     const selectedKey = Array.from(keys)[0] as string;
@@ -386,6 +523,7 @@ export default function PredictionFormComponent({ race, drivers, prediction, onP
                                 name="thirdPlace"
                                 label="3rd Place"
                                 placeholder="Select 3rd place finisher"
+                                {...getSelectVisuals('thirdPlace')}
                                 selectedKeys={formData.thirdPlace ? [formData.thirdPlace] : []}
                                 onSelectionChange={(keys) => {
                                     const selectedKey = Array.from(keys)[0] as string;
@@ -412,6 +550,7 @@ export default function PredictionFormComponent({ race, drivers, prediction, onP
                                 name="fourthPlace"
                                 label="4th Place"
                                 placeholder="Select 4th place finisher"
+                                {...getSelectVisuals('fourthPlace')}
                                 selectedKeys={formData.fourthPlace ? [formData.fourthPlace] : []}
                                 onSelectionChange={(keys) => {
                                     const selectedKey = Array.from(keys)[0] as string;
@@ -438,6 +577,7 @@ export default function PredictionFormComponent({ race, drivers, prediction, onP
                                 name="fifthPlace"
                                 label="5th Place"
                                 placeholder="Select 5th place finisher"
+                                {...getSelectVisuals('fifthPlace')}
                                 selectedKeys={formData.fifthPlace ? [formData.fifthPlace] : []}
                                 onSelectionChange={(keys) => {
                                     const selectedKey = Array.from(keys)[0] as string;
@@ -472,6 +612,7 @@ export default function PredictionFormComponent({ race, drivers, prediction, onP
                                         name="sprintPole"
                                         label="Sprint Pole Position"
                                         placeholder="Select driver for sprint pole"
+                                        {...getSelectVisuals('sprintPole')}
                                         selectedKeys={formData.sprintPole ? [formData.sprintPole] : []}
                                         onSelectionChange={(keys) => {
                                             const selectedKey = Array.from(keys)[0] as string;
@@ -498,6 +639,7 @@ export default function PredictionFormComponent({ race, drivers, prediction, onP
                                         name="sprintWinner"
                                         label="Sprint Winner"
                                         placeholder="Select sprint winner"
+                                        {...getSelectVisuals('sprintWinner')}
                                         selectedKeys={formData.sprintWinner ? [formData.sprintWinner] : []}
                                         onSelectionChange={(keys) => {
                                             const selectedKey = Array.from(keys)[0] as string;
@@ -524,6 +666,7 @@ export default function PredictionFormComponent({ race, drivers, prediction, onP
                                         name="sprintSecond"
                                         label="Sprint 2nd Place"
                                         placeholder="Select sprint 2nd place finisher"
+                                        {...getSelectVisuals('sprintSecond')}
                                         selectedKeys={formData.sprintSecond ? [formData.sprintSecond] : []}
                                         onSelectionChange={(keys) => {
                                             const selectedKey = Array.from(keys)[0] as string;
@@ -550,6 +693,7 @@ export default function PredictionFormComponent({ race, drivers, prediction, onP
                                         name="sprintThird"
                                         label="Sprint 3rd Place"
                                         placeholder="Select sprint 3rd place finisher"
+                                        {...getSelectVisuals('sprintThird')}
                                         selectedKeys={formData.sprintThird ? [formData.sprintThird] : []}
                                         onSelectionChange={(keys) => {
                                             const selectedKey = Array.from(keys)[0] as string;
