@@ -5,6 +5,7 @@ export interface Prediction {
     raceId: string;
     userId: string;
     polePosition: string;
+    fastestLap?: string;
     raceWinner: string;
     secondPlace: string;
     thirdPlace: string;
@@ -21,6 +22,7 @@ export interface Prediction {
 
 export interface PredictionForm {
     polePosition: string;
+    fastestLap: string;
     raceWinner: string;
     secondPlace: string;
     thirdPlace: string;
@@ -36,6 +38,7 @@ interface CreatePredictionRequest {
     raceId: string;
     positions: string[];
     polePositionPrediction: string;
+    fastestLapPrediction: string;
     sprintPolePrediction?: string;
     sprintPositions?: string[];
 }
@@ -67,6 +70,7 @@ export async function getUserPrediction(raceId: string) {
             raceId: data.raceId,
             userId: data.userId,
             polePosition: data.polePosition,
+            fastestLap: data.fastestLap,
             raceWinner: data.raceWinner,
             secondPlace: data.secondPlace,
             thirdPlace: data.thirdPlace,
@@ -105,6 +109,7 @@ export async function createPrediction(raceId: string, prediction: PredictionFor
             raceId,
             positions,
             polePositionPrediction: prediction.polePosition,
+            fastestLapPrediction: prediction.fastestLap,
         };
 
         // Add sprint data if present and complete
@@ -141,6 +146,7 @@ export async function createPrediction(raceId: string, prediction: PredictionFor
             raceId: result.raceId,
             userId: result.userId,
             polePosition: requestBody.polePositionPrediction,
+            fastestLap: requestBody.fastestLapPrediction,
             raceWinner: positions[0],
             secondPlace: positions[1],
             thirdPlace: positions[2],
@@ -173,11 +179,13 @@ export async function updatePrediction(raceId: string, prediction: PredictionFor
 
         const requestBody: {
             polePositionPrediction: string;
+            fastestLapPrediction: string;
             positions: string[];
             sprintPolePrediction?: string;
             sprintPositions?: string[];
         } = {
             polePositionPrediction: prediction.polePosition,
+            fastestLapPrediction: prediction.fastestLap,
             positions: positions,
         };
 
@@ -215,6 +223,7 @@ export async function updatePrediction(raceId: string, prediction: PredictionFor
             raceId: result.raceId,
             userId: result.userId,
             polePosition: requestBody.polePositionPrediction,
+            fastestLap: requestBody.fastestLapPrediction,
             raceWinner: positions[0],
             secondPlace: positions[1],
             thirdPlace: positions[2],
