@@ -5,7 +5,7 @@ export interface Prediction {
     raceId: string;
     userId: string;
     polePosition: string;
-    fastestLap?: string;
+    fastestLap: string;
     raceWinner: string;
     secondPlace: string;
     thirdPlace: string;
