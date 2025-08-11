@@ -29,6 +29,13 @@ interface FormData {
 }
 
 export default function PredictionFormComponent({ race, drivers, prediction, onPredictionUpdate }: PredictionFormProps) {
+    // Crown icon (lucide crown variant)
+    const CrownIcon = (props: React.SVGProps<SVGSVGElement>) => (
+        <svg viewBox="0 0 24 24" width={18} height={18} fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" {...props}>
+            <path d="M11.562 3.266a.5.5 0 0 1 .876 0L15.39 8.87a1 1 0 0 0 1.516.294L21.183 5.5a.5.5 0 0 1 .798.519l-2.834 10.246a1 1 0 0 1-.956.734H5.81a1 1 0 0 1-.957-.734L2.02 6.02a.5.5 0 0 1 .798-.519l4.276 3.664a1 1 0 0 0 1.516-.294z"/>
+            <path d="M5 21h14"/>
+        </svg>
+    );
     // ------- Results + highlighting state -------
     type DriverPosition = { position: number; driverId: string };
     interface RaceResults {
@@ -445,6 +452,42 @@ export default function PredictionFormComponent({ race, drivers, prediction, onP
                 return 0;
         }
     }
+
+    // ------- Bonus calculations -------
+    const hasPerfectPodium = React.useMemo(() => {
+        if (!isCompleted || !results || !results.raceResult) return false;
+        const picks = [formData.raceWinner, formData.secondPlace, formData.thirdPlace];
+        if (picks.some((p) => !p)) return false;
+        return [0, 1, 2].every((i) => results.raceResult![i]?.driverId === picks[i]);
+    }, [isCompleted, results, formData.raceWinner, formData.secondPlace, formData.thirdPlace]);
+
+    const hasPerfectTop5 = React.useMemo(() => {
+        if (!isCompleted || !results || !results.raceResult) return false;
+        const picks = [
+            formData.raceWinner,
+            formData.secondPlace,
+            formData.thirdPlace,
+            formData.fourthPlace,
+            formData.fifthPlace,
+        ];
+        if (picks.some((p) => !p)) return false;
+        return [0, 1, 2, 3, 4].every((i) => results.raceResult![i]?.driverId === picks[i]);
+    }, [
+        isCompleted,
+        results,
+        formData.raceWinner,
+        formData.secondPlace,
+        formData.thirdPlace,
+        formData.fourthPlace,
+        formData.fifthPlace,
+    ]);
+
+    const hasPerfectSprintPodium = React.useMemo(() => {
+        if (!isCompleted || !race.hasSprint || !results || !results.sprintResult) return false;
+        const picks = [formData.sprintWinner, formData.sprintSecond, formData.sprintThird];
+        if (picks.some((p) => !p)) return false;
+        return [0, 1, 2].every((i) => results.sprintResult![i]?.driverId === picks[i]);
+    }, [isCompleted, race.hasSprint, results, formData.sprintWinner, formData.sprintSecond, formData.sprintThird]);
 
     return (
         <form onSubmit={handleSubmit}>
@@ -896,6 +939,50 @@ export default function PredictionFormComponent({ race, drivers, prediction, onP
                                         />
                                     )}
                                 </div>
+                            </div>
+                        </>
+                    )}
+
+                    {/* Bonuses */}
+                    {isCompleted && (
+                        <>
+                            <Divider />
+                            <div className="flex items-center justify-center gap-2 py-1 flex-wrap text-foreground-600">
+                                <Button
+                                    size="sm"
+                                    radius="full"
+                                    variant="flat"
+                                    color={hasPerfectPodium ? 'success' : 'default'}
+                                    aria-label="Perfect podium"
+                                    endContent={<CrownIcon />}
+                                    className="h-8"
+                                >
+                                    +10 Podium
+                                </Button>
+                                <Button
+                                    size="sm"
+                                    radius="full"
+                                    variant="flat"
+                                    color={hasPerfectTop5 ? 'success' : 'default'}
+                                    aria-label="Perfect top 5"
+                                    endContent={<CrownIcon />}
+                                    className="h-8"
+                                >
+                                    +10 Top 5
+                                </Button>
+                                {race.hasSprint && (
+                                    <Button
+                                        size="sm"
+                                        radius="full"
+                                        variant="flat"
+                                        color={hasPerfectSprintPodium ? 'success' : 'default'}
+                                        aria-label="Perfect sprint podium"
+                                        endContent={<CrownIcon />}
+                                        className="h-8"
+                                    >
+                                        +5 Sprint Podium
+                                    </Button>
+                                )}
                             </div>
                         </>
                     )}
