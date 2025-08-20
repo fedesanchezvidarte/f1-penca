@@ -41,6 +41,7 @@ export async function GET(request: NextRequest) {
         if (raceId) {
             query.raceId = raceId;
         }
+        
         // Get predictions
         const predictions = await prisma.prediction.findMany({
             where: query,
@@ -85,13 +86,28 @@ export async function POST(request: NextRequest) {
         }
 
         const userId = session.user.id;
-    const body = await request.json();
-    const { raceId, positions, polePositionPrediction, fastestLapPrediction, sprintPolePrediction, sprintPositions } = body;
+        const body = await request.json();
+        const { raceId, positions, polePositionPrediction, fastestLapPrediction, sprintPolePrediction, sprintPositions } = body;
 
-        // Validate data
-    if (!raceId || !positions || !Array.isArray(positions)) {
+        // Validate required data for main race
+        if (!raceId || !positions || !Array.isArray(positions) || positions.length !== 5) {
             return NextResponse.json(
-                { error: 'Invalid data. raceId and positions (array) are required' },
+                { error: 'Invalid data. raceId and positions array with 5 drivers are required' },
+                { status: 400 }
+            );
+        }
+
+        if (!polePositionPrediction || !fastestLapPrediction) {
+            return NextResponse.json(
+                { error: 'Pole position and fastest lap predictions are required' },
+                { status: 400 }
+            );
+        }
+
+        // Check for empty values in positions array
+        if (positions.some((pos: string) => !pos || pos.trim() === '')) {
+            return NextResponse.json(
+                { error: 'All race positions must be filled (1st through 5th place)' },
                 { status: 400 }
             );
         }
@@ -114,6 +130,23 @@ export async function POST(request: NextRequest) {
                 { status: 400 }
             );
         }
+
+        // For sprint weekends, validate that all sprint fields are provided
+        if (race.hasSprint) {
+            if (!sprintPolePrediction || !sprintPositions || !Array.isArray(sprintPositions) || sprintPositions.length !== 3) {
+                return NextResponse.json(
+                    { error: 'For sprint weekends, all sprint predictions are required (sprint pole + 3 sprint positions)' },
+                    { status: 400 }
+                );
+            }
+
+            if (sprintPositions.some((pos: string) => !pos || pos.trim() === '')) {
+                return NextResponse.json(
+                    { error: 'All sprint positions must be filled for sprint weekends' },
+                    { status: 400 }
+                );
+            }
+        }
         
         // Check if a prediction already exists for this user and race
         const existingPrediction = await prisma.prediction.findFirst({
@@ -127,12 +160,12 @@ export async function POST(request: NextRequest) {
 
         if (existingPrediction) {
             // Update existing prediction
-        prediction = await prisma.prediction.update({
+            prediction = await prisma.prediction.update({
                 where: { id: existingPrediction.id },
                 data: {
                     positions,
-                    polePositionPrediction: polePositionPrediction || null,
-            fastestLapPrediction: fastestLapPrediction || null,
+                    polePositionPrediction: polePositionPrediction,
+                    fastestLapPrediction: fastestLapPrediction,
                     sprintPolePrediction: sprintPolePrediction || null,
                     sprintPositions: sprintPositions || null,
                     updatedAt: new Date(),
@@ -145,8 +178,8 @@ export async function POST(request: NextRequest) {
                     userId,
                     raceId,
                     positions,
-                    polePositionPrediction: polePositionPrediction || null,
-            fastestLapPrediction: fastestLapPrediction || null,
+                    polePositionPrediction: polePositionPrediction,
+                    fastestLapPrediction: fastestLapPrediction,
                     sprintPolePrediction: sprintPolePrediction || null,
                     sprintPositions: sprintPositions || null,
                 },

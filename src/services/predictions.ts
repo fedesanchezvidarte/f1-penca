@@ -5,34 +5,34 @@ export interface Prediction {
     id?: string;
     raceId: string;
     userId: string;
-    polePosition: string;
-    fastestLap: string;
-    raceWinner: string;
-    secondPlace: string;
-    thirdPlace: string;
-    fourthPlace: string;
-    fifthPlace: string;
-    sprintPole?: string;
-    sprintWinner?: string;
-    sprintSecond?: string;
-    sprintThird?: string;
+    polePosition: string;       // Required field
+    fastestLap: string;         // Required field
+    raceWinner: string;         // Required field
+    secondPlace: string;        // Required field
+    thirdPlace: string;         // Required field
+    fourthPlace: string;        // Required field
+    fifthPlace: string;         // Required field
+    sprintPole?: string;        // Required for sprint weekends, optional for regular weekends
+    sprintWinner?: string;      // Required for sprint weekends, optional for regular weekends
+    sprintSecond?: string;      // Required for sprint weekends, optional for regular weekends
+    sprintThird?: string;       // Required for sprint weekends, optional for regular weekends
     totalPoints?: number;
     createdAt?: Date;
     updatedAt?: Date;
 }
 
 export interface PredictionForm {
-    polePosition: string;
-    fastestLap: string;
-    raceWinner: string;
-    secondPlace: string;
-    thirdPlace: string;
-    fourthPlace: string;
-    fifthPlace: string;
-    sprintPole?: string;
-    sprintWinner?: string;
-    sprintSecond?: string;
-    sprintThird?: string;
+    polePosition: string;       // Required field
+    fastestLap: string;         // Required field
+    raceWinner: string;         // Required field
+    secondPlace: string;        // Required field
+    thirdPlace: string;         // Required field
+    fourthPlace: string;        // Required field
+    fifthPlace: string;         // Required field
+    sprintPole?: string;        // Required for sprint weekends, optional for regular weekends
+    sprintWinner?: string;      // Required for sprint weekends, optional for regular weekends
+    sprintSecond?: string;      // Required for sprint weekends, optional for regular weekends
+    sprintThird?: string;       // Required for sprint weekends, optional for regular weekends
 }
 
 interface CreatePredictionRequest {
@@ -109,11 +109,11 @@ export async function createPrediction(raceId: string, prediction: PredictionFor
         const requestBody: CreatePredictionRequest = {
             raceId,
             positions,
-            polePositionPrediction: prediction.polePosition,
-            fastestLapPrediction: prediction.fastestLap,
+            polePositionPrediction: prediction.polePosition,  // Required field
+            fastestLapPrediction: prediction.fastestLap,     // Required field
         };
 
-        // Add sprint data if present and complete
+        // Add sprint data if provided (will be validated by the API based on race type)
         if (prediction.sprintPole) {
             requestBody.sprintPolePrediction = prediction.sprintPole;
         }
@@ -179,27 +179,27 @@ export async function updatePrediction(raceId: string, prediction: PredictionFor
         ];
 
         const requestBody: {
-            polePositionPrediction: string;
-            fastestLapPrediction: string;
-            positions: string[];
-            sprintPolePrediction?: string;
-            sprintPositions?: string[];
+            polePositionPrediction: string;      // Required field
+            fastestLapPrediction: string;        // Required field
+            positions: string[];                 // Required field
+            sprintPolePrediction?: string;       // Optional field
+            sprintPositions?: string[];          // Optional field
         } = {
-            polePositionPrediction: prediction.polePosition,
-            fastestLapPrediction: prediction.fastestLap,
-            positions: positions,
+            polePositionPrediction: prediction.polePosition,  // Required field
+            fastestLapPrediction: prediction.fastestLap,     // Required field
+            positions: positions,                             // Required field
         };
 
-        // Include sprint predictions if all sprint fields are available
-        if (prediction.sprintPole || (prediction.sprintWinner && prediction.sprintSecond && prediction.sprintThird)) {
+        // Include sprint predictions if provided (will be validated by the API based on race type)
+        if (prediction.sprintPole) {
             requestBody.sprintPolePrediction = prediction.sprintPole;
-            if (prediction.sprintWinner && prediction.sprintSecond && prediction.sprintThird) {
-                requestBody.sprintPositions = [
-                    prediction.sprintWinner,
-                    prediction.sprintSecond,
-                    prediction.sprintThird,
-                ];
-            }
+        }
+        if (prediction.sprintWinner && prediction.sprintSecond && prediction.sprintThird) {
+            requestBody.sprintPositions = [
+                prediction.sprintWinner,
+                prediction.sprintSecond,
+                prediction.sprintThird,
+            ];
         }
 
         const response = await fetch(`${API_BASE_URL}/api/predictions/${raceId}`, {

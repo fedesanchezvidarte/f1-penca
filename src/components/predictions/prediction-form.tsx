@@ -164,18 +164,21 @@ export default function PredictionFormComponent({ race, drivers, prediction, onP
     };
 
     const isFormValid = () => {
-    const requiredFields = ['polePosition', 'fastestLap', 'raceWinner', 'secondPlace', 'thirdPlace', 'fourthPlace', 'fifthPlace'];
-        const raceFields = requiredFields.every(field => formData[field as keyof FormData] !== '');
+        // All main race fields are always required
+        const requiredFields = ['polePosition', 'fastestLap', 'raceWinner', 'secondPlace', 'thirdPlace', 'fourthPlace', 'fifthPlace'];
+        const allMainRaceFieldsFilled = requiredFields.every(field => formData[field as keyof FormData] !== '');
         
+        // For sprint weekends, ALL sprint fields are also required
         if (race.hasSprint) {
-            return raceFields && 
-                   formData.sprintPole !== '' && 
-                   formData.sprintWinner !== '' &&
-                   formData.sprintSecond !== '' &&
-                   formData.sprintThird !== '';
+            const sprintFieldsFilled = formData.sprintPole !== '' && 
+                                     formData.sprintWinner !== '' &&
+                                     formData.sprintSecond !== '' &&
+                                     formData.sprintThird !== '';
+            return allMainRaceFieldsFilled && sprintFieldsFilled;
         }
         
-        return raceFields;
+        // For regular weekends, only main race fields are required
+        return allMainRaceFieldsFilled;
     };
 
     const getAvailableDrivers = () => {
@@ -241,7 +244,9 @@ export default function PredictionFormComponent({ race, drivers, prediction, onP
             // Show validation error toast
             addToast({
                 title: "Validation Error",
-                description: "Please fill in all required prediction fields before submitting.",
+                description: race.hasSprint 
+                    ? "Please fill in all required prediction fields for both main race and sprint race."
+                    : "Please fill in all required main race prediction fields.",
                 color: "warning",
                 variant: "flat",
                 radius: "lg",
@@ -798,7 +803,7 @@ export default function PredictionFormComponent({ race, drivers, prediction, onP
                                             const selectedKey = Array.from(keys)[0] as string;
                                             handleSelectChange('sprintPole', selectedKey || '');
                                         }}
-                                        isRequired
+                                        isRequired={race.hasSprint}
                                         isDisabled={isDisabled}
                                     >
                                         {drivers.map((driver) => (
@@ -837,7 +842,7 @@ export default function PredictionFormComponent({ race, drivers, prediction, onP
                                             const selectedKey = Array.from(keys)[0] as string;
                                             handleSelectChange('sprintWinner', selectedKey || '');
                                         }}
-                                        isRequired
+                                        isRequired={race.hasSprint}
                                         isDisabled={isDisabled}
                                     >
                                         {drivers.map((driver) => (
@@ -876,7 +881,7 @@ export default function PredictionFormComponent({ race, drivers, prediction, onP
                                             const selectedKey = Array.from(keys)[0] as string;
                                             handleSelectChange('sprintSecond', selectedKey || '');
                                         }}
-                                        isRequired
+                                        isRequired={race.hasSprint}
                                         isDisabled={isDisabled}
                                     >
                                         {getAvailableDrivers().map((driver) => (
@@ -915,7 +920,7 @@ export default function PredictionFormComponent({ race, drivers, prediction, onP
                                             const selectedKey = Array.from(keys)[0] as string;
                                             handleSelectChange('sprintThird', selectedKey || '');
                                         }}
-                                        isRequired
+                                        isRequired={race.hasSprint}
                                         isDisabled={isDisabled}
                                     >
                                         {getAvailableDrivers().map((driver) => (
