@@ -2,6 +2,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
+import { calculateAndUpdateRacePoints } from '@/services/points-calculation';
 
 /**
  * GET /api/races/[id]/results
@@ -67,9 +68,17 @@ export async function POST(
         }
 
         const { id: raceId } = await params;
-        const { raceResult: raceResultData } = await request.json();
+        const requestData = await request.json();
+        
+        const {
+            raceResult: raceResultData,
+            polePosition,
+            fastestLap,
+            sprintResult,
+            sprintPolePosition
+        } = requestData;
 
-        // Validate data
+        // Validate data - raceResult is required
         if (!raceResultData || !Array.isArray(raceResultData)) {
             return NextResponse.json(
                 { error: 'Invalid data. raceResult (array) is required' },
@@ -103,6 +112,11 @@ export async function POST(
                 where: { id: existingResult.id },
                 data: {
                     raceResult: raceResultData,
+                    polePosition: polePosition || null,
+                    fastestLap: fastestLap || null,
+                    sprintResult: sprintResult || null,
+                    sprintPolePosition: sprintPolePosition || null,
+                    sprintRace: !!sprintResult,
                     updatedAt: new Date(),
                 },
             });
@@ -112,6 +126,11 @@ export async function POST(
                 data: {
                     raceId,
                     raceResult: raceResultData,
+                    polePosition: polePosition || null,
+                    fastestLap: fastestLap || null,
+                    sprintResult: sprintResult || null,
+                    sprintPolePosition: sprintPolePosition || null,
+                    sprintRace: !!sprintResult,
                 },
             });
         }
@@ -125,8 +144,17 @@ export async function POST(
             },
         });
 
+        // Prepare race results data for points calculation
+        const raceResultsForCalculation = {
+            polePosition: polePosition || null,
+            fastestLap: fastestLap || null,
+            raceResult: raceResultData,
+            sprintPolePosition: sprintPolePosition || null,
+            sprintResult: sprintResult || null,
+        };
+
         // Calculate and update points for all predictions related to this race
-        await calculatePredictionPoints(raceId, raceResultData);
+        await calculateAndUpdateRacePoints(raceId, raceResultsForCalculation);
 
         return NextResponse.json(resultRecord);
     } catch (error) {
@@ -135,58 +163,5 @@ export async function POST(
             { error: 'Error creating/updating race results' },
             { status: 500 }
         );
-    }
-}
-
-/**
- * Helper function to calculate points for predictions based on race results
- */
-interface DriverPosition {
-    id: string;
-    [key: string]: string | number | boolean | object;
-}
-
-async function calculatePredictionPoints(raceId: string, actualPositions: DriverPosition[]) {
-    try {
-        // Get all predictions for this race
-        const predictions = await prisma.prediction.findMany({
-            where: { raceId },
-        });
-
-        // Calculate points for each prediction
-        for (const prediction of predictions) {
-            const predictedPositions = prediction.positions as DriverPosition[];
-            
-            // Simple scoring: 10 points for correct position, 5 for off by one, 2 for off by two
-            let points = 0;
-            
-            for (let i = 0; i < Math.min(10, predictedPositions.length, actualPositions.length); i++) {
-                const predictedDriverId = predictedPositions[i]?.id;
-                
-                if (!predictedDriverId) continue;
-                
-                // Find position of this driver in actual results
-                const actualPosition = actualPositions.findIndex(driver => driver.id === predictedDriverId);
-                
-                if (actualPosition === i) {
-                    // Correct position
-                    points += 10;
-                } else if (actualPosition === i - 1 || actualPosition === i + 1) {
-                    // Off by one position
-                    points += 5;
-                } else if (actualPosition === i - 2 || actualPosition === i + 2) {
-                    // Off by two positions
-                    points += 2;
-                }
-            }
-            
-            // Update prediction with points
-            await prisma.prediction.update({
-                where: { id: prediction.id },
-                data: { points },
-            });
-        }
-    } catch (error) {
-        console.error('Error calculating prediction points:', error);
     }
 }

@@ -85,25 +85,58 @@ export async function PUT(
         const { id: raceId } = await params;
         const body = await request.json();
 
-        // Check if race is still open for predictions
-        const race = await prisma.race.findUnique({
+        // Validate required fields for main race predictions
+        if (!body.polePositionPrediction || !body.fastestLapPrediction || !body.positions || !Array.isArray(body.positions) || body.positions.length !== 5) {
+            return NextResponse.json(
+                { error: 'All main race predictions are required: pole position, fastest lap, and 5 race positions' },
+                { status: 400 }
+            );
+        }
+
+        // Check for empty values in positions array
+        if (body.positions.some((pos: string) => !pos || pos.trim() === '')) {
+            return NextResponse.json(
+                { error: 'All race positions must be filled (1st through 5th place)' },
+                { status: 400 }
+            );
+        }
+
+        // Check if this is a sprint weekend race
+        const raceInfo = await prisma.race.findUnique({
             where: { id: raceId },
-            select: { status: true },
+            select: { status: true, hasSprint: true },
         });
 
-        if (!race) {
+        if (!raceInfo) {
             return NextResponse.json({ error: 'Race not found' }, { status: 404 });
         }
 
-        if (race.status !== 'UPCOMING') {
+        if (raceInfo.status !== 'UPCOMING') {
             return NextResponse.json(
                 { error: 'Predictions are closed for this race' },
                 { status: 400 }
             );
         }
 
+        // For sprint weekends, validate that all sprint fields are provided
+        if (raceInfo.hasSprint) {
+            if (!body.sprintPolePrediction || !body.sprintPositions || !Array.isArray(body.sprintPositions) || body.sprintPositions.length !== 3) {
+                return NextResponse.json(
+                    { error: 'For sprint weekends, all sprint predictions are required (sprint pole + 3 sprint positions)' },
+                    { status: 400 }
+                );
+            }
+
+            if (body.sprintPositions.some((pos: string) => !pos || pos.trim() === '')) {
+                return NextResponse.json(
+                    { error: 'All sprint positions must be filled for sprint weekends' },
+                    { status: 400 }
+                );
+            }
+        }
+
         // Get positions from the request body (frontend sends this format)
-        const positions = body.positions || [];
+        const positions = body.positions;
         const sprintPositions = body.sprintPositions || undefined;
 
         const updatedPrediction = await prisma.prediction.updateMany({
@@ -112,9 +145,9 @@ export async function PUT(
                 userId: session.user.id,
             },
             data: {
-                polePositionPrediction: body.polePositionPrediction || null,
+                polePositionPrediction: body.polePositionPrediction,
                 positions: positions,
-                fastestLapPrediction: body.fastestLapPrediction || null,
+                fastestLapPrediction: body.fastestLapPrediction,
                 sprintPositions: sprintPositions,
                 sprintPolePrediction: body.sprintPolePrediction || null,
                 updatedAt: new Date(),
