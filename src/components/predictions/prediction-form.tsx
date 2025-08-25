@@ -181,10 +181,43 @@ export default function PredictionFormComponent({ race, drivers, prediction, onP
         return allMainRaceFieldsFilled;
     };
 
-    const getAvailableDrivers = () => {
-        // Always return all drivers - users should be able to select the same driver
-        // for multiple positions (e.g., pole position winner also winning the race)
-        return drivers;
+    const getAvailableDrivers = (excludeFields: (keyof FormData)[] = []) => {
+        // For pole position, fastest lap, and sprint pole - always return all drivers
+        if (excludeFields.length === 0) {
+            return drivers;
+        }
+        
+        // Get selected drivers from fields that should exclude duplicates
+        const selectedDrivers = new Set<string>();
+        
+        // Race final positions (1st-5th) should be unique among themselves
+        const racePositionFields: (keyof FormData)[] = ['raceWinner', 'secondPlace', 'thirdPlace', 'fourthPlace', 'fifthPlace'];
+        const racePositionsToCheck = racePositionFields.filter(field => excludeFields.includes(field));
+        
+        if (racePositionsToCheck.length > 0) {
+            racePositionFields.forEach(field => {
+                if (formData[field] && !excludeFields.includes(field)) {
+                    selectedDrivers.add(formData[field]);
+                }
+            });
+        }
+        
+        // Sprint final positions (1st-3rd) should be unique among themselves
+        if (race.hasSprint) {
+            const sprintPositionFields: (keyof FormData)[] = ['sprintWinner', 'sprintSecond', 'sprintThird'];
+            const sprintPositionsToCheck = sprintPositionFields.filter(field => excludeFields.includes(field));
+            
+            if (sprintPositionsToCheck.length > 0) {
+                sprintPositionFields.forEach(field => {
+                    if (formData[field] && !excludeFields.includes(field)) {
+                        selectedDrivers.add(formData[field]);
+                    }
+                });
+            }
+        }
+        
+        // Return drivers excluding the already selected ones
+        return drivers.filter(driver => !selectedDrivers.has(driver.id));
     };
 
     const hasFormChanged = () => {
@@ -603,7 +636,7 @@ export default function PredictionFormComponent({ race, drivers, prediction, onP
                                 isRequired
                                 isDisabled={isDisabled}
                             >
-                                {getAvailableDrivers().map((driver) => (
+                                {getAvailableDrivers(['raceWinner']).map((driver) => (
                                     <SelectItem 
                                         key={driver.id}
                                         textValue={`#${driver.number} ${driver.fullname}`}
@@ -642,7 +675,7 @@ export default function PredictionFormComponent({ race, drivers, prediction, onP
                                 isRequired
                                 isDisabled={isDisabled}
                             >
-                                {getAvailableDrivers().map((driver) => (
+                                {getAvailableDrivers(['secondPlace']).map((driver) => (
                                     <SelectItem 
                                         key={driver.id}
                                         textValue={`#${driver.number} ${driver.fullname}`}
@@ -681,7 +714,7 @@ export default function PredictionFormComponent({ race, drivers, prediction, onP
                                 isRequired
                                 isDisabled={isDisabled}
                             >
-                                {getAvailableDrivers().map((driver) => (
+                                {getAvailableDrivers(['thirdPlace']).map((driver) => (
                                     <SelectItem 
                                         key={driver.id}
                                         textValue={`#${driver.number} ${driver.fullname}`}
@@ -720,7 +753,7 @@ export default function PredictionFormComponent({ race, drivers, prediction, onP
                                 isRequired
                                 isDisabled={isDisabled}
                             >
-                                {getAvailableDrivers().map((driver) => (
+                                {getAvailableDrivers(['fourthPlace']).map((driver) => (
                                     <SelectItem 
                                         key={driver.id}
                                         textValue={`#${driver.number} ${driver.fullname}`}
@@ -759,7 +792,7 @@ export default function PredictionFormComponent({ race, drivers, prediction, onP
                                 isRequired
                                 isDisabled={isDisabled}
                             >
-                                {getAvailableDrivers().map((driver) => (
+                                {getAvailableDrivers(['fifthPlace']).map((driver) => (
                                     <SelectItem 
                                         key={driver.id}
                                         textValue={`#${driver.number} ${driver.fullname}`}
@@ -845,7 +878,7 @@ export default function PredictionFormComponent({ race, drivers, prediction, onP
                                         isRequired={race.hasSprint}
                                         isDisabled={isDisabled}
                                     >
-                                        {drivers.map((driver) => (
+                                        {getAvailableDrivers(['sprintWinner']).map((driver) => (
                                             <SelectItem 
                                                 key={driver.id}
                                                 textValue={`#${driver.number} ${driver.fullname}`}
@@ -884,7 +917,7 @@ export default function PredictionFormComponent({ race, drivers, prediction, onP
                                         isRequired={race.hasSprint}
                                         isDisabled={isDisabled}
                                     >
-                                        {getAvailableDrivers().map((driver) => (
+                                        {getAvailableDrivers(['sprintSecond']).map((driver) => (
                                             <SelectItem 
                                                 key={driver.id}
                                                 textValue={`#${driver.number} ${driver.fullname}`}
@@ -923,7 +956,7 @@ export default function PredictionFormComponent({ race, drivers, prediction, onP
                                         isRequired={race.hasSprint}
                                         isDisabled={isDisabled}
                                     >
-                                        {getAvailableDrivers().map((driver) => (
+                                        {getAvailableDrivers(['sprintThird']).map((driver) => (
                                             <SelectItem 
                                                 key={driver.id}
                                                 textValue={`#${driver.number} ${driver.fullname}`}

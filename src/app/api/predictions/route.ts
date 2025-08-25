@@ -112,6 +112,15 @@ export async function POST(request: NextRequest) {
             );
         }
 
+        // Check for duplicate drivers in race positions (1st-5th)
+        const uniqueRacePositions = new Set(positions);
+        if (uniqueRacePositions.size !== positions.length) {
+            return NextResponse.json(
+                { error: 'Each race position (1st-5th) must have a different driver' },
+                { status: 400 }
+            );
+        }
+
         // Verify the race exists and is in UPCOMING status
         const race = await prisma.race.findUnique({
             where: { id: raceId }
@@ -143,6 +152,15 @@ export async function POST(request: NextRequest) {
             if (sprintPositions.some((pos: string) => !pos || pos.trim() === '')) {
                 return NextResponse.json(
                     { error: 'All sprint positions must be filled for sprint weekends' },
+                    { status: 400 }
+                );
+            }
+
+            // Check for duplicate drivers in sprint positions (1st-3rd)
+            const uniqueSprintPositions = new Set(sprintPositions);
+            if (uniqueSprintPositions.size !== sprintPositions.length) {
+                return NextResponse.json(
+                    { error: 'Each sprint position (1st-3rd) must have a different driver' },
                     { status: 400 }
                 );
             }
